@@ -7,7 +7,6 @@
     android:clipToPadding="false"
     tools:context=".ui.login.LoginActivity">
 
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -32,21 +31,41 @@
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextPhone"
-        android:layout_width="380dp"
+<!--    <EditText-->
+<!--        android:id="@+id/edt_phone"-->
+<!--        android:layout_width="328dp"-->
+<!--        android:layout_height="56dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:autofillHints="@string/phone"-->
+<!--        android:background="@drawable/input_bg"-->
+<!--        android:ems="13"-->
+<!--        android:hint="@string/phone"-->
+<!--        android:includeFontPadding="true"-->
+<!--        android:inputType="phone"-->
+<!--        android:padding="16dp"-->
+<!--        android:textColorHint="#000000"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/textView2"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView2" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="328dp"
         android:layout_height="56dp"
-        android:layout_marginTop="107dp"
-        android:autofillHints="@string/phone"
-        android:background="@drawable/input_bg"
-        android:ems="13"
+        android:layout_marginTop="30dp"
         android:hint="@string/phone"
-        android:includeFontPadding="true"
-        android:inputType="phone"
-        android:padding="16dp"
-        android:textColorHint="#000000"
+        android:background="@drawable/input_bg"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="13"
+            android:padding="16dp"
+            android:textColorHint="#000000"
+        />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/textView4"
@@ -56,11 +75,12 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/desc_account"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button" />
+        android:textColor="#797979"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login"
+        app:layout_constraintStart_toStartOf="@+id/btn_login" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_login"
         android:layout_width="328dp"
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
@@ -82,6 +102,7 @@
         android:clickable="false"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/register"
+        android:textColor="#072C41"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textView4"
         app:layout_constraintStart_toEndOf="@+id/textView4"
