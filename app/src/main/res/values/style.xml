@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="NavigationTheme" parent="Theme.MaterialComponents">
+        <item name="itemIconTint">@android:color/white</item>
+        <item name="itemTextColor">@android:color/white</item>
+        <item name="android:background">#00ffffff</item>
+    </style>
+</resources>

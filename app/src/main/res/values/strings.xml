@@ -9,4 +9,9 @@
     <string name="user_name">Nama</string>
     <string name="provinsi">Provinsi</string>
     <string name="city">Kota / Kab</string>
+    <string name="home">Beranda</string>
+    <string name="report">Lapor</string>
+    <string name="profile">Profil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
