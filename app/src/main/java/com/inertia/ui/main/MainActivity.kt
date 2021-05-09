@@ -16,7 +16,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.bottomBar.background = null
+        supportActionBar?.elevation = 0f
+
+//        binding.bottomBar.background = null
 
         val homeFragment = HomeFragment()
         val profileFragment = ProfileFragment()
@@ -28,7 +30,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home -> moveFragment(homeFragment)
                 R.id.nav_profile -> moveFragment(profileFragment)
             }
-            true
         }
     }
 

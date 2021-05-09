@@ -14,4 +14,14 @@
     <string name="profile">Profil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_weather_info">Cuaca hari ini</string>
+    <string name="bencana_label">Waspada bencana di sekitar anda</string>
+    <string name="terbaru">Baru - baru ini</string>
+    <string name="terdekat">Terdekat dari posisimu</string>
+    <string name="spinner_item">Spinner Item</string>
+    <string name="temp">%1$.2f °C</string>
+    <string name="cloud">%1$d %%</string>
+    <string name="wind">%1$.2f\nkm/jam</string>
+    <string name="humidity">%1$d UV</string>
+    <string name="greetings">Hallo</string>
 </resources>
