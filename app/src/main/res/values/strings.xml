@@ -24,4 +24,8 @@
     <string name="wind">%1$.2f\nkm/jam</string>
     <string name="humidity">%1$d UV</string>
     <string name="greetings">Hallo</string>
+    <string name="detail_label">Isi form berikut ini untuk membuat laporan</string>
+    <string name="judul_laporan">Judul Laporan</string>
+    <string name="deskripsi_laporan">Deskripsi Laporan</string>
+    <string name="kirim">Kirim Laporan</string>
 </resources>
