@@ -1,4 +1,4 @@
-package com.inertia.entity
+package com.inertia.data.entity
 
 data class WeatherEntity(
     val temp: Double,
