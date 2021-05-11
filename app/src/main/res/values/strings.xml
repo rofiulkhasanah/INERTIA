@@ -28,4 +28,7 @@
     <string name="judul_laporan">Judul Laporan</string>
     <string name="deskripsi_laporan">Deskripsi Laporan</string>
     <string name="kirim">Kirim Laporan</string>
+    <string name="profil">Profil</string>
+    <string name="nama">Nama Saya</string>
+    <string name="nohp">08232548743</string>
 </resources>
