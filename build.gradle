@@ -1,6 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.32"
+    ext {
+        kotlin_version = "1.4.32"
+        mockitoVersion = '3.6.0'
+        mockitoKotlinVersion = '2.2.0'
+
+        roomVersion = '2.2.3'
+        roomRuntimeVersion = '2.2.5'
+    }
     repositories {
         google()
         mavenCentral()

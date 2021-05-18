@@ -27,7 +27,7 @@
     <string name="detail_label">Isi form berikut ini untuk membuat laporan</string>
     <string name="judul_laporan">Judul Laporan</string>
     <string name="deskripsi_laporan">Deskripsi Laporan</string>
-    <string name="kirim">Kirim Laporan</string>
+    <string name="kirim">Kirim</string>
     <string name="profil">Profil</string>
     <string name="nama">Nama Saya</string>
     <string name="nohp">08232548743</string>
@@ -36,4 +36,10 @@
     <string name="ubah_profil">Ubah Profil</string>
     <string name="kritik_saran">Kritik dan Saran</string>
     <string name="logout">Logout</string>
+    <string name="lapor">Lapor</string>
+    <string name="verifikasi">Verifikasi</string>
+    <string name="verifikasi_desc">Silahkan masukkan kode yang dikirim pada Whatsapp anda untuk melanjutkan menggunakan aplikasi</string>
+    <string name="empty_verification">-</string>
+    <string name="kirim_ulang">Kirim Ulang</string>
+    <string name="tidak_menerima_kode">Tidak menerima kode? </string>
 </resources>

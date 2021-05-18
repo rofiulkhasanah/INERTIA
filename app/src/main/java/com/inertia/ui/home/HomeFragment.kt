@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.inertia.R
 import com.inertia.databinding.FragmentHomeBinding
 import com.inertia.data.entity.WeatherEntity
 import com.inertia.utils.ViewModelFactory
+import com.mirfanrafif.kicksfilm.vo.Status
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -23,8 +25,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        val factory = ViewModelFactory.getInstance()
-        viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        if (activity != null) {
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        }
         return binding.root
     }
 
@@ -42,7 +46,21 @@ class HomeFragment : Fragment() {
         binding.rvBencana.adapter = adapter
         binding.rvBencana.layoutManager = layoutManager
         viewModel.getAllBencana().observe(this, {
-            adapter.setData(it)
+            when(it.status) {
+                Status.SUCCESS -> {
+                    if (it.data != null) {
+                        adapter.setData(it.data)
+                    }
+                    binding.bencanaLoading.visibility = View.GONE
+                }
+                Status.LOADING -> {
+                    binding.bencanaLoading.visibility = View.VISIBLE
+                }
+                Status.ERROR -> {
+                    binding.bencanaLoading.visibility = View.GONE
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
         })
 
     }
