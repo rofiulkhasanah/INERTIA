@@ -4,14 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_behavior="com.google.android.material.bottomappbar.BottomAppBar$Behavior"
     tools:context=".ui.main.MainActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:background="@color/background"
         android:layout_height="match_parent"
-        android:id="@+id/wrapper"
-        />
+        android:background="@color/background">
+
+        <FrameLayout
+            android:id="@+id/wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:layout_width="match_parent"

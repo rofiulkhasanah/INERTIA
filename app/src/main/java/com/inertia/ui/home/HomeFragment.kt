@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val weather = WeatherEntity(24.08, 14, 0.58, 93)
+        val weather = WeatherEntity(24.08, 95, 0.61, 95)
         setWeather(weather)
         setDropdownItem()
         getBencanaData()

@@ -20,7 +20,7 @@
     <string name="spinner_item">Spinner Item</string>
     <string name="temp">%1$.2f °C</string>
     <string name="cloud">%1$d %%</string>
-    <string name="wind">%1$.2f\nkm/jam</string>
+    <string name="wind">%1$.2fm/s</string>
     <string name="humidity">%1$d UV</string>
     <string name="greetings">Hallo</string>
     <string name="detail_label">Isi form berikut ini untuk membuat laporan</string>

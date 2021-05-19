@@ -53,8 +53,86 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:background="@drawable/transparent_rect"
+                android:id="@+id/verif_code_1"
                 android:hint="@string/empty_verification"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:importantForAutofill="no" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/verfication_bg">
+
+            <EditText
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/transparent_rect"
+                android:hint="@string/empty_verification"
+                android:id="@+id/verif_code_2"
+                android:textAlignment="center"
+                android:importantForAutofill="no" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/verfication_bg">
+
+            <EditText
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/transparent_rect"
+                android:hint="@string/empty_verification"
+                android:id="@+id/verif_code_3"
+                android:textAlignment="center"
+                android:importantForAutofill="no" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/verfication_bg">
+
+            <EditText
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/transparent_rect"
+                android:hint="@string/empty_verification"
+                android:id="@+id/verif_code_4"
+                android:textAlignment="center"
+                android:importantForAutofill="no" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/verfication_bg">
+
+            <EditText
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/transparent_rect"
+                android:hint="@string/empty_verification"
+                android:id="@+id/verif_code_5"
+                android:textAlignment="center"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,71 +148,10 @@
                 android:layout_gravity="center"
                 android:background="@drawable/transparent_rect"
                 android:hint="@string/empty_verification"
-                android:textAlignment="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/verfication_bg">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/transparent_rect"
-                android:hint="@string/empty_verification"
-                android:textAlignment="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/verfication_bg">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/transparent_rect"
-                android:hint="@string/empty_verification"
-                android:textAlignment="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/verfication_bg">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/transparent_rect"
-                android:hint="@string/empty_verification"
-                android:textAlignment="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/verfication_bg">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/transparent_rect"
-                android:hint="@string/empty_verification"
-                android:textAlignment="center" />
+                android:inputType="number"
+                android:id="@+id/verif_code_6"
+                android:textAlignment="center"
+                android:importantForAutofill="no" />
         </LinearLayout>
     </LinearLayout>
 
