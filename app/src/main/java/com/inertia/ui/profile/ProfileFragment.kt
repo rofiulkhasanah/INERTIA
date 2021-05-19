@@ -26,6 +26,7 @@ class ProfileFragment : Fragment() {
         binding.btnLogout.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
+            requireActivity().finish()
         }
     }
 }

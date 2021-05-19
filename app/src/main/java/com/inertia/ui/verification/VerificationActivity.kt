@@ -51,15 +51,20 @@ class VerificationActivity : AppCompatActivity() {
                 binding.verifCode4.requestFocus()
             }
         }
-        binding.verifCode6.addTextChangedListener { Intent(this, MainActivity::class.java) }
+        binding.verifCode6.addTextChangedListener { if (it.toString() != "") {
+            verify()
+        } else {
+            binding.verifCode5.requestFocus()
+        } }
 
 
         binding.btnVerify.setOnClickListener {
-            if (it.toString() != "") {
-                startActivity(Intent(this, MainActivity::class.java))
-            } else {
-                binding.verifCode5.requestFocus()
-            }
+            verify()
         }
+    }
+
+    private fun verify() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }
