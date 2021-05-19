@@ -12,7 +12,6 @@
     <string name="home">Beranda</string>
     <string name="report">Lapor</string>
     <string name="profile">Profil</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_weather_info">Cuaca hari ini</string>
     <string name="bencana_label">Waspada bencana di sekitar anda</string>
@@ -21,13 +20,13 @@
     <string name="spinner_item">Spinner Item</string>
     <string name="temp">%1$.2f °C</string>
     <string name="cloud">%1$d %%</string>
-    <string name="wind">%1$.2f\nkm/jam</string>
+    <string name="wind">%1$.2fm/s</string>
     <string name="humidity">%1$d UV</string>
     <string name="greetings">Hallo</string>
     <string name="detail_label">Isi form berikut ini untuk membuat laporan</string>
     <string name="judul_laporan">Judul Laporan</string>
     <string name="deskripsi_laporan">Deskripsi Laporan</string>
-    <string name="kirim">Kirim Laporan</string>
+    <string name="kirim">Kirim</string>
     <string name="profil">Profil</string>
     <string name="nama">Nama Saya</string>
     <string name="nohp">08232548743</string>
@@ -36,4 +35,10 @@
     <string name="ubah_profil">Ubah Profil</string>
     <string name="kritik_saran">Kritik dan Saran</string>
     <string name="logout">Logout</string>
+    <string name="lapor">Lapor</string>
+    <string name="verifikasi">Verifikasi</string>
+    <string name="verifikasi_desc">Silahkan masukkan kode yang dikirim pada Whatsapp anda untuk melanjutkan menggunakan aplikasi</string>
+    <string name="empty_verification">-</string>
+    <string name="kirim_ulang">Kirim Ulang</string>
+    <string name="tidak_menerima_kode">Tidak menerima kode? </string>
 </resources>

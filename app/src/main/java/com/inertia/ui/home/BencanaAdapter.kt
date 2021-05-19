@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.inertia.data.entity.BencanaEntity
+import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.databinding.ItemBencanaBinding
 
 class BencanaAdapter : RecyclerView.Adapter<BencanaAdapter.BencanaViewHolder>() {

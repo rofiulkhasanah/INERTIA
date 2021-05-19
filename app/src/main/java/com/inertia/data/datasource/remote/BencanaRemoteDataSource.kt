@@ -1,7 +1,11 @@
 package com.inertia.data.datasource.remote
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.inertia.data.api.InertiaService
 import com.inertia.data.response.BencanaResponse
+import com.inertia.data.response.ApiResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,26 +23,26 @@ class BencanaRemoteDataSource private constructor(private val inertiaService: In
         }
     }
 
-    fun getAllBencana(callback: LoadAllBencanaCallback) {
+    fun getAllBencana(): LiveData<ApiResponse<List<BencanaResponse>>> {
+        val listBencana = MutableLiveData<ApiResponse<List<BencanaResponse>>>()
         inertiaService.getBencanaService().getAllBencana().enqueue(object : Callback<List<BencanaResponse>> {
             override fun onResponse(
                 call: Call<List<BencanaResponse>>,
                 response: Response<List<BencanaResponse>>
             ) {
                 val data = response.body()
+                Log.d("getAllBencana", "Sudah sampe sini lho")
                 if (data != null) {
-                    callback.onLoadAllBencanaCallback(data)
+                    val bencanaResponse = ApiResponse.success(data)
+                    listBencana.postValue(bencanaResponse)
                 }
             }
 
             override fun onFailure(call: Call<List<BencanaResponse>>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.e("BencanaRemoteDataSource", "Error: ${t.message}")
             }
 
         })
-    }
-
-    interface LoadAllBencanaCallback {
-        fun onLoadAllBencanaCallback(response: List<BencanaResponse>)
+        return listBencana
     }
 }

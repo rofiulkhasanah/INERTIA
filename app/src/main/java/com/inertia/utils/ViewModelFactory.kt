@@ -1,5 +1,6 @@
 package com.inertia.utils
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.data.repository.bencana.BencanaRepository
@@ -13,8 +14,8 @@ class ViewModelFactory private constructor (private val bencanaRepository: Benca
         @Volatile
         private var instance: ViewModelFactory? = null
 
-        fun getInstance() = instance ?: synchronized(this) {
-            instance ?: ViewModelFactory(Injection.provideBencanaRepository())
+        fun getInstance(context: Context) = instance ?: synchronized(this) {
+            instance ?: ViewModelFactory(Injection.provideBencanaRepository(context))
         }
     }
 

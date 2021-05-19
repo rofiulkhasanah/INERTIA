@@ -7,6 +7,7 @@ import com.inertia.R
 import com.inertia.databinding.ActivityLoginBinding
 import com.inertia.ui.main.MainActivity
 import com.inertia.ui.register.RegisterActivity
+import com.inertia.ui.verification.VerificationActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -33,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, VerificationActivity::class.java)
         startActivity(intent)
     }
 }

@@ -4,19 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_behavior="com.google.android.material.bottomappbar.BottomAppBar$Behavior"
     tools:context=".ui.main.MainActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:background="@color/background"
         android:layout_height="match_parent"
-        android:id="@+id/wrapper" />
+        android:background="@color/background">
+
+        <FrameLayout
+            android:id="@+id/wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFF"
         android:id="@+id/bottom_bar"
+        android:paddingEnd="16dp"
+        android:paddingStart="0dp"
         android:layout_gravity="bottom">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -36,4 +44,5 @@
         android:src="@drawable/ic_baseline_camera_alt_24"
         app:layout_anchor="@id/bottom_bar"
         android:contentDescription="@string/report" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
