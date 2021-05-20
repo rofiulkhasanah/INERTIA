@@ -53,8 +53,11 @@
         android:layout_height="56dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="16dp"
+        app:counterMaxLength="13"
         android:background="@drawable/input_bg"
+        app:endIconMode="clear_text"
         android:hint="@string/phone"
+        app:startIconDrawable="@drawable/ic_baseline_call_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/login_desc_label"
         app:layout_constraintTop_toBottomOf="@+id/login_desc_label">

@@ -14,5 +14,31 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnRegister.setOnClickListener {
+            register()
+        }
+    }
+
+    private fun register(){
+        binding.apply {
+            if (edtName.text?.isEmpty() == true) {
+                edtName.error = "Kolom harus diisi"
+                edtName.requestFocus()
+                return
+            } else if (edtRegPhone.text?.isEmpty() == true) {
+                edtRegPhone.error = "Kolom harus diisi"
+                edtRegPhone.requestFocus()
+                return
+            }else if (edtCity.text?.isEmpty() == true) {
+                edtCity.error = "Kolom harus diisi"
+                edtCity.requestFocus()
+                return
+            }else if (edtProvinsi.text?.isEmpty() == true) {
+                edtProvinsi.error = "Kolom harus diisi"
+                edtProvinsi.requestFocus()
+                return
+            }
+        }
     }
 }

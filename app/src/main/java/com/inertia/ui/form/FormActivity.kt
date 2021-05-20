@@ -27,7 +27,23 @@ class FormActivity : AppCompatActivity() {
         }
 
         binding.btnKirim.setOnClickListener {
-            finish()
+            kirimForm()
+        }
+    }
+
+    private fun kirimForm(){
+        binding.apply {
+            if (editNamaBencana.text?.isEmpty() == true) {
+                editNamaBencana.error = "Kolom harus diisi"
+                editNamaBencana.requestFocus()
+                return
+            } else if (editDeksripsiLaporanBencana.text?.isEmpty() == true) {
+                editDeksripsiLaporanBencana.error = "Kolom harus diisi"
+                editDeksripsiLaporanBencana.requestFocus()
+                return
+            } else{
+                finish()
+            }
         }
     }
 }

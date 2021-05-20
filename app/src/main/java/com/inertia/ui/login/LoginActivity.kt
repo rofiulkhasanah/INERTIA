@@ -24,8 +24,6 @@ class LoginActivity : AppCompatActivity() {
         binding.tvDaftar.setOnClickListener {
             daftar()
         }
-
-
     }
 
     private fun daftar() {
@@ -34,6 +32,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
+        binding.apply{
+            if(edtPhone.text?.isEmpty() == true){
+                edtPhone.error = "Kolom harus diisi"
+                edtPhone.requestFocus()
+                return
+            }
+        }
         val intent = Intent(this, VerificationActivity::class.java)
         startActivity(intent)
     }
