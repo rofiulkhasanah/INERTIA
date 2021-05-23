@@ -12,4 +12,8 @@ interface IUserRepository {
     interface LoginCallback {
         fun onLoginSuccessCallback(userEntity: UserEntity, verificationCode: String?)
     }
+
+    interface RegisterCallback {
+        fun onRegisterSuccessCallback(userEntity: UserEntity, verificationCode: String?)
+    }
 }

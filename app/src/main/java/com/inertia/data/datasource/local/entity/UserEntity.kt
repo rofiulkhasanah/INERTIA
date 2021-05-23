@@ -5,8 +5,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserEntity(
-    var name: String? = null,
-    var phoneNumber: String? = null,
-    var provinsi: String? = null,
-    var kota: String? = null
+    val nama: String? = null,
+    val jenisPengguna: String? = null,
+    val id: String? = null,
+    val nomorWa: String? = null,
+    val jenisKelamin: String? = null,
+    val send: String? = null,
+    val alamat: String? = null,
 ): Parcelable

@@ -11,7 +11,7 @@ class UserRepository(
     override fun getUser(): UserEntity = local.getUser()
 
     override fun login(phoneNumber: String, callback: IUserRepository.LoginCallback) {
-        val response = remote.getUser(phoneNumber)
+        val response = remote.login(phoneNumber)
 
         val user = UserEntity()
         user.name = response.name
