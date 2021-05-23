@@ -1,6 +1,6 @@
-package com.inertia.data.api
+package com.inertia.data.datasource.remote.api
 
-import com.inertia.data.response.BencanaResponse
+import com.inertia.data.datasource.remote.response.BencanaResponse
 import retrofit2.Call
 import retrofit2.http.GET
 

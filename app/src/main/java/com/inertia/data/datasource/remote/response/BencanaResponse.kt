@@ -1,4 +1,4 @@
-package com.inertia.data.response
+package com.inertia.data.datasource.remote.response
 
 import com.google.gson.annotations.SerializedName
 

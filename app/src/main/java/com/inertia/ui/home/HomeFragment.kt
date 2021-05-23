@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.inertia.R
 import com.inertia.databinding.FragmentHomeBinding
-import com.inertia.data.entity.WeatherEntity
+import com.inertia.data.datasource.remote.response.WeatherResponse
 import com.inertia.utils.ViewModelFactory
 import com.mirfanrafif.kicksfilm.vo.Status
 
@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val weather = WeatherEntity(24.08, 95, 0.61, 95)
+        val weather = WeatherResponse(24.08, 95, 0.61, 95)
         setWeather(weather)
         setDropdownItem()
         getBencanaData()
@@ -71,7 +71,7 @@ class HomeFragment : Fragment() {
         binding.spinner.adapter = arrayAdapter
     }
 
-    private fun setWeather(weather: WeatherEntity) {
+    private fun setWeather(weather: WeatherResponse) {
         with(binding) {
             layoutWeather.tvTemp.text = getString(R.string.temp, weather.temp)
             layoutWeather.tvCloud.text = getString(R.string.cloud, weather.cloud)

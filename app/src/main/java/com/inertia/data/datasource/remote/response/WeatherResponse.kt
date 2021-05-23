@@ -1,6 +1,6 @@
-package com.inertia.data.entity
+package com.inertia.data.datasource.remote.response
 
-data class WeatherEntity(
+data class WeatherResponse(
     val temp: Double,
     val cloud: Int,
     val wind: Double,

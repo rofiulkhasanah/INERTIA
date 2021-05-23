@@ -6,9 +6,9 @@ import com.inertia.data.NetworkBoundResource
 import com.inertia.data.datasource.local.BencanaLocalDataSource
 import com.inertia.data.datasource.remote.BencanaRemoteDataSource
 import com.inertia.data.datasource.local.entity.BencanaEntity
-import com.inertia.data.response.BencanaResponse
+import com.inertia.data.datasource.remote.response.BencanaResponse
 import com.inertia.utils.AppExecutor
-import com.inertia.data.response.ApiResponse
+import com.inertia.data.datasource.remote.response.ApiResponse
 import com.mirfanrafif.kicksfilm.vo.Resource
 
 class BencanaRepository private constructor(

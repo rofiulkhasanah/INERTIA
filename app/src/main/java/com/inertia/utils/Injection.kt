@@ -1,7 +1,7 @@
 package com.inertia.utils
 
 import android.content.Context
-import com.inertia.data.api.InertiaService
+import com.inertia.data.datasource.remote.api.InertiaService
 import com.inertia.data.datasource.local.BencanaLocalDataSource
 import com.inertia.data.datasource.local.database.InertiaDatabase
 import com.inertia.data.repository.bencana.BencanaRepository

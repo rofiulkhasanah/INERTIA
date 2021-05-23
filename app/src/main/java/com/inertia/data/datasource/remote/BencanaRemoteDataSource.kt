@@ -3,9 +3,9 @@ package com.inertia.data.datasource.remote
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.inertia.data.api.InertiaService
-import com.inertia.data.response.BencanaResponse
-import com.inertia.data.response.ApiResponse
+import com.inertia.data.datasource.remote.api.InertiaService
+import com.inertia.data.datasource.remote.response.BencanaResponse
+import com.inertia.data.datasource.remote.response.ApiResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

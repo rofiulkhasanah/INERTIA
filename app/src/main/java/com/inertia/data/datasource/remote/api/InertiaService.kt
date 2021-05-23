@@ -1,4 +1,4 @@
-package com.inertia.data.api
+package com.inertia.data.datasource.remote.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
