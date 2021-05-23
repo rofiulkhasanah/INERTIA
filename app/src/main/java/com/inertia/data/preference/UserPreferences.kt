@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import com.inertia.data.datasource.local.entity.UserEntity
 
-internal class UserPreferences(context: Context) {
+class UserPreferences(context: Context) {
     companion object {
         private const val PREFS_NAME = "user_pref"
         private const val NAME = "name"
@@ -14,11 +14,11 @@ internal class UserPreferences(context: Context) {
 
     private val preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-    fun setUser(user: UserEntity) {
+    fun setUser(user: UserEntity?) {
         preferences.edit {
-            putString(NAME, user.name)
-            putString(PHONE_NUMBER, user.phoneNumber)
-            putString(API_KEY, user.api_key)
+            putString(NAME, user?.name)
+            putString(PHONE_NUMBER, user?.phoneNumber)
+            putString(API_KEY, user?.api_key)
         }
     }
 

@@ -3,16 +3,19 @@ package com.inertia.ui.main
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.inertia.BuildConfig
 import com.inertia.R
+import com.inertia.data.preference.UserPreferences
 import com.inertia.databinding.ActivityMainBinding
 import com.inertia.ui.form.FormActivity
 import com.inertia.ui.home.HomeFragment
+import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.profile.ProfileFragment
 import java.io.File
 
@@ -27,10 +30,15 @@ class MainActivity : AppCompatActivity() {
     private val AUTHORITY = BuildConfig.APPLICATION_ID + ".provider"
     private lateinit var imageUri : Uri //uri lokasi dari foto
 
+    private lateinit var preferences: UserPreferences
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        preferences = UserPreferences(this)
 
         supportActionBar?.elevation = 0f
 
@@ -52,13 +60,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun report() {
-        output = File(File(filesDir, "photos"), fileName)
-        if (output.exists()) output.delete() else output.parentFile.mkdirs()
+        if (preferences.getUser().phoneNumber != null) {
+            output = File(File(filesDir, "photos"), fileName)
+            if (output.exists()) output.delete() else output.parentFile.mkdirs()
 
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        imageUri = FileProvider.getUriForFile(this, AUTHORITY, output)
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-        startActivityForResult(intent, TAKE_PICTURE)
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            imageUri = FileProvider.getUriForFile(this, AUTHORITY, output)
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+            startActivityForResult(intent, TAKE_PICTURE)
+        }else{
+            Toast.makeText(this, "Silakan login terlebih dahulu", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
     }
 
     private fun moveFragment(fragment: Fragment) =

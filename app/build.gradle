@@ -58,6 +58,9 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-runtime:$roomRuntimeVersion"
 
+    //otpview
+    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.2'
+
     testImplementation 'junit:junit:4.13.2'
     //mockito
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
