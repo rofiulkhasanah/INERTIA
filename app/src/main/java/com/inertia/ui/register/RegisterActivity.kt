@@ -1,10 +1,8 @@
 package com.inertia.ui.register
 
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
-import com.inertia.R
+import androidx.appcompat.app.AppCompatActivity
+import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.databinding.ActivityRegisterBinding
 
 class RegisterActivity : AppCompatActivity() {
@@ -21,7 +19,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun register(){
-        binding.apply {
+        with(binding) {
             if (edtName.text?.isEmpty() == true) {
                 edtName.error = "Kolom harus diisi"
                 edtName.requestFocus()
@@ -39,6 +37,13 @@ class RegisterActivity : AppCompatActivity() {
                 edtProvinsi.requestFocus()
                 return
             }
+
+            val user = UserEntity()
+            user.name = edtName.text.toString()
+            user.phoneNumber = edtRegPhone.text.toString()
+            user.kota = edtCity.text.toString()
+            user.provinsi = edtProvinsi.text.toString()
+
         }
     }
 }
