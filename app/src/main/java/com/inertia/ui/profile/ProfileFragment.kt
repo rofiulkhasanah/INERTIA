@@ -1,5 +1,6 @@
 package com.inertia.ui.profile
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.inertia.R
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.preference.UserPreferences
 import com.inertia.databinding.FragmentProfileBinding
@@ -35,11 +37,10 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val user= viewModel.getUser()
-
         if (user.phoneNumber == null) {
-            binding.tvUserNama.text = "Silahkan login"
+            binding.tvUserNama.text = getString(R.string.silakan_login)
             binding.tvUserNoHp.text = ""
-            binding.btnLogout.text = "Login"
+            binding.btnLogout.text = getString(R.string.login)
             binding.btnLogout.setOnClickListener {
                 startActivity(Intent(context, LoginActivity::class.java))
                 requireActivity().finish()
@@ -47,13 +48,28 @@ class ProfileFragment : Fragment() {
         }else{
             binding.tvUserNama.text = user.name
             binding.tvUserNoHp.text = user.phoneNumber
-            binding.btnLogout.text = "Logout"
+            binding.btnLogout.text = getString(R.string.logout)
             binding.btnLogout.setOnClickListener {
+                showConfirmDialog()
+            }
+        }
+
+    }
+
+    private fun showConfirmDialog() {
+        val builder = AlertDialog.Builder(requireActivity())
+            .setTitle("Logout")
+            .setMessage("Apakah anda yakin ingin logout?")
+            .setPositiveButton("Ya") { _, _ ->
                 preferences.setUser(UserEntity())
                 startActivity(Intent(context, MainActivity::class.java))
                 requireActivity().finish()
             }
-        }
+            .setNegativeButton("Tidak") { dialog, _ ->
+                dialog.cancel()
+            }
 
+        val alertDialog = builder.create()
+        alertDialog.show()
     }
 }

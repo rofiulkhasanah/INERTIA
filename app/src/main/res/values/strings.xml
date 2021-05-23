@@ -37,6 +37,7 @@
     <string name="logout">Logout</string>
     <string name="lapor">Lapor</string>
     <string name="verifikasi">Verifikasi</string>
+    <string name="silakan_login">Silakan Login</string>
     <string name="verifikasi_desc">Silahkan masukkan kode yang dikirim pada Whatsapp anda untuk melanjutkan menggunakan aplikasi</string>
     <string name="empty_verification">-</string>
     <string name="kirim_ulang">Kirim Ulang</string>
