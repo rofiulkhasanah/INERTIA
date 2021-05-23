@@ -1,4 +1,4 @@
-package com.inertia.data.preference
+package com.inertia.data.datasource.local.preference
 
 import android.content.Context
 import androidx.core.content.edit
@@ -9,7 +9,8 @@ class UserPreferences(context: Context) {
         private const val PREFS_NAME = "user_pref"
         private const val NAME = "name"
         private const val PHONE_NUMBER = "phone_number"
-        private const val API_KEY = "api_key"
+        private const val KOTA = "kota"
+        private const val PROVINSI = "provinsi"
     }
 
     private val preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -18,7 +19,8 @@ class UserPreferences(context: Context) {
         preferences.edit {
             putString(NAME, user?.name)
             putString(PHONE_NUMBER, user?.phoneNumber)
-            putString(API_KEY, user?.api_key)
+            putString(KOTA, user?.kota)
+            putString(PROVINSI, user?.provinsi)
         }
     }
 
@@ -26,7 +28,8 @@ class UserPreferences(context: Context) {
         val user = UserEntity()
         user.name = preferences.getString(NAME, null)
         user.phoneNumber = preferences.getString(PHONE_NUMBER, null)
-        user.api_key = preferences.getString(API_KEY, null)
+        user.kota = preferences.getString(KOTA, null)
+        user.provinsi = preferences.getString(PROVINSI, null)
         return user
     }
 }

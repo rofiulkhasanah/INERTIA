@@ -1,14 +1,13 @@
 package com.inertia.data.repository.bencana
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.inertia.data.NetworkBoundResource
 import com.inertia.data.datasource.local.BencanaLocalDataSource
-import com.inertia.data.datasource.remote.BencanaRemoteDataSource
 import com.inertia.data.datasource.local.entity.BencanaEntity
+import com.inertia.data.datasource.remote.BencanaRemoteDataSource
+import com.inertia.data.datasource.remote.response.ApiResponse
 import com.inertia.data.datasource.remote.response.BencanaResponse
 import com.inertia.utils.AppExecutor
-import com.inertia.data.datasource.remote.response.ApiResponse
 import com.mirfanrafif.kicksfilm.vo.Resource
 
 class BencanaRepository private constructor(
@@ -46,7 +45,7 @@ class BencanaRepository private constructor(
             }
 
             override fun saveCallResult(data: List<BencanaResponse>) {
-                val data = data.map { item ->
+                val listBencana = data.map { item ->
                     BencanaEntity(
                         id = item.id.toInt(),
                         namaBencana = item.namaBencana,
@@ -58,7 +57,7 @@ class BencanaRepository private constructor(
                         linkFoto = "https://placeimg.com/640/480/nature"
                     )
                 }
-                local.insertBencana(data)
+                local.insertBencana(listBencana)
 
             }
 

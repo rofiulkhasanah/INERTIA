@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.R
-import com.inertia.data.datasource.local.entity.UserEntity
-import com.inertia.data.preference.UserPreferences
 import com.inertia.databinding.FragmentProfileBinding
 import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.main.MainActivity
@@ -18,7 +16,6 @@ import com.inertia.utils.ViewModelFactory
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
-    private lateinit var preferences: UserPreferences
 
     private lateinit var viewModel: ProfileViewModel
 
@@ -61,7 +58,7 @@ class ProfileFragment : Fragment() {
             .setTitle("Logout")
             .setMessage("Apakah anda yakin ingin logout?")
             .setPositiveButton("Ya") { _, _ ->
-                preferences.setUser(UserEntity())
+                viewModel.logout()
                 startActivity(Intent(context, MainActivity::class.java))
                 requireActivity().finish()
             }

@@ -3,21 +3,21 @@ package com.inertia.data.datasource.remote
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.inertia.data.datasource.remote.api.InertiaService
-import com.inertia.data.datasource.remote.response.BencanaResponse
+import com.inertia.data.datasource.remote.api.BencanaService
 import com.inertia.data.datasource.remote.response.ApiResponse
+import com.inertia.data.datasource.remote.response.BencanaResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BencanaRemoteDataSource private constructor(private val inertiaService: InertiaService){
+class BencanaRemoteDataSource private constructor(private val service: BencanaService){
     companion object {
         @Volatile
         private var instance: BencanaRemoteDataSource? = null
 
-        fun getInstance(inertiaService: InertiaService): BencanaRemoteDataSource =
+        fun getInstance(service: BencanaService): BencanaRemoteDataSource =
             instance ?: synchronized(this) {
-                instance ?: BencanaRemoteDataSource(inertiaService).apply {
+                instance ?: BencanaRemoteDataSource(service).apply {
                     instance = this
                 }
         }
@@ -25,7 +25,7 @@ class BencanaRemoteDataSource private constructor(private val inertiaService: In
 
     fun getAllBencana(): LiveData<ApiResponse<List<BencanaResponse>>> {
         val listBencana = MutableLiveData<ApiResponse<List<BencanaResponse>>>()
-        inertiaService.getBencanaService().getAllBencana().enqueue(object : Callback<List<BencanaResponse>> {
+        service.getAllBencana().enqueue(object : Callback<List<BencanaResponse>> {
             override fun onResponse(
                 call: Call<List<BencanaResponse>>,
                 response: Response<List<BencanaResponse>>

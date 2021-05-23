@@ -1,12 +1,14 @@
 package com.inertia.ui.verification
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.inertia.data.datasource.local.entity.UserEntity
-import com.inertia.data.preference.UserPreferences
 import com.inertia.databinding.ActivityVerificationBinding
 import com.inertia.ui.main.MainActivity
+import com.inertia.utils.ViewModelFactory
 
 class VerificationActivity : AppCompatActivity() {
     companion object {
@@ -17,9 +19,8 @@ class VerificationActivity : AppCompatActivity() {
     private var user: UserEntity? = null
     private var code: String? = null
 
-    private lateinit var preferences: UserPreferences
-
     private lateinit var binding: ActivityVerificationBinding
+    private lateinit var viewModel: VerificationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +29,9 @@ class VerificationActivity : AppCompatActivity() {
         code = intent.getStringExtra(EXTRA_CODE)
 
         binding = ActivityVerificationBinding.inflate(layoutInflater)
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory)[VerificationViewModel::class.java]
         setContentView(binding.root)
-
-        preferences = UserPreferences(this)
 
         with(binding) {
             btnVerify.setOnClickListener {
@@ -44,13 +45,12 @@ class VerificationActivity : AppCompatActivity() {
 
     private fun verify(otp: String) {
         if (otp == code) {
-            user?.name = "Budi Jayanto"
-            user?.api_key = "Misalkan ini api key"
-
-            preferences.setUser(user)
-
+            viewModel.saveUser(user)
             startActivity(Intent(this, MainActivity::class.java))
             finish()
+        }else{
+            binding.otpView.setLineColor(Color.RED)
+            binding.otpView.setText("")
         }
     }
 

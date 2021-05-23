@@ -11,7 +11,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.inertia.BuildConfig
 import com.inertia.R
-import com.inertia.data.preference.UserPreferences
+import com.inertia.data.datasource.local.preference.UserPreferences
 import com.inertia.databinding.ActivityMainBinding
 import com.inertia.ui.form.FormActivity
 import com.inertia.ui.home.HomeFragment

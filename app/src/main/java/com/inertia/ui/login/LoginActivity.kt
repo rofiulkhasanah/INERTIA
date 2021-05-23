@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.data.datasource.local.entity.UserEntity
+import com.inertia.data.repository.user.IUserRepository
 import com.inertia.databinding.ActivityLoginBinding
 import com.inertia.ui.register.RegisterActivity
 import com.inertia.ui.verification.VerificationActivity
@@ -27,13 +28,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.tvDaftar.setOnClickListener {
-            daftar()
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
-    }
-
-    private fun daftar() {
-        val intent = Intent(this, RegisterActivity::class.java)
-        startActivity(intent)
     }
 
     private fun login() {
@@ -44,17 +40,16 @@ class LoginActivity : AppCompatActivity() {
                 return
             }
             val phoneNumber = edtPhone.text.toString()
-            viewModel.login(phoneNumber, object : LoginViewModel.LoginCallback {
+            viewModel.login(phoneNumber, object : IUserRepository.LoginCallback {
                 override fun onLoginSuccessCallback(
                     userEntity: UserEntity,
-                    verificationCode: String
+                    verificationCode: String?
                 ) {
                     val intent = Intent(this@LoginActivity, VerificationActivity::class.java)
                     intent.putExtra(VerificationActivity.EXTRA_USER, userEntity)
-                    intent.putExtra(VerificationActivity.EXTRA_CODE, "794329")
+                    intent.putExtra(VerificationActivity.EXTRA_CODE, verificationCode)
                     startActivity(intent)
                 }
-
             })
         }
     }

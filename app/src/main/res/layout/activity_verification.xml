@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:itemBackground="@color/white"
-        android:textColor="@android:color/white"
+        android:textColor="@color/black"
         app:OtpItemCount="6"
         android:layout_marginTop="16dp"
         app:OtpLineColor="@color/white"
