@@ -4,27 +4,33 @@ import com.google.gson.annotations.SerializedName
 
 data class BencanaResponse(
 
-	@field:SerializedName("createdAt")
-	val createdAt: String,
+	@field:SerializedName("result")
+	val result: List<BencanaItem>
+)
 
-	@field:SerializedName("foto")
-	val foto: String,
+data class BencanaItem(
 
-	@field:SerializedName("latitude")
-	val latitude: String,
+	@field:SerializedName("waktu_aduan")
+	val waktuAduan: String,
 
-	@field:SerializedName("id")
-	val id: String,
+	@field:SerializedName("kronologi")
+	val kronologi: String,
+
+	@field:SerializedName("lat_long")
+	val latLong: String,
+
+	@field:SerializedName("sender_wa_number")
+	val senderWaNumber: String,
+
+	@field:SerializedName("gambar_uri")
+	val gambarUri: String,
 
 	@field:SerializedName("jenis_bencana")
 	val jenisBencana: String,
 
-	@field:SerializedName("nama_bencana")
-	val namaBencana: String,
+	@field:SerializedName("waktu_bencana")
+	val waktuBencana: String,
 
-	@field:SerializedName("kronologi_bencana")
-	val kronologiBencana: String,
-
-	@field:SerializedName("longitude")
-	val longitude: String
+	@field:SerializedName("judul")
+	val judul: String
 )

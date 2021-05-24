@@ -12,12 +12,13 @@ import com.inertia.R
 import com.inertia.databinding.FragmentProfileBinding
 import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.main.MainActivity
+import com.inertia.ui.main.MainViewModel
 import com.inertia.utils.ViewModelFactory
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
 
-    private lateinit var viewModel: ProfileViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,8 +26,10 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater)
-        val factory = ViewModelFactory.getInstance(requireContext())
-        viewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
+        if (activity != null) {
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            viewModel = ViewModelProvider(requireActivity(), factory)[MainViewModel::class.java]
+        }
         return binding.root
     }
 
@@ -34,7 +37,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val user= viewModel.getUser()
-        if (user.phoneNumber == null) {
+        if (user.nomorWa == null) {
             binding.tvUserNama.text = getString(R.string.silakan_login)
             binding.tvUserNoHp.text = ""
             binding.btnLogout.text = getString(R.string.login)
@@ -43,8 +46,8 @@ class ProfileFragment : Fragment() {
                 requireActivity().finish()
             }
         }else{
-            binding.tvUserNama.text = user.name
-            binding.tvUserNoHp.text = user.phoneNumber
+            binding.tvUserNama.text = user.nama
+            binding.tvUserNoHp.text = user.nomorWa
             binding.btnLogout.text = getString(R.string.logout)
             binding.btnLogout.setOnClickListener {
                 showConfirmDialog()

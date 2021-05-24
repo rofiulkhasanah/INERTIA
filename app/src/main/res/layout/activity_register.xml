@@ -76,36 +76,55 @@
         android:layout_height="56dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/input_bg"
-        android:hint="@string/provinsi"
+        android:hint="@string/alamat"
         app:layout_constraintEnd_toEndOf="@+id/txt_input2"
         app:layout_constraintStart_toStartOf="@+id/txt_input2"
         app:layout_constraintTop_toBottomOf="@+id/txt_input2">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_provinsi"
+            android:id="@+id/edit_alamat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txt_input4"
+
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/Text.Body"
         android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/input_bg"
-        android:hint="@string/city"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Jenis Kelamin"
         app:layout_constraintEnd_toEndOf="@+id/txt_input3"
         app:layout_constraintStart_toStartOf="@+id/txt_input3"
-        app:layout_constraintTop_toBottomOf="@+id/txt_input3">
+        app:layout_constraintTop_toBottomOf="@+id/txt_input3" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_city"
-            android:layout_width="match_parent"
+    <RadioGroup
+        android:id="@+id/rg_jenis_kelamin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <RadioButton
+            android:id="@+id/gender_laki"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginEnd="24dp"
+            style="@style/Text.Body"
+            android:text="Laki-Laki" />
 
+        <RadioButton
+            android:id="@+id/gender_perempuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Text.Body"
+            android:text="Perempuan" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/btn_register"

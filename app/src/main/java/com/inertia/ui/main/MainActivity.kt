@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun report() {
-        if (preferences.getUser().phoneNumber != null) {
+        if (preferences.getUser().nomorWa != null) {
             output = File(File(filesDir, "photos"), fileName)
             if (output.exists()) output.delete() else output.parentFile.mkdirs()
 

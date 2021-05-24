@@ -1,23 +1,24 @@
 package com.inertia.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.inertia.R
-import com.inertia.databinding.FragmentHomeBinding
 import com.inertia.data.datasource.remote.response.WeatherResponse
+import com.inertia.databinding.FragmentHomeBinding
+import com.inertia.ui.main.MainViewModel
 import com.inertia.utils.ViewModelFactory
 import com.mirfanrafif.kicksfilm.vo.Status
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var viewModel: HomeViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +28,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         if (activity != null) {
             val factory = ViewModelFactory.getInstance(requireActivity())
-            viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+            viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
         }
         return binding.root
     }
