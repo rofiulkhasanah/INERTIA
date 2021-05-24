@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.inertia.data.datasource.remote.api.BencanaService
 import com.inertia.data.datasource.remote.response.ApiResponse
+import com.inertia.data.datasource.remote.response.BencanaItem
 import com.inertia.data.datasource.remote.response.BencanaResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,26 +24,33 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
         }
     }
 
-    fun getAllBencana(): LiveData<ApiResponse<List<BencanaResponse>>> {
-        val listBencana = MutableLiveData<ApiResponse<List<BencanaResponse>>>()
-        service.getAllBencana().enqueue(object : Callback<List<BencanaResponse>> {
+    fun getAllBencana(): LiveData<ApiResponse<List<BencanaItem>>> {
+        val mutableListBencana = MutableLiveData<ApiResponse<List<BencanaItem>>>()
+        service.getAllBencana().enqueue(object : Callback<BencanaResponse> {
             override fun onResponse(
-                call: Call<List<BencanaResponse>>,
-                response: Response<List<BencanaResponse>>
+                call: Call<BencanaResponse>,
+                response: Response<BencanaResponse>
             ) {
-                val data = response.body()
-                Log.d("getAllBencana", "Sudah sampe sini lho")
-                if (data != null) {
-                    val bencanaResponse = ApiResponse.success(data)
-                    listBencana.postValue(bencanaResponse)
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    if (data != null) {
+                        val listBencana = ApiResponse.success(data.result)
+                        mutableListBencana.postValue(listBencana)
+                    }else{
+                        ApiResponse.empty(response.message(), null)
+                    }
+                }else{
+                    ApiResponse.error(response.message(), null)
+                    Log.e("GetBencana", "Error: ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<List<BencanaResponse>>, t: Throwable) {
-                Log.e("BencanaRemoteDataSource", "Error: ${t.message}")
+            override fun onFailure(call: Call<BencanaResponse>, t: Throwable) {
+                Log.e("GetBencana", "Error: ${t.message}")
+                ApiResponse.error(t.message, null)
             }
 
         })
-        return listBencana
+        return mutableListBencana
     }
 }

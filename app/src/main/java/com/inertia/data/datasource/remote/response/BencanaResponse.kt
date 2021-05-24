@@ -10,6 +10,9 @@ data class BencanaResponse(
 
 data class BencanaItem(
 
+	@field:SerializedName("id_aduan")
+	val id: String,
+
 	@field:SerializedName("waktu_aduan")
 	val waktuAduan: String,
 

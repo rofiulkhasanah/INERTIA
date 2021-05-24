@@ -9,27 +9,27 @@ class UserPreferences(context: Context) {
         private const val PREFS_NAME = "user_pref"
         private const val NAME = "name"
         private const val PHONE_NUMBER = "phone_number"
-        private const val KOTA = "kota"
-        private const val PROVINSI = "provinsi"
+        private const val ALAMAT = "alamat"
+        private const val JENIS_KELAMIN = "jenis_kelamin"
     }
 
     private val preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     fun setUser(user: UserEntity?) {
         preferences.edit {
-            putString(NAME, user?.name)
-            putString(PHONE_NUMBER, user?.phoneNumber)
-            putString(KOTA, user?.kota)
-            putString(PROVINSI, user?.provinsi)
+            putString(NAME, user?.nama)
+            putString(PHONE_NUMBER, user?.nomorWa)
+            putString(ALAMAT, user?.alamat)
+            putString(JENIS_KELAMIN, user?.jenisKelamin)
         }
     }
 
     fun getUser(): UserEntity {
         val user = UserEntity()
-        user.name = preferences.getString(NAME, null)
-        user.phoneNumber = preferences.getString(PHONE_NUMBER, null)
-        user.kota = preferences.getString(KOTA, null)
-        user.provinsi = preferences.getString(PROVINSI, null)
+        user.nama = preferences.getString(NAME, null)
+        user.nomorWa = preferences.getString(PHONE_NUMBER, null)
+        user.alamat = preferences.getString(ALAMAT, null)
+        user.jenisKelamin = preferences.getString(JENIS_KELAMIN, null)
         return user
     }
 }

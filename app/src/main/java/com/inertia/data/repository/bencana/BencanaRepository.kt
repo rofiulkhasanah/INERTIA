@@ -1,12 +1,13 @@
 package com.inertia.data.repository.bencana
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.inertia.data.NetworkBoundResource
 import com.inertia.data.datasource.local.BencanaLocalDataSource
 import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.remote.BencanaRemoteDataSource
 import com.inertia.data.datasource.remote.response.ApiResponse
-import com.inertia.data.datasource.remote.response.BencanaResponse
+import com.inertia.data.datasource.remote.response.BencanaItem
 import com.inertia.utils.AppExecutor
 import com.mirfanrafif.kicksfilm.vo.Resource
 
@@ -31,7 +32,7 @@ class BencanaRepository private constructor(
 
     override fun getAllBencana(): LiveData<Resource<List<BencanaEntity>>> {
 
-        return object : NetworkBoundResource<List<BencanaEntity>, List<BencanaResponse>>(appExecutor) {
+        return object : NetworkBoundResource<List<BencanaEntity>, List<BencanaItem>>(appExecutor) {
             override fun loadFromDB(): LiveData<List<BencanaEntity>> {
                 return local.getAllBencana()
             }
@@ -40,25 +41,29 @@ class BencanaRepository private constructor(
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<List<BencanaResponse>>> {
+            override fun createCall(): LiveData<ApiResponse<List<BencanaItem>>> {
                 return remote.getAllBencana()
             }
 
-            override fun saveCallResult(data: List<BencanaResponse>) {
+            override fun saveCallResult(data: List<BencanaItem>) {
                 val listBencana = data.map { item ->
+                    val latLongSplit = item.latLong.split(", ")
+                    val lat = latLongSplit[0].toDouble()
+                    val long = latLongSplit[1].toDouble()
+                    Log.d("latlong", "$latLongSplit")
                     BencanaEntity(
-                        id = item.id.toInt(),
-                        namaBencana = item.namaBencana,
+                        id = item.id,
+                        namaBencana = item.judul,
                         jenisBencana = item.jenisBencana,
-                        kronologiBencana = item.kronologiBencana,
-                        longitude = item.longitude.toDouble(),
-                        latitude = item.latitude.toDouble(),
-                        createdDate = item.createdAt,
-                        linkFoto = "https://placeimg.com/640/480/nature"
+                        kronologiBencana = item.kronologi,
+                        longitude = lat,
+                        latitude = long,
+                        waktuBencana = item.waktuBencana,
+                        waktuAduan = item.waktuAduan,
+                        linkFoto = item.gambarUri
                     )
                 }
                 local.insertBencana(listBencana)
-
             }
 
         }.asLiveData()

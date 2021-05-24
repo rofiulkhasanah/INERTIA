@@ -2,6 +2,7 @@ package com.inertia.ui.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.R
@@ -30,6 +31,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun register(){
         with(binding) {
+            progressBar.visibility = View.VISIBLE
             if (edtName.text?.isEmpty() == true) {
                 edtName.error = "Kolom harus diisi"
                 edtName.requestFocus()
@@ -56,11 +58,13 @@ class RegisterActivity : AppCompatActivity() {
             val request = RegisterRequest(
                 nama, alamat, gender, nomorWa, "0"
             )
+            progressBar.visibility = View.VISIBLE
             viewModel.register(request, object : IUserRepository.RegisterCallback {
                 override fun onRegisterSuccessCallback(
                     userEntity: UserEntity,
                     verificationCode: String?
                 ) {
+                    progressBar.visibility = View.GONE
                     val intent = Intent(this@RegisterActivity, VerificationActivity::class.java)
                     intent.putExtra(VerificationActivity.EXTRA_USER, userEntity)
                     intent.putExtra(VerificationActivity.EXTRA_CODE, verificationCode)

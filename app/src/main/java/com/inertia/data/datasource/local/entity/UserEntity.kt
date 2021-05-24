@@ -8,6 +8,6 @@ data class UserEntity(
     var nama: String? = null,
     val jenisPengguna: String? = null,
     var nomorWa: String? = null,
-    val jenisKelamin: String? = null,
-    val alamat: String? = null
+    var jenisKelamin: String? = null,
+    var alamat: String? = null
 ): Parcelable

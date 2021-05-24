@@ -112,17 +112,17 @@
 
         <RadioButton
             android:id="@+id/gender_laki"
+            style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            style="@style/Text.Body"
             android:text="Laki-Laki" />
 
         <RadioButton
             android:id="@+id/gender_perempuan"
+            style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Text.Body"
             android:text="Perempuan" />
     </RadioGroup>
 
@@ -140,5 +140,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

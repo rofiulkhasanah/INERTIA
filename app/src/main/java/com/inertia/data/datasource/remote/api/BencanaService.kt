@@ -5,6 +5,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface BencanaService {
-    @GET("bencana")
-    fun getAllBencana(): Call<List<BencanaResponse>>
+    @GET("/report/view")
+    fun getAllBencana(): Call<BencanaResponse>
 }

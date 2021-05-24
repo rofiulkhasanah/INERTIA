@@ -2,6 +2,7 @@ package com.inertia.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.data.datasource.local.entity.UserEntity
@@ -40,12 +41,14 @@ class LoginActivity : AppCompatActivity() {
                 return
             }
             val phoneNumber = edtPhone.text.toString()
+            progressBar2.visibility = View.VISIBLE
             viewModel.login(phoneNumber, object : IUserRepository.LoginCallback {
                 override fun onLoginSuccessCallback(
                     userEntity: UserEntity,
                     verificationCode: String?
                 ) {
                     val intent = Intent(this@LoginActivity, VerificationActivity::class.java)
+                    progressBar2.visibility = View.GONE
                     intent.putExtra(VerificationActivity.EXTRA_USER, userEntity)
                     intent.putExtra(VerificationActivity.EXTRA_CODE, verificationCode)
                     startActivity(intent)
