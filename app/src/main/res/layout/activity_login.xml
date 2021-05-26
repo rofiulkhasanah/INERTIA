@@ -24,43 +24,29 @@
 
     <TextView
         android:id="@+id/login_desc_label"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
         android:fontFamily="@font/poppins_medium"
+        android:layout_marginEnd="16dp"
         android:text="@string/desc_login"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/login_title_label"
-        app:layout_constraintTop_toTopOf="parent" />
-
-<!--    <EditText-->
-<!--        android:id="@+id/edt_phone"-->
-<!--        android:layout_width="328dp"-->
-<!--        android:layout_height="56dp"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:autofillHints="@string/phone"-->
-<!--        android:background="@drawable/input_bg"-->
-<!--        android:ems="13"-->
-<!--        android:hint="@string/phone"-->
-<!--        android:includeFontPadding="true"-->
-<!--        android:inputType="phone"-->
-<!--        android:padding="16dp"-->
-<!--        android:textColorHint="#000000"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/textView2"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView2" />-->
+        app:layout_constraintTop_toBottomOf="@+id/login_title_label" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="16dp"
-        app:counterMaxLength="13"
         android:background="@drawable/input_bg"
-        app:endIconMode="clear_text"
         android:hint="@string/phone"
-        app:startIconDrawable="@drawable/ic_baseline_call_24"
+        app:counterMaxLength="13"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/login_desc_label"
-        app:layout_constraintTop_toBottomOf="@+id/login_desc_label">
+        app:layout_constraintTop_toBottomOf="@+id/login_desc_label"
+        app:startIconDrawable="@drawable/ic_baseline_call_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_phone"
@@ -113,6 +99,17 @@
         app:layout_constraintStart_toEndOf="@+id/belum_punya_akun_label"
         app:layout_constraintTop_toTopOf="@+id/belum_punya_akun_label"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

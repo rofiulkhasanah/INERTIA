@@ -1,11 +1,17 @@
 package com.inertia.utils
 
 import android.content.Context
-import com.inertia.data.api.InertiaService
 import com.inertia.data.datasource.local.BencanaLocalDataSource
+import com.inertia.data.datasource.local.UserLocalDataSource
 import com.inertia.data.datasource.local.database.InertiaDatabase
-import com.inertia.data.repository.bencana.BencanaRepository
+import com.inertia.data.datasource.local.preference.UserPreferences
 import com.inertia.data.datasource.remote.BencanaRemoteDataSource
+import com.inertia.data.datasource.remote.CuacaRemoteDataSource
+import com.inertia.data.datasource.remote.UserRemoteDataSource
+import com.inertia.data.datasource.remote.api.InertiaService
+import com.inertia.data.repository.bencana.BencanaRepository
+import com.inertia.data.repository.cuaca.CuacaRepository
+import com.inertia.data.repository.user.UserRepository
 
 object Injection {
     fun provideBencanaRepository(context: Context): BencanaRepository {
@@ -13,10 +19,26 @@ object Injection {
         val localDataSource = BencanaLocalDataSource.getInstance(database.bencanaDao())
 
         val inertiaService = InertiaService()
-        val bencanaRemoteDataSource = BencanaRemoteDataSource.getInstance(inertiaService)
+        val remote = BencanaRemoteDataSource.getInstance(inertiaService.getBencanaService())
 
         val appExecutor = AppExecutor()
 
-        return BencanaRepository.getInstance(bencanaRemoteDataSource, localDataSource, appExecutor)
+        return BencanaRepository.getInstance(remote, localDataSource, appExecutor)
+    }
+
+    fun provideUserRepository(context: Context): UserRepository {
+        val preferences = UserPreferences(context)
+
+        val inertiaService = InertiaService()
+
+        val remote = UserRemoteDataSource(inertiaService.getUserService())
+        val local = UserLocalDataSource(preferences)
+        return UserRepository(local, remote)
+    }
+
+    fun provideCuacaRepository(): CuacaRepository{
+        val inertiaService = InertiaService()
+        val remote = CuacaRemoteDataSource(inertiaService.getCuacaService())
+        return CuacaRepository(remote)
     }
 }

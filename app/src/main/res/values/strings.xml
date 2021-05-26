@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">INERTIA</string>
     <string name="login">Login</string>
-    <string name="desc_login">Login untuk melanjutkan</string>
-    <string name="phone">No. Handphone</string>
+    <string name="desc_login">Silakan melakukan login untuk melanjutkan</string>
+    <string name="phone">No. Handphone (081234567890)</string>
     <string name="desc_account">Belum memiliki akun?</string>
     <string name="register">Daftar</string>
     <string name="desc_register">Silahkan mendaftar ini untuk melanjutkan</string>
     <string name="user_name">Nama</string>
-    <string name="provinsi">Provinsi</string>
+    <string name="alamat">Alamat</string>
     <string name="city">Kota / Kab</string>
     <string name="home">Beranda</string>
     <string name="report">Lapor</string>
@@ -37,6 +37,7 @@
     <string name="logout">Logout</string>
     <string name="lapor">Lapor</string>
     <string name="verifikasi">Verifikasi</string>
+    <string name="silakan_login">Silakan Login</string>
     <string name="verifikasi_desc">Silahkan masukkan kode yang dikirim pada Whatsapp anda untuk melanjutkan menggunakan aplikasi</string>
     <string name="empty_verification">-</string>
     <string name="kirim_ulang">Kirim Ulang</string>

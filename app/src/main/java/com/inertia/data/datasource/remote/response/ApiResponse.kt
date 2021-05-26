@@ -1,4 +1,4 @@
-package com.inertia.data.response
+package com.inertia.data.datasource.remote.response
 
 import com.mirfanrafif.kicksfilm.data.source.remote.StatusResponse
 
@@ -8,6 +8,6 @@ class ApiResponse<T>(val status: StatusResponse, val body: T, val message: Strin
 
         fun <T> empty(msg: String, body: T) = ApiResponse(StatusResponse.EMPTY, body, msg)
 
-        fun <T> error(msg: String, body: T) = ApiResponse(StatusResponse.ERROR, body, msg)
+        fun <T> error(msg: String?, body: T) = ApiResponse(StatusResponse.ERROR, body, msg)
     }
 }

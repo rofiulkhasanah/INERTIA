@@ -3,7 +3,7 @@ package com.inertia.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.inertia.utils.AppExecutor
-import com.inertia.data.response.ApiResponse
+import com.inertia.data.datasource.remote.response.ApiResponse
 import com.mirfanrafif.kicksfilm.data.source.remote.StatusResponse
 import com.mirfanrafif.kicksfilm.vo.Resource
 
