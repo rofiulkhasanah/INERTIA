@@ -25,7 +25,7 @@ class ViewModelFactory private constructor (
             instance ?: ViewModelFactory(
                 Injection.provideBencanaRepository(context),
                 Injection.provideUserRepository(context),
-                Injection.provideCuacaRepository(context)
+                Injection.provideCuacaRepository()
             )
         }
     }

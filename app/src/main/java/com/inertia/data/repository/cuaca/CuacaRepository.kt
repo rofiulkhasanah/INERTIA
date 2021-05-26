@@ -24,7 +24,7 @@ class CuacaRepository(private val cuacaRemoteDataSource: CuacaRemoteDataSource):
             }
     }
 
-    override fun getCuaca(latitude: String, longitude: String): LiveData<CuacaEntity> {
+    override fun getCuaca(latitude: Double, longitude: Double): LiveData<CuacaEntity> {
     val dataCuaca = MutableLiveData<CuacaEntity>()
     cuacaRemoteDataSource.getCuaca(latitude, longitude).enqueue(object: Callback<WeatherResponse>{
         override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
@@ -32,7 +32,10 @@ class CuacaRepository(private val cuacaRemoteDataSource: CuacaRemoteDataSource):
                 val data = response.body()
                 if(data != null){
                     val cuaca = CuacaEntity(
-                        data.temp, data.cloud, data.wind, data.humidity)
+                        data.weather.temp,
+                        data.weather.cloud,
+                        data.weather.windSpeed,
+                        data.weather.humidity)
                     dataCuaca.postValue(cuaca)
                 }else{
                     Log.e("Cuaca", "Error: ${response.message()}")

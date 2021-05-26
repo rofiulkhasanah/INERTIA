@@ -46,6 +46,7 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
             }
 
             override fun onFailure(call: Call<BencanaResponse>, t: Throwable) {
+                t.printStackTrace()
                 Log.e("GetBencana", "Error: ${t.message}")
                 ApiResponse.error(t.message, null)
             }

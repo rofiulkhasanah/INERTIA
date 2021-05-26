@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class CuacaEntity(
     val temp: Double,
-    val cloud: Int,
+    val cloud: String,
     val wind: Double,
     val humidity: Int
 ): Parcelable

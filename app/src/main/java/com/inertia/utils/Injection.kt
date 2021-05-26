@@ -36,7 +36,7 @@ object Injection {
         return UserRepository(local, remote)
     }
 
-    fun provideCuacaRepository(context: Context): CuacaRepository{
+    fun provideCuacaRepository(): CuacaRepository{
         val inertiaService = InertiaService()
         val remote = CuacaRemoteDataSource(inertiaService.getCuacaService())
         return CuacaRepository(remote)

@@ -18,5 +18,5 @@ class MainViewModel(private val bencanaRepository: BencanaRepository,
 
     fun getAllBencana() = bencanaRepository.getAllBencana()
 
-    fun getCuaca(latitude: String, longitude: String) = cuacaRepository.getCuaca(latitude, longitude)
+    fun getCuaca(latitude: Double, longitude: Double) = cuacaRepository.getCuaca(latitude, longitude)
 }

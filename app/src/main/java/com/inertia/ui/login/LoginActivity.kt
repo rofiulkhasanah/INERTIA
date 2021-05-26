@@ -2,6 +2,7 @@ package com.inertia.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +24,14 @@ class LoginActivity : AppCompatActivity() {
 
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
+
+        binding.edtPhone.setOnKeyListener { v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                login()
+                return@setOnKeyListener true
+            }
+            return@setOnKeyListener false
+        }
 
         binding.btnLogin.setOnClickListener {
             login()
