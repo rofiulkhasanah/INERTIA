@@ -3,10 +3,12 @@ package com.inertia.ui.main
 import androidx.lifecycle.ViewModel
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.repository.bencana.BencanaRepository
+import com.inertia.data.repository.cuaca.CuacaRepository
 import com.inertia.data.repository.user.UserRepository
 
 class MainViewModel(private val bencanaRepository: BencanaRepository,
-                    private val userRepository: UserRepository): ViewModel() {
+                    private val userRepository: UserRepository,
+                    private val cuacaRepository: CuacaRepository): ViewModel() {
     fun getUser() = userRepository.getUser()
 
     fun logout() {
@@ -15,4 +17,6 @@ class MainViewModel(private val bencanaRepository: BencanaRepository,
     }
 
     fun getAllBencana() = bencanaRepository.getAllBencana()
+
+    fun getCuaca(latitude: String, longitude: String) = cuacaRepository.getCuaca(latitude, longitude)
 }
