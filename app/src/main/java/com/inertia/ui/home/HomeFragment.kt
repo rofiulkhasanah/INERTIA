@@ -25,6 +25,8 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private var latitude: Double = 0.00
+    private var longitude: Double = 0.00
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +46,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setDropdownItem()
         getBencanaData()
-        setWeather()
+        getLocation()
     }
 
     private fun getBencanaData() {
@@ -64,6 +66,9 @@ class HomeFragment : Fragment() {
                     binding.bencanaLoading.visibility = View.VISIBLE
                 }
                 Status.ERROR -> {
+                    if (it.data != null) {
+                        adapter.setData(it.data)
+                    }
                     binding.bencanaLoading.visibility = View.GONE
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
@@ -78,10 +83,8 @@ class HomeFragment : Fragment() {
         binding.spinner.adapter = arrayAdapter
     }
 
-    private fun setWeather() {
+    private fun getLocation() {
         val lastLoc = fusedLocationProviderClient.lastLocation
-        var latitude: Double
-        var longitude: Double
 
         if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)  != PackageManager.PERMISSION_GRANTED)
@@ -93,20 +96,19 @@ class HomeFragment : Fragment() {
             if (location != null){
                 latitude = location.latitude
                 longitude = location.longitude
-                viewModel.getCuaca(latitude,longitude).observe(viewLifecycleOwner, {
-                    with(binding) {
-                        layoutWeather.tvTemp.text = getString(R.string.temp, it.temp)
-                        layoutWeather.tvCloud.text = it.cloud
-                        layoutWeather.tvWind.text = getString(R.string.wind, it.wind)
-                        layoutWeather.tvHumidity.text = getString(R.string.humidity, it.humidity)
-                    }
-                })
+                getCuaca()
             }
-
-
         }
+    }
 
-
-
+    fun getCuaca() {
+        viewModel.getCuaca(latitude,longitude).observe(viewLifecycleOwner, {
+            with(binding) {
+                layoutWeather.tvTemp.text = getString(R.string.temp, it.temp)
+                layoutWeather.tvCloud.text = it.cloud
+                layoutWeather.tvWind.text = getString(R.string.wind, it.wind)
+                layoutWeather.tvHumidity.text = getString(R.string.humidity, it.humidity)
+            }
+        })
     }
 }

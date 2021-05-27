@@ -38,7 +38,15 @@ class BencanaRepository private constructor(
             }
 
             override fun shouldFetch(data: List<BencanaEntity>?): Boolean {
-                return data == null || data.isEmpty()
+//                if(data != null && data.isNotEmpty()) {
+//                    val formatter = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.getDefault())
+//                    val firstData = data.first()
+//                    val now = Date()
+//                    val waktuAduan = formatter.parse(firstData.waktuAduan)
+//                    return waktuAduan.compareTo(now) < 0
+//                }else return true
+//                return data == null || data.isEmpty()
+                return true
             }
 
             override fun createCall(): LiveData<ApiResponse<List<BencanaItem>>> {
