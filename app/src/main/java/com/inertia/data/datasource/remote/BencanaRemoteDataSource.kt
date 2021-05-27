@@ -7,6 +7,7 @@ import com.inertia.data.datasource.remote.api.BencanaService
 import com.inertia.data.datasource.remote.response.ApiResponse
 import com.inertia.data.datasource.remote.response.BencanaItem
 import com.inertia.data.datasource.remote.response.BencanaResponse
+import com.inertia.utils.DummyData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,21 +35,23 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
                 if (response.isSuccessful) {
                     val data = response.body()
                     if (data != null) {
-                        val listBencana = ApiResponse.success(data.result)
-                        mutableListBencana.postValue(listBencana)
-                    }else{
-                        ApiResponse.empty(response.message(), null)
+                        if (data.result.isNotEmpty()) {
+                            val listBencana = ApiResponse.success(data.result)
+                            mutableListBencana.postValue(listBencana)
+                        }else{
+                            val result = ApiResponse.empty(response.message(), data.result)
+                            mutableListBencana.postValue(result)
+                        }
                     }
                 }else{
-                    ApiResponse.error(response.message(), null)
-                    Log.e("GetBencana", "Error: ${response.message()}")
+                    mutableListBencana.postValue(ApiResponse.error(response.message(), DummyData.listBencana))
+                    Log.e("GetBencana", "onError: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<BencanaResponse>, t: Throwable) {
-                t.printStackTrace()
-                Log.e("GetBencana", "Error: ${t.message}")
-                ApiResponse.error(t.message, null)
+                Log.e("GetBencana", "onFailure: ${t.message}")
+                mutableListBencana.postValue(ApiResponse.error(t.message, DummyData.listBencana))
             }
 
         })

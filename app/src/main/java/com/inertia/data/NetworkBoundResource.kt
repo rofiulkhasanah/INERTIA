@@ -1,9 +1,10 @@
 package com.inertia.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.inertia.utils.AppExecutor
 import com.inertia.data.datasource.remote.response.ApiResponse
+import com.inertia.utils.AppExecutor
 import com.mirfanrafif.kicksfilm.data.source.remote.StatusResponse
 import com.mirfanrafif.kicksfilm.vo.Resource
 
@@ -29,7 +30,9 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
         }
     }
 
-    protected fun onFetchFailed() {}
+    protected fun onFetchFailed(message: String?) {
+        Log.e("NetworkBoundResource", "Error: $message" )
+    }
 
     protected abstract fun loadFromDB(): LiveData<ResultType>
 
@@ -65,8 +68,8 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
                     }
                 }
                 StatusResponse.ERROR -> {
-                    onFetchFailed()
-                    result.addSource(dbSource) { newData ->
+                    onFetchFailed(response.message)
+                    result.addSource(loadFromDB()) { newData ->
                         result.value = Resource.error(response.message, newData)
                     }
                 }
