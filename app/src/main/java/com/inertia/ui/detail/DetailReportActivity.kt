@@ -8,7 +8,10 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.inertia.R
 import com.inertia.data.datasource.local.entity.BencanaEntity
+import com.inertia.data.datasource.local.preference.UserPreferences
 import com.inertia.databinding.ActivityDetailReportBinding
+import com.inertia.ui.assessment.AssessmentActivity
+import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.main.MainViewModel
 import com.inertia.utils.ViewModelFactory
 
@@ -18,6 +21,7 @@ class DetailReportActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityDetailReportBinding
+    private lateinit var preferences: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,13 @@ class DetailReportActivity : AppCompatActivity() {
                     .into(binding.imgDetailLaporan)
 
             binding.addFab.setOnClickListener {
+                if (preferences.getUser().nomorWa != null) {
+                    val intent = Intent(this, AssessmentActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    Toast.makeText(this, "Silakan login terlebih dahulu", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                }
             }
 
         }
