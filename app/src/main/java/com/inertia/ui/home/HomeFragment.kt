@@ -1,6 +1,7 @@
 package com.inertia.ui.home
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -17,6 +18,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.inertia.R
 import com.inertia.databinding.FragmentHomeBinding
+import com.inertia.ui.detail.DetailReportActivity
 import com.inertia.ui.main.MainViewModel
 import com.inertia.utils.ViewModelFactory
 import com.mirfanrafif.kicksfilm.vo.Status
@@ -33,20 +35,23 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(layoutInflater)
-        if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
-        }
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (activity != null) {
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
+        }
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
         setDropdownItem()
         getBencanaData()
         getLocation()
+
     }
 
     private fun getBencanaData() {

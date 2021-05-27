@@ -42,4 +42,8 @@
     <string name="empty_verification">-</string>
     <string name="kirim_ulang">Kirim Ulang</string>
     <string name="tidak_menerima_kode">Tidak menerima kode? </string>
+    <string name="lokasi">Lokasi</string>
+    <string name="status">Status</string>
+    <string name="kategori">Kategori</string>
+    <string name="nama_bencana">Nama Bencana</string>
 </resources>
