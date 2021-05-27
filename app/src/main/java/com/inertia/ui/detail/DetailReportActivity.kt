@@ -27,9 +27,22 @@ class DetailReportActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        preferences = UserPreferences(this)
+
         val factory = ViewModelFactory.getInstance(this)
 
         val detailBencana = intent.getParcelableExtra<BencanaEntity>(EXTRA_REPORT)
+
+        binding.addFab.setOnClickListener {
+            if (preferences.getUser().nomorWa != null) {
+                val intent = Intent(this, AssessmentActivity::class.java)
+                startActivity(intent)
+            }else{
+                Toast.makeText(this, "Silakan login terlebih dahulu", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
+        }
         showDetailBencana(detailBencana)
     }
 
@@ -41,18 +54,9 @@ class DetailReportActivity : AppCompatActivity() {
                 Glide.with(this@DetailReportActivity)
                     .load(detailBencana.linkFoto)
                     .into(binding.imgDetailLaporan)
-
-            binding.addFab.setOnClickListener {
-                if (preferences.getUser().nomorWa != null) {
-                    val intent = Intent(this, AssessmentActivity::class.java)
-                    startActivity(intent)
-                }else{
-                    Toast.makeText(this, "Silakan login terlebih dahulu", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, LoginActivity::class.java))
-                }
-            }
-
         }
 
     }
+
+
 }
