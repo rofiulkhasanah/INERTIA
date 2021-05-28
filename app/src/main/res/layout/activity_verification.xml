@@ -39,6 +39,7 @@
         android:itemBackground="@color/white"
         android:textColor="@color/black"
         app:OtpItemCount="6"
+        android:focusableInTouchMode="true"
         android:layout_marginTop="16dp"
         app:OtpLineColor="@color/white"
         app:OtpViewType="line"
