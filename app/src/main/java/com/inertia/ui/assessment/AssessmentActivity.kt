@@ -6,18 +6,27 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.inertia.R
+import com.inertia.data.datasource.local.entity.BencanaEntity
+import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.api.InertiaService
 import com.inertia.data.entity.SpinnerKeyValue
 import com.inertia.data.response.JenisBencanaResponse
 import com.inertia.data.response.SkalaResponse
 import com.inertia.data.response.SubSektorResponse
 import com.inertia.databinding.ActivityAssessmentBinding
+import com.inertia.ui.detail.DetailReportActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class AssessmentActivity : AppCompatActivity() {
+
+    companion object{
+        const val USER = "user"
+        const val DETAIL_BENCANA = "detail_bencana"
+    }
 
     private lateinit var binding: ActivityAssessmentBinding
     private var alternatifs : ArrayList<SkalaResponse> = ArrayList()
@@ -36,7 +45,16 @@ class AssessmentActivity : AppCompatActivity() {
         binding = ActivityAssessmentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val detailBencana = intent.getParcelableExtra<BencanaEntity>(DETAIL_BENCANA)
+        val detailUser = intent.getParcelableExtra<UserEntity>(USER)
+
+        val jenisBencana = detailBencana?.jenisBencana
+        val id_pengguna = detailUser?.nomorWa
+
         initSpinner()
+
+
+
     }
 
     private fun kirimAssessment() {

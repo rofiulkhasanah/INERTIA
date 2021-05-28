@@ -37,12 +37,15 @@ class DetailReportActivity : AppCompatActivity() {
         binding.addFab.setOnClickListener {
             if (preferences.getUser().nomorWa != null) {
                 val intent = Intent(this, AssessmentActivity::class.java)
+                intent.putExtra(AssessmentActivity.DETAIL_BENCANA, detailBencana)
+                intent.putExtra(AssessmentActivity.USER, preferences.getUser())
                 startActivity(intent)
             }else{
                 Toast.makeText(this, "Silakan login terlebih dahulu", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, LoginActivity::class.java))
             }
         }
+
         showDetailBencana(detailBencana)
     }
 
