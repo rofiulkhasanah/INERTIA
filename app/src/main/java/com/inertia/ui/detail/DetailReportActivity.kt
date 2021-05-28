@@ -45,7 +45,6 @@ class DetailReportActivity : AppCompatActivity() {
                 startActivity(Intent(this, LoginActivity::class.java))
             }
         }
-
         showDetailBencana(detailBencana)
     }
 
@@ -58,8 +57,5 @@ class DetailReportActivity : AppCompatActivity() {
                     .load(detailBencana.linkFoto)
                     .into(binding.imgDetailLaporan)
         }
-
     }
-
-
 }

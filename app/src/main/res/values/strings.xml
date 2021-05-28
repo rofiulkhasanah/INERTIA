@@ -62,4 +62,5 @@
     <string name="subsektor">Sub Sektor</string>
     <string name="jenisBencana">Jenis Bencana</string>
     <string name="provinsi">Provinsi</string>
+    <string name="warga_terdampak">Warga Terdampak</string>
 </resources>

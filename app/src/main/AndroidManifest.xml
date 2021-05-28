@@ -16,9 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.INERTIA"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.detailassessment.DetailAssessmentActivity"></activity>
+        <activity android:name=".ui.terdampak.TerdampakActivity"></activity>
+        <activity android:name=".ui.detailassessment.DetailAssessmentActivity" />
         <activity android:name=".ui.assessment.AssessmentActivity" />
-        <activity android:name=".ui.detail.DetailReportActivity"></activity>
+        <activity android:name=".ui.detail.DetailReportActivity" />
         <activity android:name=".ui.form.FormActivity" />
         <activity android:name=".ui.verification.VerificationActivity" />
         <activity android:name=".ui.register.RegisterActivity" />

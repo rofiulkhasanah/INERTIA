@@ -7,6 +7,10 @@ import com.inertia.databinding.ActivityAssessmentBinding
 import com.inertia.databinding.ActivityDetailAssessmentBinding
 
 class DetailAssessmentActivity : AppCompatActivity() {
+    companion object {
+        const val DETAIL_PENILAIAN = "detail_penilaian"
+    }
+
     private lateinit var binding: ActivityDetailAssessmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
