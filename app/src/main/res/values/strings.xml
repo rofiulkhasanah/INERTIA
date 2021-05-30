@@ -46,4 +46,6 @@
     <string name="status">Status</string>
     <string name="kategori">Kategori</string>
     <string name="nama_bencana">Nama Bencana</string>
+    <string name="waktu_bencana">Waktu Bencana</string>
+    <string name="tanggal_bencana">Tanggal Bencana</string>
 </resources>
