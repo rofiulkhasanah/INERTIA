@@ -6,8 +6,10 @@ import com.inertia.data.NetworkBoundResource
 import com.inertia.data.datasource.local.BencanaLocalDataSource
 import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.remote.BencanaRemoteDataSource
+import com.inertia.data.datasource.remote.request.BencanaRequest
 import com.inertia.data.datasource.remote.response.ApiResponse
 import com.inertia.data.datasource.remote.response.BencanaItem
+import com.inertia.data.datasource.remote.response.BencanaResponse
 import com.inertia.utils.AppExecutor
 import com.mirfanrafif.kicksfilm.vo.Resource
 
@@ -77,11 +79,5 @@ class BencanaRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getDetailBencana(): LiveData<BencanaEntity> {
-        TODO("Not yet implemented")
-    }
-
-    override fun saveBencana() {
-        TODO("Not yet implemented")
-    }
+    override fun createLaporan(request: BencanaRequest): LiveData<BencanaResponse> = remote.createLaporan(request)
 }

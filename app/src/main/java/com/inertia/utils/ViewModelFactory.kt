@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.inertia.data.repository.bencana.BencanaRepository
 import com.inertia.data.repository.cuaca.CuacaRepository
 import com.inertia.data.repository.user.UserRepository
+import com.inertia.ui.form.FormViewModel
 import com.inertia.ui.login.LoginViewModel
 import com.inertia.ui.main.MainViewModel
 import com.inertia.ui.register.RegisterViewModel
@@ -36,6 +37,7 @@ class ViewModelFactory private constructor (
             modelClass.isAssignableFrom(VerificationViewModel::class.java) -> VerificationViewModel(userRepository) as T
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> RegisterViewModel(userRepository) as T
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(userRepository) as T
+            modelClass.isAssignableFrom(FormViewModel::class.java) -> FormViewModel(bencanaRepository, userRepository) as T
             else -> throw Throwable("Unknown viewmodel class")
         }
     }

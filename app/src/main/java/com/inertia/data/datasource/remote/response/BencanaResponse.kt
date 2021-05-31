@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class BencanaResponse(
 
 	@field:SerializedName("result")
-	val result: List<BencanaItem>
+	val result: List<BencanaItem>? = null
 )
 
 data class BencanaItem(

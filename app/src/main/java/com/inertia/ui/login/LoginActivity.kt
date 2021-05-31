@@ -2,6 +2,7 @@ package com.inertia.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,11 @@ import com.inertia.ui.verification.VerificationActivity
 import com.inertia.utils.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
+
+    companion object {
+        const val EXTRA_USER = "extra_user"
+    }
+
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
 
@@ -21,6 +27,12 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val user = intent.getParcelableExtra<UserEntity>(EXTRA_USER)
+
+        if (user != null) {
+            binding.edtPhone.setText(user.nomorWa)
+        }
 
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
@@ -51,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
             }
             val phoneNumber = edtPhone.text.toString()
             progressBar2.visibility = View.VISIBLE
+            Log.d("Login", phoneNumber)
             viewModel.login(phoneNumber, object : IUserRepository.LoginCallback {
                 override fun onLoginSuccessCallback(
                     userEntity: UserEntity,

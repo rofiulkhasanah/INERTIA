@@ -15,7 +15,7 @@ class InertiaService {
         .build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://3699259e-1f22-40cf-b61a-f1afb23e7150.mock.pstmn.io/")
+        .baseUrl("http://35.224.208.225")
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
