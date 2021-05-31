@@ -4,9 +4,10 @@ import android.net.Uri
 import okhttp3.MultipartBody
 import retrofit2.http.Part
 import retrofit2.http.Query
+import java.io.File
 
 data class BencanaRequest(
-    var imageUri: Uri,
+    var file: File,
     val judul: String,
     val kronologi: String,
     val nomor_wa: String,

@@ -7,6 +7,7 @@ import android.location.Location
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
@@ -26,12 +27,13 @@ import java.util.*
 class FormActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_IMG_URI = "extra_img_uri"
+        const val EXTRA_FILE = "extra_file"
     }
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     private lateinit var binding: ActivityFormBinding
-    private var file: File? = null
+    private lateinit var file: File
 
     private lateinit var viewModel: FormViewModel
     private var user: UserEntity? = null
@@ -46,6 +48,8 @@ class FormActivity : AppCompatActivity() {
         user = viewModel.getUser()
 
         val imageUri: Uri? = intent.getParcelableExtra(EXTRA_IMG_URI)
+        file = intent.getSerializableExtra(EXTRA_FILE) as File
+        imageUri?.path?.let { Log.d("FormActivity", it) }
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -77,7 +81,7 @@ class FormActivity : AppCompatActivity() {
                 val waktuBencana = formatter.format(Date())
 
                 val request = BencanaRequest(
-                    imageUri,
+                    file,
                     editNamaBencana.text.toString(),
                     editDeksripsiLaporanBencana.text.toString(),
                     nomorWa,

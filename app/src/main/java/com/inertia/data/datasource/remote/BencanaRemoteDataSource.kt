@@ -63,7 +63,7 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
     fun createLaporan(request: BencanaRequest): LiveData<BencanaResponse> {
 
         val liveDataResponse = MutableLiveData<BencanaResponse>()
-        val foto = MultipartHelper.getPart(request.imageUri)
+        val foto = MultipartHelper.getPart(request.file)
         service.createLaporan(judul = request.judul, kronologi = request.kronologi,
             lat_long = request.lat_long, nomor_wa = request.nomor_wa,
             waktu_bencana = request.waktu_bencana, filePart = foto).enqueue(object : Callback<BencanaResponse> {

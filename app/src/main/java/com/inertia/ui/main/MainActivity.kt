@@ -19,17 +19,19 @@ import com.inertia.ui.home.HomeFragment
 import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.profile.ProfileFragment
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     companion object {
-        private const val fileName = "CameraDemo.jpg" //nama file
         private const val TAKE_PICTURE = 100
-        private lateinit var output : File
     }
     private val AUTHORITY = BuildConfig.APPLICATION_ID + ".provider"
     private lateinit var imageUri : Uri //uri lokasi dari foto
+    private lateinit var output : File
 
     private lateinit var preferences: UserPreferences
 
@@ -62,13 +64,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun report() {
         if (preferences.getUser().nomorWa != null) {
+            val randNumber = Random(30).nextInt(100)
+            val date = SimpleDateFormat("yyyymmdhhmmss", Locale.getDefault()).format(Date())
+            val fileName = "$date-$randNumber"
+
             output = File(File(filesDir, "photos"), fileName)
-            if (output.exists()) {
-                output.delete()
-            }
-            else {
-                output.parentFile.mkdirs()
-            }
+            if (output.exists()) output.delete() else output.parentFile.mkdirs()
 
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             imageUri = FileProvider.getUriForFile(this, AUTHORITY, output)
@@ -94,6 +95,7 @@ class MainActivity : AppCompatActivity() {
                 contentResolver.notifyChange(imageUri, null)
                 val intent = Intent(this, FormActivity::class.java)
                 intent.putExtra(FormActivity.EXTRA_IMG_URI, imageUri)
+                intent.putExtra(FormActivity.EXTRA_FILE, output)
                 startActivity(intent)
             }
         }
