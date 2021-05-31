@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".ui.assessment.AssessmentActivity">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -34,17 +33,73 @@
             app:layout_constraintTop_toBottomOf="@+id/label_report" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputJenisBencana"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_data_report">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_jenis_bencana"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:padding="16dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:focusableInTouchMode="false"
+                android:textColorHint="#000000" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputJenisBencana">
+            <TextView
+                android:id="@+id/label_sub_sektor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/sub_sektor"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout10"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout10"
+                />
+            <Spinner
+                android:id="@+id/spinner_sub_sektor"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bencana_label"
+                tools:listitem="@layout/spinner_item" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@color/background"
             android:hint="@string/nama"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_data_report">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_name"
@@ -114,69 +169,6 @@
                 android:padding="16dp"
                 android:textColorHint="#000000" />
         </com.google.android.material.textfield.TextInputLayout>
-        <LinearLayout
-            android:id="@+id/linearLayout10"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/white"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
-
-            <TextView
-                android:id="@+id/label_jenis_bencana"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/jenisBencana"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
-                />
-
-            <Spinner
-                android:id="@+id/spinner_jenis_bencana"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bencana_label"
-                tools:listitem="@layout/spinner_item" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout11"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/white"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
-            <TextView
-                android:id="@+id/label_sub_sektor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/subsektor"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout10"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout10"
-                />
-            <Spinner
-                android:id="@+id/spinner_sub_sektor"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bencana_label"
-                tools:listitem="@layout/spinner_item" />
-        </LinearLayout>
 
         <TextView
             android:id="@+id/label_data_kriteria"
@@ -187,7 +179,7 @@
             android:text="@string/desc_report_kriteria_label"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -363,5 +355,4 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout5"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>

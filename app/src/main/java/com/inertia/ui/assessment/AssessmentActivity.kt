@@ -1,22 +1,25 @@
 package com.inertia.ui.assessment
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
+import com.google.gson.Gson
 import com.inertia.R
 import com.inertia.data.datasource.local.entity.BencanaEntity
+import com.inertia.data.datasource.local.entity.PenilaianEntity
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.api.InertiaService
+import com.inertia.data.datasource.remote.response.StoreFormPenilaianResponse
 import com.inertia.data.entity.SpinnerKeyValue
 import com.inertia.data.response.JenisBencanaResponse
 import com.inertia.data.response.SkalaResponse
 import com.inertia.data.response.SubSektorResponse
 import com.inertia.databinding.ActivityAssessmentBinding
-import com.inertia.ui.detail.DetailReportActivity
+import com.inertia.ui.detailassessment.DetailAssessmentActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,17 +31,24 @@ class AssessmentActivity : AppCompatActivity() {
         const val DETAIL_BENCANA = "detail_bencana"
     }
 
+    private lateinit var assessmentViewModel: AssessmentViewModel
+
     private lateinit var binding: ActivityAssessmentBinding
     private var alternatifs : ArrayList<SkalaResponse> = ArrayList()
     private var jenisBencanas : ArrayList<JenisBencanaResponse> = ArrayList()
     private var subSektors : ArrayList<SubSektorResponse> = ArrayList()
 
-    private var jenisBencanaItem: String? = null
+    private var jenisBencana: String? = null
+    private var nomor_wa: String? = null
+    private var tanggal: String? = null
+    private var kota: String? = null
+    private var provinsi: String? = null
     private var subSektorItem: String? = null
-    private var alternatifValue1: String? = null
-    private var alternatifValue2: String? = null
-    private var alternatifValue3: String? = null
-    private var alternatifValue4: String? = null
+    private var alternatifValue1: ArrayList<String> = ArrayList()
+    private var alternatifValue2: ArrayList<String> = ArrayList()
+    private var alternatifValue3: ArrayList<String> = ArrayList()
+    private var alternatifValue4: ArrayList<String> = ArrayList()
+    private var alternatifValue5: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,13 +58,16 @@ class AssessmentActivity : AppCompatActivity() {
         val detailBencana = intent.getParcelableExtra<BencanaEntity>(DETAIL_BENCANA)
         val detailUser = intent.getParcelableExtra<UserEntity>(USER)
 
-        val jenisBencana = detailBencana?.jenisBencana
-        val id_pengguna = detailUser?.nomorWa
+        jenisBencana = detailBencana?.jenisBencana
+        nomor_wa = detailUser?.nomorWa
+
+        binding.edtJenisBencana.setText(jenisBencana)
 
         initSpinner()
 
-
-
+        binding.btnKirim.setOnClickListener {
+            kirimAssessment()
+        }
     }
 
     private fun kirimAssessment() {
@@ -67,48 +80,91 @@ class AssessmentActivity : AppCompatActivity() {
                 edtAlamat.error = "Kolom harus diisi"
                 edtAlamat.requestFocus()
                 return
+            } else if(edtJenisBencana.text?.isEmpty() == true) {
+                edtJenisBencana.error = "Kolom harus diisi"
+                edtJenisBencana.requestFocus()
+            } else if(edtKota.text?.isEmpty() == true) {
+                edtKota.error = "Kolom harus diisi"
+                edtKota.requestFocus()
+            } else if(edtProvinsi.text?.isEmpty() == true) {
+                edtProvinsi.error = "Kolom harus diisi"
+                edtProvinsi.requestFocus()
             } else {
-                finish()
+                val valAlamat = binding.edtAlamat.text.toString()
+                val valNama = binding.edtName.text.toString()
+                val valKota = binding.edtKota.text.toString()
+                val valProvinsi = binding.edtProvinsi.text.toString()
+                val valPenilaian: ArrayList<PenilaianEntity> = ArrayList()
+
+                val penilaianEntity1 = PenilaianEntity()
+                val penilaianEntity2 = PenilaianEntity()
+                val penilaianEntity3 = PenilaianEntity()
+                val penilaianEntity4 = PenilaianEntity()
+                val penilaianEntity5 = PenilaianEntity()
+
+                penilaianEntity1.idKriteria = alternatifValue1.get(0)
+                penilaianEntity1.idSkala = alternatifValue1.get(1)
+                penilaianEntity1.namaSkala = alternatifValue1.get(2)
+
+                valPenilaian.add(0, penilaianEntity1)
+
+                penilaianEntity2.idKriteria = alternatifValue2.get(0)
+                penilaianEntity2.idSkala = alternatifValue2.get(1)
+                penilaianEntity2.namaSkala = alternatifValue2.get(2)
+
+                valPenilaian.add(1, penilaianEntity2)
+
+                penilaianEntity3.idKriteria = alternatifValue3.get(0)
+                penilaianEntity3.idSkala = alternatifValue3.get(1)
+                penilaianEntity3.namaSkala = alternatifValue3.get(2)
+
+                valPenilaian.add(2, penilaianEntity3)
+
+                penilaianEntity4.idKriteria = alternatifValue4.get(0)
+                penilaianEntity4.idSkala = alternatifValue4.get(1)
+                penilaianEntity4.namaSkala = alternatifValue4.get(2)
+
+                valPenilaian.add(3, penilaianEntity4)
+
+                penilaianEntity5.idKriteria = alternatifValue5.get(0)
+                penilaianEntity5.idSkala = alternatifValue5.get(1)
+                penilaianEntity5.namaSkala = alternatifValue5.get(2)
+
+                valPenilaian.add(4, penilaianEntity5)
+                val jsonPenilaian = Gson().toJson(valPenilaian)
+
+                InertiaService().getPenilaian().storeFormPenilaian(
+                    nomor_wa,
+                    binding.edtJenisBencana.text.toString(),
+                    subSektorItem?.toInt(),
+                    valNama,
+                    valAlamat,
+                    valProvinsi,
+                    valKota,
+                    "2021-05-29",
+                    jsonPenilaian,
+                ).enqueue(object : Callback<StoreFormPenilaianResponse> {
+                    override fun onResponse(
+                        call: Call<StoreFormPenilaianResponse>,
+                        response: Response<StoreFormPenilaianResponse>
+                    ) {
+
+                        val data = response.body()
+                        if (data != null) {
+                            val intent = Intent(this@AssessmentActivity, DetailAssessmentActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<StoreFormPenilaianResponse>, t: Throwable) {
+                        println("Gagal dikirim")
+                    }
+                })
             }
         }
     }
 
     private fun initSpinner() {
-        val spJenisBencana = binding.spinnerJenisBencana
-        InertiaService().getPenilaian().getJenisBencanas().enqueue(object :
-            Callback<List<JenisBencanaResponse>> {
-            override fun onResponse(
-                call: Call<List<JenisBencanaResponse>>,
-                response: Response<List<JenisBencanaResponse>>
-            ) {
-                val data = response.body()
-                if (data != null) {
-                    jenisBencanas = response.body() as ArrayList<JenisBencanaResponse>
-                    val data : ArrayList<SpinnerKeyValue> = ArrayList()
-                    jenisBencanas.forEach {
-                        val s = SpinnerKeyValue()
-                        s.key = it.id
-                        s.value = it.nmBencana
-                        data.add(s)
-                    }
-                    val adapter: ArrayAdapter<SpinnerKeyValue> = ArrayAdapter<SpinnerKeyValue>(this@AssessmentActivity, R.layout.spinner_item, data)
-                    spJenisBencana.adapter = adapter
-                    spJenisBencana.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-                        }
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            jenisBencanaItem = adapter.getItem(position)?.key.toString()
-                        }
-
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<List<JenisBencanaResponse>>, t: Throwable) {
-                Log.e("Jenis Bencana", "Error: ${t.message}")
-            }
-        })
-
         val spSubSektor = binding.spinnerSubSektor
         InertiaService().getPenilaian().getSubSektors().enqueue(object :
             Callback<List<SubSektorResponse>> {
@@ -182,7 +238,9 @@ class AssessmentActivity : AppCompatActivity() {
                         }
 
                         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            alternatifValue1 = adapter.getItem(position)?.key.toString()
+                            alternatifValue1.add(0, "1") // idKriteria
+                            alternatifValue1.add(1, adapter.getItem(position)?.key.toString()) // idSkala
+                            alternatifValue1.add(2, adapter.getItem(position)?.value.toString()) // namaSkala
                         }
 
                     }
@@ -193,7 +251,9 @@ class AssessmentActivity : AppCompatActivity() {
                         }
 
                         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            alternatifValue2 = adapter.getItem(position)?.key.toString()
+                            alternatifValue2.add(0, "2") // idKriteria
+                            alternatifValue2.add(1, adapter.getItem(position)?.key.toString()) // idSkala
+                            alternatifValue2.add(2, adapter.getItem(position)?.value.toString()) // namaSkala
                         }
 
                     }
@@ -204,7 +264,22 @@ class AssessmentActivity : AppCompatActivity() {
                         }
 
                         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            alternatifValue3 = adapter.getItem(position)?.key.toString()
+                            alternatifValue3.add(0, "3") // idKriteria
+                            alternatifValue3.add(1, adapter.getItem(position)?.key.toString()) // idSkala
+                            alternatifValue3.add(2, adapter.getItem(position)?.value.toString()) // namaSkala
+                        }
+
+                    }
+
+                    spFungsiBangunan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                        }
+
+                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                            alternatifValue4.add(0, "3") // idKriteria
+                            alternatifValue4.add(1, adapter.getItem(position)?.key.toString()) // idSkala
+                            alternatifValue4.add(2, adapter.getItem(position)?.value.toString()) // namaSkala
                         }
 
                     }
@@ -215,7 +290,9 @@ class AssessmentActivity : AppCompatActivity() {
                         }
 
                         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            alternatifValue4 = adapter.getItem(position)?.key.toString()
+                            alternatifValue5.add(0, "4") // idKriteria
+                            alternatifValue5.add(1, adapter.getItem(position)?.key.toString()) // idSkala
+                            alternatifValue5.add(2, adapter.getItem(position)?.value.toString()) // namaSkala
                         }
                     }
                 }

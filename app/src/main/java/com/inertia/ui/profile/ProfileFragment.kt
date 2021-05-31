@@ -55,6 +55,7 @@ class ProfileFragment : Fragment() {
             }
             binding.txtPenilaianmu.setOnClickListener {
                 val intent = Intent(context, TerdampakActivity::class.java)
+                intent.putExtra(TerdampakActivity.USER, user)
                 startActivity(intent)
             }
         }

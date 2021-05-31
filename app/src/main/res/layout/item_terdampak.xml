@@ -8,7 +8,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_nama_bencana"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nama_bencana"
@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/alamat"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:id="@+id/tv_alamat"
+        app:layout_constraintStart_toStartOf="@+id/tv_nama_bencana"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nama_bencana" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

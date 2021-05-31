@@ -29,9 +29,7 @@ class DetailReportActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         preferences = UserPreferences(this)
-
-        val factory = ViewModelFactory.getInstance(this)
-
+        
         val detailBencana = intent.getParcelableExtra<BencanaEntity>(EXTRA_REPORT)
 
         binding.addFab.setOnClickListener {
