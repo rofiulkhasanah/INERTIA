@@ -15,13 +15,13 @@ class InertiaService {
         .build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://3699259e-1f22-40cf-b61a-f1afb23e7150.mock.pstmn.io/")
+        .baseUrl("https://35.224.208.225/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
 
     private val retrofitPenilaian = Retrofit.Builder()
-        .baseUrl("http://b0aa530bfb56.ngrok.io/")
+        .baseUrl("http://061b47ae7767.ngrok.io/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -31,5 +31,7 @@ class InertiaService {
 
     fun getCuacaService(): CuacaService = retrofit.create(CuacaService::class.java)
 
-    fun getPenilaian() = retrofitPenilaian.create(PenilaianService::class.java)
+    fun getPenilaian(): PenilaianService = retrofitPenilaian.create(PenilaianService::class.java)
+
+    fun getTerdampak(): TerdampakService = retrofitPenilaian.create(TerdampakService::class.java)
 }

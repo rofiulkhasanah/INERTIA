@@ -13,9 +13,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class DetailAssessmentActivity : AppCompatActivity() {
-    companion object {
-        const val DETAIL_PENILAIAN = "detail_penilaian"
-    }
 
     private lateinit var binding: ActivityDetailAssessmentBinding
 

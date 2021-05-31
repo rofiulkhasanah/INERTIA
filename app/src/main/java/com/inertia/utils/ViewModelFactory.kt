@@ -5,17 +5,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.data.repository.bencana.BencanaRepository
 import com.inertia.data.repository.cuaca.CuacaRepository
+import com.inertia.data.repository.terdampak.TerdampakRepository
 import com.inertia.data.repository.user.UserRepository
 import com.inertia.ui.login.LoginViewModel
 import com.inertia.ui.main.MainViewModel
 import com.inertia.ui.register.RegisterViewModel
+import com.inertia.ui.terdampak.TerdampakViewModel
 import com.inertia.ui.verification.VerificationViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory private constructor (
     private val bencanaRepository: BencanaRepository,
     private val userRepository: UserRepository,
-    private val cuacaRepository: CuacaRepository
+    private val cuacaRepository: CuacaRepository,
+    private val terdampakRepository: TerdampakRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     companion object {
         @Volatile
@@ -25,7 +28,9 @@ class ViewModelFactory private constructor (
             instance ?: ViewModelFactory(
                 Injection.provideBencanaRepository(context),
                 Injection.provideUserRepository(context),
-                Injection.provideCuacaRepository()
+                Injection.provideCuacaRepository(),
+                Injection.provideTerdampakRepository(context)
+
             )
         }
     }
@@ -36,6 +41,7 @@ class ViewModelFactory private constructor (
             modelClass.isAssignableFrom(VerificationViewModel::class.java) -> VerificationViewModel(userRepository) as T
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> RegisterViewModel(userRepository) as T
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(userRepository) as T
+            modelClass.isAssignableFrom(TerdampakViewModel::class.java) -> TerdampakViewModel(terdampakRepository) as T
             else -> throw Throwable("Unknown viewmodel class")
         }
     }
