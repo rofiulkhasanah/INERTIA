@@ -5,6 +5,8 @@ import com.inertia.data.datasource.local.UserLocalDataSource
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.UserRemoteDataSource
 import com.inertia.data.datasource.remote.request.RegisterRequest
+import com.inertia.data.datasource.remote.response.ApiResponse
+import com.inertia.data.datasource.remote.response.LoginResponse
 
 class UserRepository(
     val local: UserLocalDataSource,
@@ -12,10 +14,9 @@ class UserRepository(
 ) : IUserRepository {
     override fun getUser(): UserEntity = local.getUser()
 
-    override fun login(phoneNumber: String, callback: IUserRepository.LoginCallback) =
-        remote.login(phoneNumber, callback)
+    override fun login(phoneNumber: String) = remote.login(phoneNumber)
 
-    override fun register(request: RegisterRequest): LiveData<UserEntity> = remote.register(request)
+    override fun register(request: RegisterRequest): LiveData<ApiResponse<UserEntity>> = remote.register(request)
 
     override fun setUser(userEntity: UserEntity?) {
         local.setUser(userEntity)

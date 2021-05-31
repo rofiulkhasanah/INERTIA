@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.data.datasource.local.entity.UserEntity
@@ -12,7 +13,9 @@ import com.inertia.data.repository.user.IUserRepository
 import com.inertia.databinding.ActivityLoginBinding
 import com.inertia.ui.register.RegisterActivity
 import com.inertia.ui.verification.VerificationActivity
+import com.inertia.utils.DataMapper
 import com.inertia.utils.ViewModelFactory
+import com.mirfanrafif.kicksfilm.data.source.remote.StatusResponse
 
 class LoginActivity : AppCompatActivity() {
 
@@ -64,16 +67,19 @@ class LoginActivity : AppCompatActivity() {
             val phoneNumber = edtPhone.text.toString()
             progressBar2.visibility = View.VISIBLE
             Log.d("Login", phoneNumber)
-            viewModel.login(phoneNumber, object : IUserRepository.LoginCallback {
-                override fun onLoginSuccessCallback(
-                    userEntity: UserEntity,
-                    verificationCode: String?
-                ) {
-                    val intent = Intent(this@LoginActivity, VerificationActivity::class.java)
-                    progressBar2.visibility = View.GONE
-                    intent.putExtra(VerificationActivity.EXTRA_USER, userEntity)
-                    intent.putExtra(VerificationActivity.EXTRA_CODE, verificationCode)
-                    startActivity(intent)
+            viewModel.login(phoneNumber).observe(this@LoginActivity, {
+                when(it.status) {
+                    StatusResponse.SUCCESS -> {
+                        val intent = Intent(this@LoginActivity, VerificationActivity::class.java)
+                        progressBar2.visibility = View.GONE
+                        intent.putExtra(VerificationActivity.EXTRA_USER, DataMapper.mapLoginResponseToUserEntity(it.body))
+                        intent.putExtra(VerificationActivity.EXTRA_CODE, it.body.token)
+                        startActivity(intent)
+                    }
+                    StatusResponse.ERROR -> {
+                        progressBar2.visibility = View.GONE
+                        Toast.makeText(this@LoginActivity, it.message, Toast.LENGTH_SHORT).show()
+                    }
                 }
             })
         }

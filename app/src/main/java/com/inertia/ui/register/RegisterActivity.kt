@@ -3,6 +3,7 @@ package com.inertia.ui.register
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.R
@@ -13,6 +14,7 @@ import com.inertia.databinding.ActivityRegisterBinding
 import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.verification.VerificationActivity
 import com.inertia.utils.ViewModelFactory
+import com.mirfanrafif.kicksfilm.data.source.remote.StatusResponse
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -61,10 +63,18 @@ class RegisterActivity : AppCompatActivity() {
             )
             progressBar.visibility = View.VISIBLE
             viewModel.register(request).observe(this@RegisterActivity, {
-                progressBar.visibility = View.GONE
-                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                intent.putExtra(LoginActivity.EXTRA_USER, it)
-                startActivity(intent)
+                when(it.status) {
+                    StatusResponse.SUCCESS -> {
+                        progressBar.visibility = View.GONE
+                        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                        intent.putExtra(LoginActivity.EXTRA_USER, it.body)
+                        startActivity(intent)
+                    }
+                    StatusResponse.ERROR -> {
+                        progressBar.visibility = View.GONE
+                        Toast.makeText(this@RegisterActivity, it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
             })
 
         }
