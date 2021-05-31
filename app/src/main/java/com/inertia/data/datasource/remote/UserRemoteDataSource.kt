@@ -42,8 +42,8 @@ class UserRemoteDataSource(val service: UserService) {
         return loginLiveData
     }
 
-    fun register(request: RegisterRequest): LiveData<ApiResponse<UserEntity>> {
-        val userLiveData = MutableLiveData<ApiResponse<UserEntity>>()
+    fun register(request: RegisterRequest): LiveData<ApiResponse<RegisterResponse>> {
+        val userLiveData = MutableLiveData<ApiResponse<RegisterResponse>>()
         service.register(
             request.nama,
             request.alamat,
@@ -58,18 +58,16 @@ class UserRemoteDataSource(val service: UserService) {
                 if (response.isSuccessful) {
                     val data = response.body()
                     if (data != null) {
-                        val user = UserEntity(data.nama, data.jenisPengguna, data.nomorWa,
-                            data.jenisKelamin, data.alamat)
-                        userLiveData.postValue(ApiResponse.success(user))
+                        userLiveData.postValue(ApiResponse.success(data))
                     }
                 }else{
-                    userLiveData.postValue(ApiResponse.error(response.message(), UserEntity()))
+                    userLiveData.postValue(ApiResponse.error(response.message(), RegisterResponse()))
                     Log.e("Register", "Error: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                userLiveData.postValue(ApiResponse.error(t.message, UserEntity()))
+                userLiveData.postValue(ApiResponse.error(t.message, RegisterResponse()))
                 Log.e("Register", "Error: ${t.message}")
             }
 

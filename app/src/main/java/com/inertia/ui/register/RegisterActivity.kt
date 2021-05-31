@@ -13,6 +13,7 @@ import com.inertia.data.repository.user.IUserRepository
 import com.inertia.databinding.ActivityRegisterBinding
 import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.verification.VerificationActivity
+import com.inertia.utils.DataMapper
 import com.inertia.utils.ViewModelFactory
 import com.mirfanrafif.kicksfilm.data.source.remote.StatusResponse
 
@@ -56,7 +57,7 @@ class RegisterActivity : AppCompatActivity() {
 
             val nama = edtName.text.toString()
             val alamat = editAlamat.text.toString()
-            val nomorWa = edtRegPhone.text.toString()
+            val nomorWa = DataMapper.getValidNumber(edtRegPhone.text.toString())
 
             val request = RegisterRequest(
                 nama, alamat, gender, nomorWa, "0"
@@ -66,8 +67,9 @@ class RegisterActivity : AppCompatActivity() {
                 when(it.status) {
                     StatusResponse.SUCCESS -> {
                         progressBar.visibility = View.GONE
-                        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                        intent.putExtra(LoginActivity.EXTRA_USER, it.body)
+                        val intent = Intent(this@RegisterActivity, VerificationActivity::class.java)
+                        intent.putExtra(VerificationActivity.EXTRA_USER, DataMapper.mapRegisterResponseToUserEntity(it.body))
+                        intent.putExtra(VerificationActivity.EXTRA_CODE, it.body.token)
                         startActivity(intent)
                     }
                     StatusResponse.ERROR -> {

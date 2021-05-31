@@ -12,7 +12,7 @@ interface IUserRepository {
 
     fun login(phoneNumber: String): LiveData<ApiResponse<LoginResponse>>
 
-    fun register(request: RegisterRequest): LiveData<ApiResponse<UserEntity>>
+    fun register(request: RegisterRequest): LiveData<ApiResponse<RegisterResponse>>
 
     fun setUser(userEntity: UserEntity?)
 }

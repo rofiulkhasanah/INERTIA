@@ -64,7 +64,8 @@ class LoginActivity : AppCompatActivity() {
                 edtPhone.requestFocus()
                 return
             }
-            val phoneNumber = edtPhone.text.toString()
+            val phoneNumber = DataMapper.getValidNumber(edtPhone.text.toString())
+
             progressBar2.visibility = View.VISIBLE
             Log.d("Login", phoneNumber)
             viewModel.login(phoneNumber).observe(this@LoginActivity, {
