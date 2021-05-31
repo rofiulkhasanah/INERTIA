@@ -1,6 +1,8 @@
 package com.inertia.data.datasource.remote
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.api.UserService
 import com.inertia.data.datasource.remote.request.RegisterRequest
@@ -35,7 +37,8 @@ class UserRemoteDataSource(val service: UserService) {
         })
     }
 
-    fun register(request: RegisterRequest, callback: IUserRepository.RegisterCallback) {
+    fun register(request: RegisterRequest): LiveData<UserEntity> {
+        val userLiveData = MutableLiveData<UserEntity>()
         service.register(
             request.nama,
             request.alamat,
@@ -52,8 +55,7 @@ class UserRemoteDataSource(val service: UserService) {
                     if (data != null) {
                         val user = UserEntity(data.nama, data.jenisPengguna, data.nomorWa,
                             data.jenisKelamin, data.alamat)
-                        val verificationCode = data.token
-                        callback.onRegisterSuccessCallback(user, verificationCode)
+                        userLiveData.postValue(user)
                     }
                 }else{
                     Log.e("Register", "Error: ${response.message()}")
@@ -65,5 +67,6 @@ class UserRemoteDataSource(val service: UserService) {
             }
 
         })
+        return userLiveData
     }
 }

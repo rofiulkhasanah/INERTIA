@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.inertia.R
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.request.BencanaRequest
@@ -45,6 +46,8 @@ class FormActivity : AppCompatActivity() {
         user = viewModel.getUser()
 
         val imageUri: Uri? = intent.getParcelableExtra(EXTRA_IMG_URI)
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         if (imageUri != null) {
             Glide.with(this).load(imageUri).into(binding.imgLaporan)

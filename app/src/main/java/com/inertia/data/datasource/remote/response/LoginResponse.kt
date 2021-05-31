@@ -5,26 +5,26 @@ import com.google.gson.annotations.SerializedName
 data class LoginResponse(
 
 	@field:SerializedName("nama")
-	val nama: String,
+	val nama: String? = null,
 
 	@field:SerializedName("jenis_pengguna")
-	val jenisPengguna: String,
+	val jenisPengguna: String? = null,
 
 	@field:SerializedName("nomor_wa")
-	val nomorWa: String,
+	val nomorWa: String? = null,
 
 	@field:SerializedName("jenis_kelamin")
-	val jenisKelamin: String,
+	val jenisKelamin: String? = null,
 
 	@field:SerializedName("send")
-	val send: String,
+	val send: String? = null,
 
 	@field:SerializedName("alamat")
-	val alamat: String,
+	val alamat: String? = null,
 
 	@field:SerializedName("id_pengguna")
-	val idPengguna: String,
+	val idPengguna: String? = null,
 
 	@field:SerializedName("token")
-	val token: String
+	val token: String? = null
 )

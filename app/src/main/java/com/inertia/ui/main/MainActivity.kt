@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -62,10 +63,16 @@ class MainActivity : AppCompatActivity() {
     private fun report() {
         if (preferences.getUser().nomorWa != null) {
             output = File(File(filesDir, "photos"), fileName)
-            if (output.exists()) output.delete() else output.parentFile.mkdirs()
+            if (output.exists()) {
+                output.delete()
+            }
+            else {
+                output.parentFile.mkdirs()
+            }
 
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             imageUri = FileProvider.getUriForFile(this, AUTHORITY, output)
+            imageUri.path?.let { Log.d("Photos", it) }
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
             startActivityForResult(intent, TAKE_PICTURE)
         }else{
@@ -84,6 +91,7 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == TAKE_PICTURE) {
             if(resultCode == Activity.RESULT_OK) {
+                contentResolver.notifyChange(imageUri, null)
                 val intent = Intent(this, FormActivity::class.java)
                 intent.putExtra(FormActivity.EXTRA_IMG_URI, imageUri)
                 startActivity(intent)

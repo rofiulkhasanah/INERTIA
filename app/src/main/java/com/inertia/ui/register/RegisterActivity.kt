@@ -10,6 +10,7 @@ import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.request.RegisterRequest
 import com.inertia.data.repository.user.IUserRepository
 import com.inertia.databinding.ActivityRegisterBinding
+import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.verification.VerificationActivity
 import com.inertia.utils.ViewModelFactory
 
@@ -59,18 +60,11 @@ class RegisterActivity : AppCompatActivity() {
                 nama, alamat, gender, nomorWa, "0"
             )
             progressBar.visibility = View.VISIBLE
-            viewModel.register(request, object : IUserRepository.RegisterCallback {
-                override fun onRegisterSuccessCallback(
-                    userEntity: UserEntity,
-                    verificationCode: String?
-                ) {
-                    progressBar.visibility = View.GONE
-                    val intent = Intent(this@RegisterActivity, VerificationActivity::class.java)
-                    intent.putExtra(VerificationActivity.EXTRA_USER, userEntity)
-                    intent.putExtra(VerificationActivity.EXTRA_CODE, verificationCode)
-                    startActivity(intent)
-                }
-
+            viewModel.register(request).observe(this@RegisterActivity, {
+                progressBar.visibility = View.GONE
+                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                intent.putExtra(LoginActivity.EXTRA_USER, it)
+                startActivity(intent)
             })
 
         }
