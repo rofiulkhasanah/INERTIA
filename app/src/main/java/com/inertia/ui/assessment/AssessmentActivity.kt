@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.google.gson.Gson
 import com.inertia.R
 import com.inertia.data.datasource.local.entity.BencanaEntity
@@ -23,15 +24,19 @@ import com.inertia.ui.detailassessment.DetailAssessmentActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AssessmentActivity : AppCompatActivity() {
+
+    private lateinit var assessmentViewModel: AssessmentViewModel
 
     companion object{
         const val USER = "user"
         const val DETAIL_BENCANA = "detail_bencana"
+        const val ID_KASUS = "idKasus"
     }
-
-    private lateinit var assessmentViewModel: AssessmentViewModel
 
     private lateinit var binding: ActivityAssessmentBinding
     private var alternatifs : ArrayList<SkalaResponse> = ArrayList()
@@ -40,7 +45,7 @@ class AssessmentActivity : AppCompatActivity() {
 
     private var jenisBencana: String? = null
     private var nomor_wa: String? = null
-    private var tanggal: String? = null
+    private var tanggal: String? = SimpleDateFormat("yyyy-m-d").format(Date()).toString()
     private var kota: String? = null
     private var provinsi: String? = null
     private var subSektorItem: String? = null
@@ -89,78 +94,78 @@ class AssessmentActivity : AppCompatActivity() {
             } else if(edtProvinsi.text?.isEmpty() == true) {
                 edtProvinsi.error = "Kolom harus diisi"
                 edtProvinsi.requestFocus()
-            } else {
-                val valAlamat = binding.edtAlamat.text.toString()
-                val valNama = binding.edtName.text.toString()
-                val valKota = binding.edtKota.text.toString()
-                val valProvinsi = binding.edtProvinsi.text.toString()
-                val valPenilaian: ArrayList<PenilaianEntity> = ArrayList()
-
-                val penilaianEntity1 = PenilaianEntity()
-                val penilaianEntity2 = PenilaianEntity()
-                val penilaianEntity3 = PenilaianEntity()
-                val penilaianEntity4 = PenilaianEntity()
-                val penilaianEntity5 = PenilaianEntity()
-
-                penilaianEntity1.idKriteria = alternatifValue1.get(0)
-                penilaianEntity1.idSkala = alternatifValue1.get(1)
-                penilaianEntity1.namaSkala = alternatifValue1.get(2)
-
-                valPenilaian.add(0, penilaianEntity1)
-
-                penilaianEntity2.idKriteria = alternatifValue2.get(0)
-                penilaianEntity2.idSkala = alternatifValue2.get(1)
-                penilaianEntity2.namaSkala = alternatifValue2.get(2)
-
-                valPenilaian.add(1, penilaianEntity2)
-
-                penilaianEntity3.idKriteria = alternatifValue3.get(0)
-                penilaianEntity3.idSkala = alternatifValue3.get(1)
-                penilaianEntity3.namaSkala = alternatifValue3.get(2)
-
-                valPenilaian.add(2, penilaianEntity3)
-
-                penilaianEntity4.idKriteria = alternatifValue4.get(0)
-                penilaianEntity4.idSkala = alternatifValue4.get(1)
-                penilaianEntity4.namaSkala = alternatifValue4.get(2)
-
-                valPenilaian.add(3, penilaianEntity4)
-
-                penilaianEntity5.idKriteria = alternatifValue5.get(0)
-                penilaianEntity5.idSkala = alternatifValue5.get(1)
-                penilaianEntity5.namaSkala = alternatifValue5.get(2)
-
-                valPenilaian.add(4, penilaianEntity5)
-                val jsonPenilaian = Gson().toJson(valPenilaian)
-
-                InertiaService().getPenilaian().storeFormPenilaian(
-                    nomor_wa,
-                    binding.edtJenisBencana.text.toString(),
-                    subSektorItem?.toInt(),
-                    valNama,
-                    valAlamat,
-                    valProvinsi,
-                    valKota,
-                    "2021-05-29",
-                    jsonPenilaian,
-                ).enqueue(object : Callback<StoreFormPenilaianResponse> {
-                    override fun onResponse(
-                        call: Call<StoreFormPenilaianResponse>,
-                        response: Response<StoreFormPenilaianResponse>
-                    ) {
-
-                        val data = response.body()
-                        if (data != null) {
-                            val intent = Intent(this@AssessmentActivity, DetailAssessmentActivity::class.java)
-                            startActivity(intent)
-                        }
-                    }
-
-                    override fun onFailure(call: Call<StoreFormPenilaianResponse>, t: Throwable) {
-                        println("Gagal dikirim")
-                    }
-                })
             }
+            val valAlamat = binding.edtAlamat.text.toString()
+            val valNama = binding.edtName.text.toString()
+            val valKota = binding.edtKota.text.toString()
+            val valProvinsi = binding.edtProvinsi.text.toString()
+            val valPenilaian: ArrayList<PenilaianEntity> = ArrayList()
+
+            val penilaianEntity1 : PenilaianEntity = PenilaianEntity()
+            val penilaianEntity2 : PenilaianEntity = PenilaianEntity()
+            val penilaianEntity3 : PenilaianEntity = PenilaianEntity()
+            val penilaianEntity4 : PenilaianEntity = PenilaianEntity()
+            val penilaianEntity5 : PenilaianEntity = PenilaianEntity()
+
+            penilaianEntity1.idKriteria = alternatifValue1.get(0)
+            penilaianEntity1.idSkala = alternatifValue1.get(1)
+            penilaianEntity1.namaSkala = alternatifValue1.get(2)
+
+            valPenilaian.add(0, penilaianEntity1)
+
+            penilaianEntity2.idKriteria = alternatifValue2.get(0)
+            penilaianEntity2.idSkala = alternatifValue2.get(1)
+            penilaianEntity2.namaSkala = alternatifValue2.get(2)
+
+            valPenilaian.add(1, penilaianEntity2)
+
+            penilaianEntity3.idKriteria = alternatifValue3.get(0)
+            penilaianEntity3.idSkala = alternatifValue3.get(1)
+            penilaianEntity3.namaSkala = alternatifValue3.get(2)
+
+            valPenilaian.add(2, penilaianEntity3)
+
+            penilaianEntity4.idKriteria = alternatifValue4.get(0)
+            penilaianEntity4.idSkala = alternatifValue4.get(1)
+            penilaianEntity4.namaSkala = alternatifValue4.get(2)
+
+            valPenilaian.add(3, penilaianEntity4)
+
+            penilaianEntity5.idKriteria = alternatifValue5.get(0)
+            penilaianEntity5.idSkala = alternatifValue5.get(1)
+            penilaianEntity5.namaSkala = alternatifValue5.get(2)
+
+            valPenilaian.add(4, penilaianEntity5)
+            val jsonPenilaian = Gson().toJson(valPenilaian)
+
+            InertiaService().getPenilaian().storeFormPenilaian(
+                nomor_wa,
+                binding.edtJenisBencana.text.toString(),
+                subSektorItem?.toInt(),
+                binding.edtName.text.toString(),
+                valAlamat,
+                valProvinsi,
+                valKota,
+                tanggal,
+                jsonPenilaian,
+            ).enqueue(object : Callback<StoreFormPenilaianResponse> {
+                override fun onResponse(
+                    call: Call<StoreFormPenilaianResponse>,
+                    response: Response<StoreFormPenilaianResponse>
+                ) {
+
+                    val data = response.body()
+                    if (data != null) {
+                        Toast.makeText(this@AssessmentActivity, "Berhasil Disimpan", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@AssessmentActivity, TerdampakActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+
+                override fun onFailure(call: Call<StoreFormPenilaianResponse>, t: Throwable) {
+                    println("Gagal dikirim"+ t.message)
+                }
+            })
         }
     }
 

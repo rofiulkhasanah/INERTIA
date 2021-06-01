@@ -14,18 +14,21 @@ import retrofit2.Response
 
 class DetailAssessmentActivity : AppCompatActivity() {
 
+    companion object {
+        const val idKasus = "idKasus"
+    }
+
     private lateinit var binding: ActivityDetailAssessmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailAssessmentBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val idKasus = intent.getStringExtra(idKasus).toString()
 
-        initData()
-    }
-
-    private fun initData() {
-        InertiaService().getPenilaian().getPenilaian().enqueue(object :
+        InertiaService().getPenilaian().getPenilaian(
+            idKasus = idKasus
+        ).enqueue(object :
             Callback<PenilaianResponse> {
             override fun onResponse(
                 call: Call<PenilaianResponse>,
@@ -33,15 +36,13 @@ class DetailAssessmentActivity : AppCompatActivity() {
             ) {
 
                 val data = response.body()
-                println(data)
                 if (data != null) {
-
                     binding.tvNama.text = data.nama
                     binding.tvAlamat.text = data.alamat
-                    binding.tvHasil.text = data.namaAlternatif
-                    binding.tvJenisbencana.text = data.nmBencana
-                    binding.tvKota.text = data.kota
                     binding.tvProvinsi.text = data.provinsi
+                    binding.tvKota.text = data.kota
+                    binding.tvJenisbencana.text = data.nmBencana
+                    binding.tvHasil.text = data.namaAlternatif
                 }
             }
 
@@ -49,6 +50,6 @@ class DetailAssessmentActivity : AppCompatActivity() {
                 println("Gagal dikirim")
             }
         })
-    }
 
+    }
 }

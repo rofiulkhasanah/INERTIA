@@ -35,5 +35,7 @@ interface PenilaianService {
     ): Call<StoreFormPenilaianResponse>
 
     @GET("/multimoora4")
-    fun getPenilaian(): Call<PenilaianResponse>
+    fun getPenilaian(
+        @Query("idKasus") idKasus: String?,
+    ): Call<PenilaianResponse>
 }

@@ -13,16 +13,16 @@ data class TerdampakEntity(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "idKasus")
-    var idKasus: Int,
+    var idKasus: String,
 
     @ColumnInfo(name = "nomorWa")
     val nomorWa: String,
 
     @ColumnInfo(name = "idBencana")
-    val idBencana: Int,
+    val idBencana: String,
 
     @ColumnInfo(name = "idSub")
-    val idSub: Int,
+    val idSub: String,
 
     @ColumnInfo(name = "nama")
     val nama: String,
