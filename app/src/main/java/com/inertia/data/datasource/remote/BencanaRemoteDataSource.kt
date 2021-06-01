@@ -8,6 +8,7 @@ import com.inertia.data.datasource.remote.request.BencanaRequest
 import com.inertia.data.datasource.remote.response.ApiResponse
 import com.inertia.data.datasource.remote.response.BencanaItem
 import com.inertia.data.datasource.remote.response.BencanaResponse
+import com.inertia.data.datasource.remote.response.LaporResponse
 import com.inertia.utils.DummyData
 import com.inertia.utils.MultipartHelper
 import retrofit2.Call
@@ -37,8 +38,8 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
                 if (response.isSuccessful) {
                     val data = response.body()
                     if (data != null) {
-                        if (data.result != null && data.result.isNotEmpty()) {
-                            val listBencana = ApiResponse.success(data.result)
+                        if (data.bencana != null && data.bencana.isNotEmpty()) {
+                            val listBencana = ApiResponse.success(data.bencana)
                             mutableListBencana.postValue(listBencana)
                         }else{
                             val result = ApiResponse.empty(response.message(), DummyData.listBencana)
@@ -60,20 +61,17 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
         return mutableListBencana
     }
 
-    fun createLaporan(request: BencanaRequest): LiveData<BencanaResponse> {
+    fun createLaporan(request: BencanaRequest): LiveData<LaporResponse> {
 
-        val liveDataResponse = MutableLiveData<BencanaResponse>()
+        val liveDataResponse = MutableLiveData<LaporResponse>()
         val foto = MultipartHelper.getPart(request.file)
         service.createLaporan(judul = request.judul, kronologi = request.kronologi,
             lat_long = request.lat_long, nomor_wa = request.nomor_wa,
-            waktu_bencana = request.waktu_bencana, filePart = foto).enqueue(object : Callback<BencanaResponse> {
-            override fun onResponse(
-                call: Call<BencanaResponse>,
-                response: Response<BencanaResponse>
-            ) {
+            waktu_bencana = request.waktu_bencana, filePart = foto).enqueue(object : Callback<LaporResponse> {
+            override fun onResponse(call: Call<LaporResponse>, response: Response<LaporResponse>) {
                if (response.isSuccessful) {
                    val data = response.body()
-                   if (data?.result != null && data.result.isNotEmpty()) {
+                   if (data != null) {
                        liveDataResponse.postValue(data)
                    }
                }else{
@@ -81,7 +79,7 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
                }
             }
 
-            override fun onFailure(call: Call<BencanaResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LaporResponse>, t: Throwable) {
                 t.message?.let { Log.e("BencanaRemoteDataSource", it) }
             }
 

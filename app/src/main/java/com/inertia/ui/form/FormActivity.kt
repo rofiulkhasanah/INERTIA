@@ -19,6 +19,7 @@ import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.request.BencanaRequest
 import com.inertia.databinding.ActivityFormBinding
 import com.inertia.ui.main.MainActivity
+import com.inertia.utils.LocationProvider
 import com.inertia.utils.ViewModelFactory
 import java.io.File
 import java.text.SimpleDateFormat
@@ -29,8 +30,6 @@ class FormActivity : AppCompatActivity() {
         const val EXTRA_IMG_URI = "extra_img_uri"
         const val EXTRA_FILE = "extra_file"
     }
-
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     private lateinit var binding: ActivityFormBinding
     private lateinit var file: File
@@ -51,17 +50,20 @@ class FormActivity : AppCompatActivity() {
         file = intent.getSerializableExtra(EXTRA_FILE) as File
         imageUri?.path?.let { Log.d("FormActivity", it) }
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
         if (imageUri != null) {
             Glide.with(this).load(imageUri).into(binding.imgLaporan)
-            binding.btnKirim.setOnClickListener {
-                kirimForm(imageUri)
-            }
         }
+
+        viewModel.getLocation(this).observe(this, { location ->
+            val latLong = "${location.latitude},${location.longitude}"
+            binding.tvKoordinat.text = latLong
+            binding.btnKirim.setOnClickListener {
+                kirimForm(latLong)
+            }
+        })
     }
 
-    private fun kirimForm(imageUri: Uri){
+    private fun kirimForm(latLong: String){
         binding.apply {
             if (editNamaBencana.text?.isEmpty() == true) {
                 editNamaBencana.error = "Kolom harus diisi"
@@ -76,7 +78,6 @@ class FormActivity : AppCompatActivity() {
                 return
             }else{
                 val nomorWa = user?.nomorWa ?: ""
-
                 val formatter = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.getDefault())
                 val waktuBencana = formatter.format(Date())
 
@@ -86,28 +87,13 @@ class FormActivity : AppCompatActivity() {
                     editDeksripsiLaporanBencana.text.toString(),
                     nomorWa,
                     waktuBencana,
-                    getLocation()
+                    latLong
                 )
                 viewModel.createLaporan(request)
                 finish()
+
+
             }
         }
-    }
-
-    private fun getLocation(): String {
-        val lastLoc = fusedLocationProviderClient.lastLocation
-        var lat_long = ""
-
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)  != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 101)
-        }
-        lastLoc.addOnSuccessListener { location: Location? ->
-            if (location != null){
-                lat_long = "${location.latitude}, ${location.longitude}"
-            }
-        }
-        return lat_long
     }
 }

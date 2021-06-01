@@ -10,6 +10,7 @@ import com.inertia.data.datasource.remote.request.BencanaRequest
 import com.inertia.data.datasource.remote.response.ApiResponse
 import com.inertia.data.datasource.remote.response.BencanaItem
 import com.inertia.data.datasource.remote.response.BencanaResponse
+import com.inertia.data.datasource.remote.response.LaporResponse
 import com.inertia.utils.AppExecutor
 import com.mirfanrafif.kicksfilm.vo.Resource
 
@@ -57,19 +58,19 @@ class BencanaRepository private constructor(
 
             override fun saveCallResult(data: List<BencanaItem>) {
                 val listBencana = data.map { item ->
-                    val latLongSplit = item.latLong.split(", ")
-                    val lat = latLongSplit[0].toDouble()
-                    val long = latLongSplit[1].toDouble()
+                    val latLongSplit = item.latLong?.split(",")
+                    val lat = latLongSplit?.get(0)?.toDouble()
+                    val long = latLongSplit?.get(1)?.toDouble()
                     Log.d("latlong", "$latLongSplit")
                     BencanaEntity(
-                        id = item.id,
+                        id = item.idAduan,
                         namaBencana = item.judul,
                         jenisBencana = item.jenisBencana,
                         kronologiBencana = item.kronologi,
                         longitude = lat,
                         latitude = long,
                         waktuBencana = item.waktuBencana,
-                        waktuAduan = item.waktuAduan,
+                        waktuAduan = item.waktuBencana,
                         linkFoto = item.gambarUri
                     )
                 }
@@ -79,5 +80,6 @@ class BencanaRepository private constructor(
         }.asLiveData()
     }
 
-    override fun createLaporan(request: BencanaRequest): LiveData<BencanaResponse> = remote.createLaporan(request)
+    override fun createLaporan(request: BencanaRequest): LiveData<LaporResponse> =
+        remote.createLaporan(request)
 }

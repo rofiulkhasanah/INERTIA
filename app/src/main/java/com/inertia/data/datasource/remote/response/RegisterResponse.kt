@@ -20,5 +20,8 @@ data class RegisterResponse(
 	val alamat: String? = null,
 
 	@field:SerializedName("id_pengguna")
-	val idPengguna: String? = null
+	val idPengguna: String? = null,
+
+	@field:SerializedName("token")
+	val token: String? = null
 )

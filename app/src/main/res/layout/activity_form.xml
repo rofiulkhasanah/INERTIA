@@ -81,4 +81,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/lokasi_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        style="@style/Text.Body"
+        android:textColor="@color/grey"
+        android:text="@string/koordinat"
+        app:layout_constraintStart_toStartOf="@+id/deskripsi_layout"
+        app:layout_constraintTop_toBottomOf="@+id/deskripsi_layout" />
+
+    <TextView
+        android:id="@+id/tv_koordinat"
+        style="@style/Text.Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/deskripsi_layout"
+        app:layout_constraintStart_toStartOf="@+id/lokasi_label"
+        app:layout_constraintTop_toBottomOf="@+id/lokasi_label" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

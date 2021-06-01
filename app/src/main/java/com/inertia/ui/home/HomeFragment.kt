@@ -1,10 +1,11 @@
 package com.inertia.ui.home
 
 import android.Manifest
-import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,21 +15,22 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
 import com.inertia.R
 import com.inertia.databinding.FragmentHomeBinding
-import com.inertia.ui.detail.DetailReportActivity
 import com.inertia.ui.main.MainViewModel
+import com.inertia.utils.LocationProvider
 import com.inertia.utils.ViewModelFactory
 import com.mirfanrafif.kicksfilm.vo.Status
+import java.lang.ClassCastException
+
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private var latitude: Double = 0.00
-    private var longitude: Double = 0.00
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,15 +45,14 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
             val factory = ViewModelFactory.getInstance(requireActivity())
-            viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
+            viewModel = ViewModelProvider(requireActivity(), factory)[MainViewModel::class.java]
         }
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         setDropdownItem()
         getBencanaData()
-        getLocation()
-
+        getCuaca()
     }
 
     private fun getBencanaData() {
@@ -88,32 +89,22 @@ class HomeFragment : Fragment() {
         binding.spinner.adapter = arrayAdapter
     }
 
-    private fun getLocation() {
-        val lastLoc = fusedLocationProviderClient.lastLocation
-
-        if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)  != PackageManager.PERMISSION_GRANTED)
-            {
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 101)
-                return
-            }
-        lastLoc.addOnSuccessListener { location: Location? ->
-            if (location != null){
-                latitude = location.latitude
-                longitude = location.longitude
-                getCuaca()
-            }
-        }
+    private fun getCuaca() {
+        viewModel.getLocation(requireActivity()).observe(viewLifecycleOwner, { location ->
+            viewModel.getCuaca(location.latitude,location.longitude).observe(viewLifecycleOwner, {
+                with(binding) {
+                    layoutWeather.tvTemp.text = getString(R.string.temp, it.temp)
+                    layoutWeather.tvCloud.text = it.cloud
+                    layoutWeather.tvWind.text = getString(R.string.wind, it.wind)
+                    layoutWeather.tvHumidity.text = getString(R.string.humidity, it.humidity)
+                }
+            })
+        })
     }
 
-    fun getCuaca() {
-        viewModel.getCuaca(latitude,longitude).observe(viewLifecycleOwner, {
-            with(binding) {
-                layoutWeather.tvTemp.text = getString(R.string.temp, it.temp)
-                layoutWeather.tvCloud.text = it.cloud
-                layoutWeather.tvWind.text = getString(R.string.wind, it.wind)
-                layoutWeather.tvHumidity.text = getString(R.string.humidity, it.humidity)
-            }
-        })
+
+
+    companion object {
+        const val REQUEST_CHECK_SETTINGS = 10
     }
 }
