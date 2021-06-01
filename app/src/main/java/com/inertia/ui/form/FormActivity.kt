@@ -56,12 +56,12 @@ class FormActivity : AppCompatActivity() {
         if (imageUri != null) {
             Glide.with(this).load(imageUri).into(binding.imgLaporan)
             binding.btnKirim.setOnClickListener {
-                kirimForm(imageUri)
+                kirimForm()
             }
         }
     }
 
-    private fun kirimForm(imageUri: Uri){
+    private fun kirimForm(){
         binding.apply {
             if (editNamaBencana.text?.isEmpty() == true) {
                 editNamaBencana.error = "Kolom harus diisi"

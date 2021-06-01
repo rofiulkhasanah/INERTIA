@@ -17,6 +17,10 @@ object DataMapper {
     }
 
     fun getValidNumber(nomorWa: String): String {
-        return "62${nomorWa.removePrefix("0")}"
+        return if(nomorWa.startsWith("0")) {
+            "62${nomorWa.removePrefix("0")}"
+        }else{
+            nomorWa
+        }
     }
 }
