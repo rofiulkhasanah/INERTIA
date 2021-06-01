@@ -8,6 +8,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +22,7 @@ import com.inertia.databinding.ActivityFormBinding
 import com.inertia.ui.main.MainActivity
 import com.inertia.utils.LocationProvider
 import com.inertia.utils.ViewModelFactory
+import com.mirfanrafif.kicksfilm.data.source.remote.StatusResponse
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -54,7 +56,9 @@ class FormActivity : AppCompatActivity() {
             Glide.with(this).load(imageUri).into(binding.imgLaporan)
         }
 
+        binding.formProgressbar.visibility = View.VISIBLE
         viewModel.getLocation(this).observe(this, { location ->
+            binding.formProgressbar.visibility = View.GONE
             val latLong = "${location.latitude},${location.longitude}"
             binding.tvKoordinat.text = latLong
             binding.btnKirim.setOnClickListener {
@@ -89,8 +93,20 @@ class FormActivity : AppCompatActivity() {
                     waktuBencana,
                     latLong
                 )
-                viewModel.createLaporan(request)
-                finish()
+                formProgressbar.visibility = View.VISIBLE
+                viewModel.createLaporan(request).observe(this@FormActivity, {
+                    when(it.status) {
+                        StatusResponse.SUCCESS -> {
+                            Toast.makeText(this@FormActivity, "Sukses mengirim laporan", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                        StatusResponse.ERROR -> {
+                            formProgressbar.visibility = View.GONE
+                            Toast.makeText(this@FormActivity, "Gagal mengirim laporan: ${it.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+
 
 
             }
