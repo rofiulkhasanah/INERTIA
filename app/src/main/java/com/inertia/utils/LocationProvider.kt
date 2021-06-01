@@ -54,24 +54,22 @@ object LocationProvider {
             .checkLocationSettings(builder.build())
 
         checkLocationSettings.addOnCompleteListener {
-            try {
-                //request location updates
-                fusedLocationProviderClient.requestLocationUpdates(request, object : LocationCallback() {
-                    override fun onLocationResult(p0: LocationResult) {
+            fusedLocationProviderClient.requestLocationUpdates(request, object : LocationCallback() {
+                override fun onLocationResult(p0: LocationResult) {
 
-                        for (item in p0.locations) {
-                            locationLiveData.postValue(item)
-                        }
+                    for (item in p0.locations) {
+                        locationLiveData.postValue(item)
                     }
-                }, Looper.getMainLooper())
-            }catch (e: ApiException) {
-                when(e.statusCode) {
+                }
+            }, Looper.getMainLooper())
+        }
+        checkLocationSettings.addOnFailureListener { exception ->
+            if(exception is ResolvableApiException) {
+                when(exception.statusCode) {
                     LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> {
                         try {
-                            val resolvable = e as ResolvableApiException
-
                             //minta lokasi biar dinyalain
-                            resolvable.startResolutionForResult(
+                            exception.startResolutionForResult(
                                 activity,
                                 HomeFragment.REQUEST_CHECK_SETTINGS
                             )
