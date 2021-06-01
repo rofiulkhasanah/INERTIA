@@ -8,6 +8,8 @@ import android.location.Location
 import android.os.Looper
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -15,9 +17,9 @@ import com.inertia.ui.home.HomeFragment
 import java.lang.ClassCastException
 
 object LocationProvider {
-    fun getLocation(activity: Activity): Location? {
+    fun getLocation(activity: Activity): LiveData<Location> {
 
-        var location: Location? = null
+        val locationLiveData = MutableLiveData<Location>()
 
         //request permission
         if (ActivityCompat.checkSelfPermission(
@@ -32,7 +34,6 @@ object LocationProvider {
                 arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION), 101)
-            return null
         }
 
         val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity)
@@ -59,7 +60,7 @@ object LocationProvider {
                     override fun onLocationResult(p0: LocationResult) {
 
                         for (item in p0.locations) {
-                            location = item
+                            locationLiveData.postValue(item)
                         }
                     }
                 }, Looper.getMainLooper())
@@ -86,6 +87,6 @@ object LocationProvider {
                 }
             }
         }
-        return location
+        return locationLiveData
     }
 }

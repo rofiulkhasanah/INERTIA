@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
             val factory = ViewModelFactory.getInstance(requireActivity())
-            viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
+            viewModel = ViewModelProvider(requireActivity(), factory)[MainViewModel::class.java]
         }
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -90,8 +90,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getCuaca() {
-        val location = LocationProvider.getLocation(requireActivity())
-        if (location != null) {
+        viewModel.getLocation(requireActivity()).observe(viewLifecycleOwner, { location ->
             viewModel.getCuaca(location.latitude,location.longitude).observe(viewLifecycleOwner, {
                 with(binding) {
                     layoutWeather.tvTemp.text = getString(R.string.temp, it.temp)
@@ -100,7 +99,7 @@ class HomeFragment : Fragment() {
                     layoutWeather.tvHumidity.text = getString(R.string.humidity, it.humidity)
                 }
             })
-        }
+        })
     }
 
 
