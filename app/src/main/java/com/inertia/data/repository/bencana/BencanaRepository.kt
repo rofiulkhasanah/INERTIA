@@ -80,6 +80,6 @@ class BencanaRepository private constructor(
         }.asLiveData()
     }
 
-    override fun createLaporan(request: BencanaRequest): LiveData<LaporResponse> =
+    override fun createLaporan(request: BencanaRequest): LiveData<ApiResponse<LaporResponse>> =
         remote.createLaporan(request)
 }

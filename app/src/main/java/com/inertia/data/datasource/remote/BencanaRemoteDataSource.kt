@@ -61,9 +61,9 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
         return mutableListBencana
     }
 
-    fun createLaporan(request: BencanaRequest): LiveData<LaporResponse> {
+    fun createLaporan(request: BencanaRequest): LiveData<ApiResponse<LaporResponse>> {
 
-        val liveDataResponse = MutableLiveData<LaporResponse>()
+        val liveDataResponse = MutableLiveData<ApiResponse<LaporResponse>>()
         val foto = MultipartHelper.getPart(request.file)
         service.createLaporan(judul = request.judul, kronologi = request.kronologi,
             lat_long = request.lat_long, nomor_wa = request.nomor_wa,
@@ -72,15 +72,19 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
                if (response.isSuccessful) {
                    val data = response.body()
                    if (data != null) {
-                       liveDataResponse.postValue(data)
+                       liveDataResponse.postValue(ApiResponse.success(data))
                    }
                }else{
+                   liveDataResponse.postValue(ApiResponse.error(response.message(), LaporResponse()))
                    Log.e("BencanaRemoteDataSource", response.message())
                }
             }
 
             override fun onFailure(call: Call<LaporResponse>, t: Throwable) {
-                t.message?.let { Log.e("BencanaRemoteDataSource", it) }
+                t.message?.let {
+                    Log.e("BencanaRemoteDataSource", it)
+                    liveDataResponse.postValue(ApiResponse.error(it, LaporResponse()))
+                }
             }
 
         })
