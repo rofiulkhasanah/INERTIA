@@ -7,7 +7,7 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface BencanaService {
-    @GET("report/view")
+    @GET("report/show")
     fun getAllBencana(): Call<BencanaResponse>
 
     @Multipart
