@@ -12,4 +12,6 @@ interface IBencanaRepository {
     fun getAllBencana(): LiveData<Resource<List<BencanaEntity>>>
 
     fun createLaporan(request: BencanaRequest): LiveData<ApiResponse<LaporResponse>>
+
+    fun getLaporanByNomorWa(nomorWa: String): LiveData<Resource<List<BencanaEntity>>>
 }

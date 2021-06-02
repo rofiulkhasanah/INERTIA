@@ -61,6 +61,39 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
         return mutableListBencana
     }
 
+    fun getBencanaByNomorWa(nomorWa: String): LiveData<ApiResponse<List<BencanaItem>>> {
+        val mutableListBencana = MutableLiveData<ApiResponse<List<BencanaItem>>>()
+        service.getBencanaByNomorWa(nomorWa).enqueue(object : Callback<BencanaResponse> {
+            override fun onResponse(
+                call: Call<BencanaResponse>,
+                response: Response<BencanaResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    if (data != null) {
+                        if (data.bencana != null && data.bencana.isNotEmpty()) {
+                            val listBencana = ApiResponse.success(data.bencana)
+                            mutableListBencana.postValue(listBencana)
+                        }else{
+                            val result = ApiResponse.empty(response.message(), DummyData.listBencana)
+                            mutableListBencana.postValue(result)
+                        }
+                    }
+                }else{
+                    mutableListBencana.postValue(ApiResponse.error(response.message(), DummyData.listBencana))
+                    Log.e("GetBencana", "onError: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<BencanaResponse>, t: Throwable) {
+                Log.e("GetBencana", "onFailure: ${t.message}")
+                mutableListBencana.postValue(ApiResponse.error(t.message, DummyData.listBencana))
+            }
+
+        })
+        return mutableListBencana
+    }
+
     fun createLaporan(request: BencanaRequest): LiveData<ApiResponse<LaporResponse>> {
 
         val liveDataResponse = MutableLiveData<ApiResponse<LaporResponse>>()

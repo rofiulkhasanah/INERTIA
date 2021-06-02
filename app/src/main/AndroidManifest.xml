@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.INERTIA"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.laporanmu.LaporanmuActivity"></activity>
         <activity android:name=".ui.terdampak.TerdampakActivity"></activity>
         <activity android:name=".ui.detailassessment.DetailAssessmentActivity" />
         <activity android:name=".ui.assessment.AssessmentActivity" />

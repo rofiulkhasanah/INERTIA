@@ -10,14 +10,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.inertia.BuildConfig
 import com.inertia.R
-import com.inertia.data.datasource.local.preference.UserPreferences
 import com.inertia.databinding.ActivityMainBinding
 import com.inertia.ui.form.FormActivity
 import com.inertia.ui.home.HomeFragment
 import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.profile.ProfileFragment
+import com.inertia.utils.ViewModelFactory
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,8 +33,7 @@ class MainActivity : AppCompatActivity() {
     private val AUTHORITY = BuildConfig.APPLICATION_ID + ".provider"
     private lateinit var imageUri : Uri //uri lokasi dari foto
     private lateinit var output : File
-
-    private lateinit var preferences: UserPreferences
+    private lateinit var viewModel: MainViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        preferences = UserPreferences(this)
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
         supportActionBar?.elevation = 0f
 
@@ -63,10 +64,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun report() {
-        if (preferences.getUser().nomorWa != null) {
+
+        if (viewModel.getUser().nomorWa != null) {
             val randNumber = Random(30).nextInt(100)
             val date = SimpleDateFormat("yyyymmdhhmmss", Locale.getDefault()).format(Date())
-            val fileName = "$date-$randNumber"
+            val fileName = "$date-$randNumber.jpg"
 
             output = File(File(filesDir, "photos"), fileName)
             if (output.exists()) output.delete() else output.parentFile.mkdirs()

@@ -7,10 +7,7 @@ import com.inertia.data.datasource.local.BencanaLocalDataSource
 import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.remote.BencanaRemoteDataSource
 import com.inertia.data.datasource.remote.request.BencanaRequest
-import com.inertia.data.datasource.remote.response.ApiResponse
-import com.inertia.data.datasource.remote.response.BencanaItem
-import com.inertia.data.datasource.remote.response.BencanaResponse
-import com.inertia.data.datasource.remote.response.LaporResponse
+import com.inertia.data.datasource.remote.response.*
 import com.inertia.utils.AppExecutor
 import com.mirfanrafif.kicksfilm.vo.Resource
 
@@ -71,7 +68,8 @@ class BencanaRepository private constructor(
                         latitude = long,
                         waktuBencana = item.waktuBencana,
                         waktuAduan = item.waktuBencana,
-                        linkFoto = item.gambarUri
+                        linkFoto = item.gambarUri,
+                        nomorWaPengadu = item.senderWaNumber
                     )
                 }
                 local.insertBencana(listBencana)
@@ -82,4 +80,42 @@ class BencanaRepository private constructor(
 
     override fun createLaporan(request: BencanaRequest): LiveData<ApiResponse<LaporResponse>> =
         remote.createLaporan(request)
+
+    override fun getLaporanByNomorWa(nomorWa: String): LiveData<Resource<List<BencanaEntity>>> {
+        return object : NetworkBoundResource<List<BencanaEntity>, List<BencanaItem>>(appExecutor) {
+            override fun loadFromDB(): LiveData<List<BencanaEntity>> {
+                return local.getBencanaByNomorWa(nomorWa)
+            }
+
+            override fun shouldFetch(data: List<BencanaEntity>?): Boolean {
+                return true
+            }
+
+            override fun createCall(): LiveData<ApiResponse<List<BencanaItem>>> {
+                return remote.getBencanaByNomorWa(nomorWa)
+            }
+
+            override fun saveCallResult(data: List<BencanaItem>) {
+                val listBencana = data.map { item ->
+                    val latLongSplit = item.latLong?.split(",")
+                    val lat = latLongSplit?.get(0)?.toDouble()
+                    val long = latLongSplit?.get(1)?.toDouble()
+                    BencanaEntity(
+                        id = item.idAduan,
+                        namaBencana = item.judul,
+                        jenisBencana = item.jenisBencana,
+                        kronologiBencana = item.kronologi,
+                        longitude = lat,
+                        latitude = long,
+                        waktuBencana = item.waktuBencana,
+                        waktuAduan = item.waktuBencana,
+                        linkFoto = item.gambarUri,
+                        nomorWaPengadu = item.senderWaNumber
+                    )
+                }
+                local.insertBencana(listBencana)
+            }
+
+        }.asLiveData()
+    }
 }

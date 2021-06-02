@@ -9,8 +9,11 @@ import com.inertia.data.datasource.local.entity.BencanaEntity
 
 @Dao
 interface BencanaDao {
-    @Query("SELECT * FROM bencanaEntity")
+    @Query("SELECT * FROM bencanaEntity ORDER BY idbencana")
     fun getAllBencana(): LiveData<List<BencanaEntity>>
+
+    @Query("SELECT * FROM bencanaEntity WHERE sender_wa_number = :nomorWa ORDER BY idbencana")
+    fun getBencanaByNomorWa(nomorWa: String): LiveData<List<BencanaEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertBencana(list: List<BencanaEntity>)
