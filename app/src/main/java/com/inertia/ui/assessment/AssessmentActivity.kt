@@ -102,11 +102,11 @@ class AssessmentActivity : AppCompatActivity() {
             val valProvinsi = binding.edtProvinsi.text.toString()
             val valPenilaian: ArrayList<PenilaianEntity> = ArrayList()
 
-            val penilaianEntity1 : PenilaianEntity = PenilaianEntity()
-            val penilaianEntity2 : PenilaianEntity = PenilaianEntity()
-            val penilaianEntity3 : PenilaianEntity = PenilaianEntity()
-            val penilaianEntity4 : PenilaianEntity = PenilaianEntity()
-            val penilaianEntity5 : PenilaianEntity = PenilaianEntity()
+            val penilaianEntity1 = PenilaianEntity()
+            val penilaianEntity2 = PenilaianEntity()
+            val penilaianEntity3 = PenilaianEntity()
+            val penilaianEntity4 = PenilaianEntity()
+            val penilaianEntity5 = PenilaianEntity()
 
             penilaianEntity1.idKriteria = alternatifValue1.get(0)
             penilaianEntity1.idSkala = alternatifValue1.get(1)
