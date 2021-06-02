@@ -41,6 +41,9 @@ class LaporanmuActivity : AppCompatActivity() {
                     }
                     Status.ERROR -> {
                         Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
+                        if (it.data != null) {
+                            adapter.setData(it.data)
+                        }
                         binding.laporanmuProgressbar.visibility = View.GONE
                     }
                     Status.LOADING -> {
