@@ -1,19 +1,15 @@
 package com.inertia.ui.detailassessment
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.inertia.R
-import com.inertia.data.datasource.local.entity.PenilaianEntity
+import androidx.appcompat.app.AppCompatActivity
 import com.inertia.data.datasource.remote.api.InertiaService
 import com.inertia.data.datasource.remote.response.PenilaianResponse
-import com.inertia.databinding.ActivityAssessmentBinding
 import com.inertia.databinding.ActivityDetailAssessmentBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class DetailAssessmentActivity : AppCompatActivity() {
-
     companion object {
         const val idKasus = "idKasus"
     }
@@ -32,7 +28,7 @@ class DetailAssessmentActivity : AppCompatActivity() {
             Callback<PenilaianResponse> {
             override fun onResponse(
                 call: Call<PenilaianResponse>,
-                response: Response<PenilaianResponse>
+                response: Response<PenilaianResponse>,
             ) {
 
                 val data = response.body()

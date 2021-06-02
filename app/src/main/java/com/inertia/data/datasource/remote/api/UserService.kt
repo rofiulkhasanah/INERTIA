@@ -18,6 +18,6 @@ interface UserService {
         @Query("alamat") alamat: String,
         @Query("jenis_kelamin") jenisKelamin: String,
         @Query("nomor_wa") phoneNumber: String,
-        @Query("jenis_pengguna") jenisPengguna: String
+        @Query("jenis_pengguna") jenisPengguna: String,
     ): Call<RegisterResponse>
 }

@@ -43,8 +43,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        binding.apply{
-            if(edtPhone.text?.isEmpty() == true){
+        binding.apply {
+            if (edtPhone.text?.isEmpty() == true) {
                 edtPhone.error = "Kolom harus diisi"
                 edtPhone.requestFocus()
                 return
@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
             viewModel.login(phoneNumber, object : IUserRepository.LoginCallback {
                 override fun onLoginSuccessCallback(
                     userEntity: UserEntity,
-                    verificationCode: String?
+                    verificationCode: String?,
                 ) {
                     val intent = Intent(this@LoginActivity, VerificationActivity::class.java)
                     progressBar2.visibility = View.GONE

@@ -31,7 +31,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
     }
 
     protected fun onFetchFailed(message: String?) {
-        Log.e("NetworkBoundResource", "Error: $message" )
+        Log.e("NetworkBoundResource", "Error: $message")
     }
 
     protected abstract fun loadFromDB(): LiveData<ResultType>

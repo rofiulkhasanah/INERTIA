@@ -8,7 +8,7 @@ import retrofit2.http.Path
 interface CuacaService {
     @GET("weather/{latitude}/{longitude}")
     fun getCuaca(
-        @Path ("latitude") latitude: Double,
-        @Path("longitude") longitude: Double
+        @Path("latitude") latitude: Double,
+        @Path("longitude") longitude: Double,
     ): Call<WeatherResponse>
 }

@@ -14,15 +14,16 @@ import com.mirfanrafif.kicksfilm.vo.Resource
 class BencanaRepository private constructor(
     private val remote: BencanaRemoteDataSource,
     private val local: BencanaLocalDataSource,
-    private val appExecutor: AppExecutor
-): IBencanaRepository
-{
+    private val appExecutor: AppExecutor,
+) : IBencanaRepository {
     companion object {
         @Volatile
         private var instance: BencanaRepository? = null
 
-        fun getInstance(remote: BencanaRemoteDataSource, local: BencanaLocalDataSource,
-                        appExecutor: AppExecutor): BencanaRepository =
+        fun getInstance(
+            remote: BencanaRemoteDataSource, local: BencanaLocalDataSource,
+            appExecutor: AppExecutor,
+        ): BencanaRepository =
             instance ?: synchronized(this) {
                 instance ?: BencanaRepository(remote, local, appExecutor).apply {
                     instance = this

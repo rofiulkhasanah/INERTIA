@@ -7,5 +7,5 @@ data class StoreFormPenilaianResponse(
     val status: Boolean,
 
     @field:SerializedName("idKasus")
-    val idKasus: String
+    val idKasus: String,
 )

@@ -10,7 +10,7 @@ data class SpinnerKeyValue(
 
     @SerializedName("value")
     @Expose
-    var value: String? = null
+    var value: String? = null,
 ) {
     override fun toString(): String {
         return value.toString()

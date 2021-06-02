@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BencanaRemoteDataSource private constructor(private val service: BencanaService){
+class BencanaRemoteDataSource private constructor(private val service: BencanaService) {
     companion object {
         @Volatile
         private var instance: BencanaRemoteDataSource? = null
@@ -22,7 +22,7 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
                 instance ?: BencanaRemoteDataSource(service).apply {
                     instance = this
                 }
-        }
+            }
     }
 
     fun getAllBencana(): LiveData<ApiResponse<List<BencanaItem>>> {
@@ -30,7 +30,7 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
         service.getAllBencana().enqueue(object : Callback<BencanaResponse> {
             override fun onResponse(
                 call: Call<BencanaResponse>,
-                response: Response<BencanaResponse>
+                response: Response<BencanaResponse>,
             ) {
                 if (response.isSuccessful) {
                     val data = response.body()
@@ -38,13 +38,14 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
                         if (data.result.isNotEmpty()) {
                             val listBencana = ApiResponse.success(data.result)
                             mutableListBencana.postValue(listBencana)
-                        }else{
+                        } else {
                             val result = ApiResponse.empty(response.message(), data.result)
                             mutableListBencana.postValue(result)
                         }
                     }
-                }else{
-                    mutableListBencana.postValue(ApiResponse.error(response.message(), DummyData.listBencana))
+                } else {
+                    mutableListBencana.postValue(ApiResponse.error(response.message(),
+                        DummyData.listBencana))
                     Log.e("GetBencana", "onError: ${response.message()}")
                 }
             }

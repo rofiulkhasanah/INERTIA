@@ -29,7 +29,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun register(){
+    private fun register() {
         with(binding) {
             progressBar.visibility = View.VISIBLE
             if (edtName.text?.isEmpty() == true) {
@@ -40,12 +40,12 @@ class RegisterActivity : AppCompatActivity() {
                 edtRegPhone.error = "Kolom harus diisi"
                 edtRegPhone.requestFocus()
                 return
-            }else if (editAlamat.text?.isEmpty() == true) {
+            } else if (editAlamat.text?.isEmpty() == true) {
                 editAlamat.error = "Kolom harus diisi"
                 editAlamat.requestFocus()
                 return
             }
-            val gender = when(rgJenisKelamin.checkedRadioButtonId) {
+            val gender = when (rgJenisKelamin.checkedRadioButtonId) {
                 R.id.gender_laki -> "Laki - Laki"
                 R.id.gender_perempuan -> "Perempuan"
                 else -> return
@@ -62,7 +62,7 @@ class RegisterActivity : AppCompatActivity() {
             viewModel.register(request, object : IUserRepository.RegisterCallback {
                 override fun onRegisterSuccessCallback(
                     userEntity: UserEntity,
-                    verificationCode: String?
+                    verificationCode: String?,
                 ) {
                     progressBar.visibility = View.GONE
                     val intent = Intent(this@RegisterActivity, VerificationActivity::class.java)

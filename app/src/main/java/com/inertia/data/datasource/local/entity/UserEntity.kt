@@ -9,5 +9,5 @@ data class UserEntity(
     val jenisPengguna: String? = null,
     var nomorWa: String? = null,
     var jenisKelamin: String? = null,
-    var alamat: String? = null
-): Parcelable
+    var alamat: String? = null,
+) : Parcelable

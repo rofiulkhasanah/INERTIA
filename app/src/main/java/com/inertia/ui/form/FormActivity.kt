@@ -1,13 +1,10 @@
 package com.inertia.ui.form
 
-import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.inertia.R
 import com.inertia.databinding.ActivityFormBinding
-import com.inertia.ui.main.MainActivity
 
 class FormActivity : AppCompatActivity() {
     companion object {
@@ -31,7 +28,7 @@ class FormActivity : AppCompatActivity() {
         }
     }
 
-    private fun kirimForm(){
+    private fun kirimForm() {
         binding.apply {
             if (editNamaBencana.text?.isEmpty() == true) {
                 editNamaBencana.error = "Kolom harus diisi"
@@ -41,7 +38,7 @@ class FormActivity : AppCompatActivity() {
                 editDeksripsiLaporanBencana.error = "Kolom harus diisi"
                 editDeksripsiLaporanBencana.requestFocus()
                 return
-            } else{
+            } else {
                 finish()
             }
         }

@@ -8,5 +8,5 @@ data class CuacaEntity(
     val temp: Double,
     val cloud: String,
     val wind: Double,
-    val humidity: Int
-): Parcelable
+    val humidity: Int,
+) : Parcelable

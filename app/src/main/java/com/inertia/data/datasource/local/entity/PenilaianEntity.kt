@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class PenilaianEntity(
     var idKriteria: String? = null,
     var idSkala: String? = null,
-    var namaSkala: String? = null
-): Parcelable
+    var namaSkala: String? = null,
+) : Parcelable

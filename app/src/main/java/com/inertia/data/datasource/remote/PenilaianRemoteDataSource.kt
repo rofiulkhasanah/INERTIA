@@ -1,13 +1,10 @@
 package com.inertia.data.datasource.remote
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.inertia.data.datasource.remote.api.PenilaianService
 import com.inertia.data.datasource.remote.request.StoreFormPenilaianRequest
-import com.inertia.data.datasource.remote.response.*
+import com.inertia.data.datasource.remote.response.StoreFormPenilaianResponse
 import com.inertia.data.repository.penilaian.IPenilaianRepository
-import com.inertia.utils.DummyData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +23,10 @@ class PenilaianRemoteDataSource(val service: PenilaianService) {
             }
     }
 
-    fun store(request: StoreFormPenilaianRequest, callback: IPenilaianRepository.storeFormPenilaianCallback) {
+    fun store(
+        request: StoreFormPenilaianRequest,
+        callback: IPenilaianRepository.storeFormPenilaianCallback,
+    ) {
         service.storeFormPenilaian(
             request.nomor_wa,
             request.nmBencana,
@@ -40,7 +40,7 @@ class PenilaianRemoteDataSource(val service: PenilaianService) {
         ).enqueue(object : Callback<StoreFormPenilaianResponse> {
             override fun onResponse(
                 call: Call<StoreFormPenilaianResponse>,
-                response: Response<StoreFormPenilaianResponse>
+                response: Response<StoreFormPenilaianResponse>,
             ) {
                 if (response.isSuccessful) {
                     val data = response.body()
@@ -48,7 +48,7 @@ class PenilaianRemoteDataSource(val service: PenilaianService) {
                         val status = data.status
                         callback.onStoreFormPenilaianSuccessCallback(status)
                     }
-                }else{
+                } else {
                     Log.e("Store Penilaian", "Error: ${response.message()}")
                 }
             }

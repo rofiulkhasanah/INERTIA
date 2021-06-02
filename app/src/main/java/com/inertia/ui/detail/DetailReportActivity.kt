@@ -1,22 +1,18 @@
 package com.inertia.ui.detail
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.inertia.R
 import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.local.preference.UserPreferences
 import com.inertia.databinding.ActivityDetailReportBinding
 import com.inertia.ui.assessment.AssessmentActivity
 import com.inertia.ui.login.LoginActivity
-import com.inertia.ui.main.MainViewModel
-import com.inertia.utils.ViewModelFactory
 
 class DetailReportActivity : AppCompatActivity() {
-    companion object{
+    companion object {
         const val EXTRA_REPORT = "extra_report"
     }
 
@@ -29,7 +25,7 @@ class DetailReportActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         preferences = UserPreferences(this)
-        
+
         val detailBencana = intent.getParcelableExtra<BencanaEntity>(EXTRA_REPORT)
 
         binding.addFab.setOnClickListener {
@@ -38,7 +34,7 @@ class DetailReportActivity : AppCompatActivity() {
                 intent.putExtra(AssessmentActivity.DETAIL_BENCANA, detailBencana)
                 intent.putExtra(AssessmentActivity.USER, preferences.getUser())
                 startActivity(intent)
-            }else{
+            } else {
                 Toast.makeText(this, "Silakan login terlebih dahulu", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, LoginActivity::class.java))
             }
@@ -51,9 +47,9 @@ class DetailReportActivity : AppCompatActivity() {
             binding.tvIsiDeskripsi.text = detailBencana.kronologiBencana
             binding.tvKategori.text = detailBencana.jenisBencana
             binding.tvNamaBencana.text = detailBencana.namaBencana
-                Glide.with(this@DetailReportActivity)
-                    .load(detailBencana.linkFoto)
-                    .into(binding.imgDetailLaporan)
+            Glide.with(this@DetailReportActivity)
+                .load(detailBencana.linkFoto)
+                .into(binding.imgDetailLaporan)
         }
     }
 }

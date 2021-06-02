@@ -1,13 +1,13 @@
 package com.inertia.ui.assessment
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.inertia.R
 import com.inertia.data.datasource.local.entity.BencanaEntity
@@ -20,7 +20,7 @@ import com.inertia.data.response.JenisBencanaResponse
 import com.inertia.data.response.SkalaResponse
 import com.inertia.data.response.SubSektorResponse
 import com.inertia.databinding.ActivityAssessmentBinding
-import com.inertia.ui.detailassessment.DetailAssessmentActivity
+import com.inertia.ui.terdampak.TerdampakActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,19 +29,15 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class AssessmentActivity : AppCompatActivity() {
-
-    private lateinit var assessmentViewModel: AssessmentViewModel
-
-    companion object{
+    companion object {
         const val USER = "user"
         const val DETAIL_BENCANA = "detail_bencana"
-        const val ID_KASUS = "idKasus"
     }
 
     private lateinit var binding: ActivityAssessmentBinding
-    private var alternatifs : ArrayList<SkalaResponse> = ArrayList()
-    private var jenisBencanas : ArrayList<JenisBencanaResponse> = ArrayList()
-    private var subSektors : ArrayList<SubSektorResponse> = ArrayList()
+    private var alternatifs: ArrayList<SkalaResponse> = ArrayList()
+    private var jenisBencanas: ArrayList<JenisBencanaResponse> = ArrayList()
+    private var subSektors: ArrayList<SubSektorResponse> = ArrayList()
 
     private var jenisBencana: String? = null
     private var nomor_wa: String? = null
@@ -85,13 +81,13 @@ class AssessmentActivity : AppCompatActivity() {
                 edtAlamat.error = "Kolom harus diisi"
                 edtAlamat.requestFocus()
                 return
-            } else if(edtJenisBencana.text?.isEmpty() == true) {
+            } else if (edtJenisBencana.text?.isEmpty() == true) {
                 edtJenisBencana.error = "Kolom harus diisi"
                 edtJenisBencana.requestFocus()
-            } else if(edtKota.text?.isEmpty() == true) {
+            } else if (edtKota.text?.isEmpty() == true) {
                 edtKota.error = "Kolom harus diisi"
                 edtKota.requestFocus()
-            } else if(edtProvinsi.text?.isEmpty() == true) {
+            } else if (edtProvinsi.text?.isEmpty() == true) {
                 edtProvinsi.error = "Kolom harus diisi"
                 edtProvinsi.requestFocus()
             }
@@ -101,11 +97,11 @@ class AssessmentActivity : AppCompatActivity() {
             val valProvinsi = binding.edtProvinsi.text.toString()
             val valPenilaian: ArrayList<PenilaianEntity> = ArrayList()
 
-            val penilaianEntity1 : PenilaianEntity = PenilaianEntity()
-            val penilaianEntity2 : PenilaianEntity = PenilaianEntity()
-            val penilaianEntity3 : PenilaianEntity = PenilaianEntity()
-            val penilaianEntity4 : PenilaianEntity = PenilaianEntity()
-            val penilaianEntity5 : PenilaianEntity = PenilaianEntity()
+            val penilaianEntity1 = PenilaianEntity()
+            val penilaianEntity2 = PenilaianEntity()
+            val penilaianEntity3 = PenilaianEntity()
+            val penilaianEntity4 = PenilaianEntity()
+            val penilaianEntity5 = PenilaianEntity()
 
             penilaianEntity1.idKriteria = alternatifValue1.get(0)
             penilaianEntity1.idSkala = alternatifValue1.get(1)
@@ -151,21 +147,24 @@ class AssessmentActivity : AppCompatActivity() {
             ).enqueue(object : Callback<StoreFormPenilaianResponse> {
                 override fun onResponse(
                     call: Call<StoreFormPenilaianResponse>,
-                    response: Response<StoreFormPenilaianResponse>
+                    response: Response<StoreFormPenilaianResponse>,
                 ) {
 
                     val data = response.body()
                     if (data != null) {
-                        Toast.makeText(this@AssessmentActivity, "Berhasil Disimpan", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@AssessmentActivity,
+                            "Berhasil Disimpan",
+                            Toast.LENGTH_SHORT).show()
                         val intent = Intent(this@AssessmentActivity, TerdampakActivity::class.java)
                         startActivity(intent)
                     }
                 }
 
                 override fun onFailure(call: Call<StoreFormPenilaianResponse>, t: Throwable) {
-                    println("Gagal dikirim"+ t.message)
+                    println("Gagal dikirim" + t.message)
                 }
             })
+
         }
     }
 
@@ -175,30 +174,39 @@ class AssessmentActivity : AppCompatActivity() {
             Callback<List<SubSektorResponse>> {
             override fun onResponse(
                 call: Call<List<SubSektorResponse>>,
-                response: Response<List<SubSektorResponse>>
+                response: Response<List<SubSektorResponse>>,
             ) {
                 val data = response.body()
                 if (data != null) {
                     subSektors = response.body() as ArrayList<SubSektorResponse>
-                    val data : ArrayList<SpinnerKeyValue> = ArrayList()
+                    val data: ArrayList<SpinnerKeyValue> = ArrayList()
                     subSektors.forEach {
                         val s = SpinnerKeyValue()
                         s.key = it.id
                         s.value = it.nmSubSektor
                         data.add(s)
                     }
-                    val adapter: ArrayAdapter<SpinnerKeyValue> = ArrayAdapter<SpinnerKeyValue>(this@AssessmentActivity, R.layout.spinner_item, data)
+                    val adapter: ArrayAdapter<SpinnerKeyValue> =
+                        ArrayAdapter<SpinnerKeyValue>(this@AssessmentActivity,
+                            R.layout.spinner_item,
+                            data)
                     spSubSektor.adapter = adapter
-                    spSubSektor.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                    spSubSektor.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                            }
+
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long,
+                            ) {
+                                subSektorItem = adapter.getItem(position)?.key.toString()
+                            }
 
                         }
-
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            subSektorItem = adapter.getItem(position)?.key.toString()
-                        }
-
-                    }
                 }
             }
 
@@ -217,12 +225,12 @@ class AssessmentActivity : AppCompatActivity() {
             Callback<List<SkalaResponse>> {
             override fun onResponse(
                 call: Call<List<SkalaResponse>>,
-                response: Response<List<SkalaResponse>>
+                response: Response<List<SkalaResponse>>,
             ) {
                 val data = response.body()
                 if (data != null) {
                     alternatifs = response.body() as ArrayList<SkalaResponse>
-                    val data : ArrayList<SpinnerKeyValue> = ArrayList()
+                    val data: ArrayList<SpinnerKeyValue> = ArrayList()
                     alternatifs.forEach {
                         val s = SpinnerKeyValue()
                         s.key = it.id
@@ -230,78 +238,122 @@ class AssessmentActivity : AppCompatActivity() {
                         data.add(s)
                     }
 
-                    val adapter: ArrayAdapter<SpinnerKeyValue> = ArrayAdapter<SpinnerKeyValue>(this@AssessmentActivity, R.layout.spinner_item, data)
+                    val adapter: ArrayAdapter<SpinnerKeyValue> =
+                        ArrayAdapter<SpinnerKeyValue>(this@AssessmentActivity,
+                            R.layout.spinner_item,
+                            data)
                     spKeadaanBangunan.adapter = adapter
                     spKeadaanStrukturBangunan.adapter = adapter
                     spKeadaanFisikBangunan.adapter = adapter
                     spFungsiBangunan.adapter = adapter
                     spKeadaanLainnya.adapter = adapter
 
-                    spKeadaanBangunan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                    spKeadaanBangunan.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                            }
+
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long,
+                            ) {
+                                alternatifValue1.add(0, "1") // idKriteria
+                                alternatifValue1.add(1,
+                                    adapter.getItem(position)?.key.toString()) // idSkala
+                                alternatifValue1.add(2,
+                                    adapter.getItem(position)?.value.toString()) // namaSkala
+                            }
 
                         }
 
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            alternatifValue1.add(0, "1") // idKriteria
-                            alternatifValue1.add(1, adapter.getItem(position)?.key.toString()) // idSkala
-                            alternatifValue1.add(2, adapter.getItem(position)?.value.toString()) // namaSkala
-                        }
+                    spKeadaanStrukturBangunan.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
 
-                    }
+                            }
 
-                    spKeadaanStrukturBangunan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                        }
-
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            alternatifValue2.add(0, "2") // idKriteria
-                            alternatifValue2.add(1, adapter.getItem(position)?.key.toString()) // idSkala
-                            alternatifValue2.add(2, adapter.getItem(position)?.value.toString()) // namaSkala
-                        }
-
-                    }
-
-                    spKeadaanFisikBangunan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long,
+                            ) {
+                                alternatifValue2.add(0, "2") // idKriteria
+                                alternatifValue2.add(1,
+                                    adapter.getItem(position)?.key.toString()) // idSkala
+                                alternatifValue2.add(2,
+                                    adapter.getItem(position)?.value.toString()) // namaSkala
+                            }
 
                         }
 
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            alternatifValue3.add(0, "3") // idKriteria
-                            alternatifValue3.add(1, adapter.getItem(position)?.key.toString()) // idSkala
-                            alternatifValue3.add(2, adapter.getItem(position)?.value.toString()) // namaSkala
-                        }
+                    spKeadaanFisikBangunan.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
 
-                    }
+                            }
 
-                    spFungsiBangunan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                        }
-
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            alternatifValue4.add(0, "3") // idKriteria
-                            alternatifValue4.add(1, adapter.getItem(position)?.key.toString()) // idSkala
-                            alternatifValue4.add(2, adapter.getItem(position)?.value.toString()) // namaSkala
-                        }
-
-                    }
-
-                    spKeadaanLainnya.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long,
+                            ) {
+                                alternatifValue3.add(0, "3") // idKriteria
+                                alternatifValue3.add(1,
+                                    adapter.getItem(position)?.key.toString()) // idSkala
+                                alternatifValue3.add(2,
+                                    adapter.getItem(position)?.value.toString()) // namaSkala
+                            }
 
                         }
 
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            alternatifValue5.add(0, "4") // idKriteria
-                            alternatifValue5.add(1, adapter.getItem(position)?.key.toString()) // idSkala
-                            alternatifValue5.add(2, adapter.getItem(position)?.value.toString()) // namaSkala
+                    spFungsiBangunan.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                            }
+
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long,
+                            ) {
+                                alternatifValue4.add(0, "3") // idKriteria
+                                alternatifValue4.add(1,
+                                    adapter.getItem(position)?.key.toString()) // idSkala
+                                alternatifValue4.add(2,
+                                    adapter.getItem(position)?.value.toString()) // namaSkala
+                            }
+
                         }
-                    }
+
+                    spKeadaanLainnya.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                            }
+
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long,
+                            ) {
+                                alternatifValue5.add(0, "4") // idKriteria
+                                alternatifValue5.add(1,
+                                    adapter.getItem(position)?.key.toString()) // idSkala
+                                alternatifValue5.add(2,
+                                    adapter.getItem(position)?.value.toString()) // namaSkala
+                            }
+                        }
                 }
             }
+
             override fun onFailure(call: Call<List<SkalaResponse>>, t: Throwable) {
                 Log.e("Alternatif", "Error: ${t.message}")
             }

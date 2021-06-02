@@ -5,5 +5,5 @@ data class RegisterRequest(
     val alamat: String,
     val jenisKelamin: String,
     val phoneNumber: String,
-    val jenisPengguna: String
+    val jenisPengguna: String,
 )

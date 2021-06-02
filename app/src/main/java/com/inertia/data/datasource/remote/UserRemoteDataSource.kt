@@ -23,7 +23,7 @@ class UserRemoteDataSource(val service: UserService) {
                         val verificationCode = data.token
                         callback.onLoginSuccessCallback(user, verificationCode)
                     }
-                }else{
+                } else {
                     Log.e("Login", "Error: ${response.message()}")
                 }
             }
@@ -45,7 +45,7 @@ class UserRemoteDataSource(val service: UserService) {
         ).enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
-                response: Response<RegisterResponse>
+                response: Response<RegisterResponse>,
             ) {
                 if (response.isSuccessful) {
                     val data = response.body()
@@ -55,7 +55,7 @@ class UserRemoteDataSource(val service: UserService) {
                         val verificationCode = data.token
                         callback.onRegisterSuccessCallback(user, verificationCode)
                     }
-                }else{
+                } else {
                     Log.e("Register", "Error: ${response.message()}")
                 }
             }

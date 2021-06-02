@@ -37,5 +37,5 @@ data class BencanaEntity(
     var waktuBencana: String?,
 
     @ColumnInfo(name = "linkFoto")
-    var linkFoto: String?
+    var linkFoto: String?,
 ) : Parcelable

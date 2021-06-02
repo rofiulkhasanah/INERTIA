@@ -33,7 +33,9 @@ class TerdampakAdapter : RecyclerView.Adapter<TerdampakAdapter.TerdampakViewHold
                     onItemClick = { selectedData ->
                         val intent = Intent(itemView.context, DetailAssessmentActivity::class.java)
                         intent.putExtra(DetailAssessmentActivity.idKasus, selectedData.idKasus)
-                        Toast.makeText(itemView.context, "${DetailAssessmentActivity.idKasus} : ${selectedData.idKasus}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(itemView.context,
+                            "${DetailAssessmentActivity.idKasus} : ${selectedData.idKasus}",
+                            Toast.LENGTH_SHORT).show()
                         it.context.startActivity(intent)
                     }
                 }

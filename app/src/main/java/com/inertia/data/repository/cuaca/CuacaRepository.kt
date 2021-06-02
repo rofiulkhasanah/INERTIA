@@ -10,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CuacaRepository(private val cuacaRemoteDataSource: CuacaRemoteDataSource): ICuacaRepository {
+class CuacaRepository(private val cuacaRemoteDataSource: CuacaRemoteDataSource) : ICuacaRepository {
 
     companion object {
         @Volatile
@@ -25,27 +25,32 @@ class CuacaRepository(private val cuacaRemoteDataSource: CuacaRemoteDataSource):
     }
 
     override fun getCuaca(latitude: Double, longitude: Double): LiveData<CuacaEntity> {
-    val dataCuaca = MutableLiveData<CuacaEntity>()
-    cuacaRemoteDataSource.getCuaca(latitude, longitude).enqueue(object: Callback<WeatherResponse>{
-        override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
-            if(response.isSuccessful){
-                val data = response.body()
-                if(data != null){
-                    val cuaca = CuacaEntity(
-                        data.weather.temp,
-                        data.weather.cloud,
-                        data.weather.windSpeed,
-                        data.weather.humidity)
-                    dataCuaca.postValue(cuaca)
-                }else{
-                    Log.e("Cuaca", "Error: ${response.message()}")
+        val dataCuaca = MutableLiveData<CuacaEntity>()
+        cuacaRemoteDataSource.getCuaca(latitude, longitude)
+            .enqueue(object : Callback<WeatherResponse> {
+                override fun onResponse(
+                    call: Call<WeatherResponse>,
+                    response: Response<WeatherResponse>,
+                ) {
+                    if (response.isSuccessful) {
+                        val data = response.body()
+                        if (data != null) {
+                            val cuaca = CuacaEntity(
+                                data.weather.temp,
+                                data.weather.cloud,
+                                data.weather.windSpeed,
+                                data.weather.humidity)
+                            dataCuaca.postValue(cuaca)
+                        } else {
+                            Log.e("Cuaca", "Error: ${response.message()}")
+                        }
+                    }
                 }
-            }
-        }
-        override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
-            Log.e("Cuaca", "Error: ${t.message}")
-        }
-    })
+
+                override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
+                    Log.e("Cuaca", "Error: ${t.message}")
+                }
+            })
         return dataCuaca
     }
 

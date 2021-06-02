@@ -25,10 +25,11 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val fileName = "CameraDemo.jpg" //nama file
         private const val TAKE_PICTURE = 100
-        private lateinit var output : File
+        private lateinit var output: File
     }
+
     private val AUTHORITY = BuildConfig.APPLICATION_ID + ".provider"
-    private lateinit var imageUri : Uri //uri lokasi dari foto
+    private lateinit var imageUri: Uri //uri lokasi dari foto
 
     private lateinit var preferences: UserPreferences
 
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             imageUri = FileProvider.getUriForFile(this, AUTHORITY, output)
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
             startActivityForResult(intent, TAKE_PICTURE)
-        }else{
+        } else {
             Toast.makeText(this, "Silakan login terlebih dahulu", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, LoginActivity::class.java))
         }
@@ -83,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == TAKE_PICTURE) {
-            if(resultCode == Activity.RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK) {
                 val intent = Intent(this, FormActivity::class.java)
                 intent.putExtra(FormActivity.EXTRA_IMG_URI, imageUri)
                 startActivity(intent)

@@ -9,5 +9,5 @@ data class StoreFormPenilaianRequest(
     val provinsi: String?,
     val kota: String?,
     val tanggal: String?,
-    val penilaian: String?
+    val penilaian: String?,
 )

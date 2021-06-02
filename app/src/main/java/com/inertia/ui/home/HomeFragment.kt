@@ -1,7 +1,6 @@
 package com.inertia.ui.home
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -18,7 +17,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.inertia.R
 import com.inertia.databinding.FragmentHomeBinding
-import com.inertia.ui.detail.DetailReportActivity
 import com.inertia.ui.main.MainViewModel
 import com.inertia.utils.ViewModelFactory
 import com.mirfanrafif.kicksfilm.vo.Status
@@ -33,7 +31,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -46,7 +44,8 @@ class HomeFragment : Fragment() {
             viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
         }
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
 
         setDropdownItem()
         getBencanaData()
@@ -60,7 +59,7 @@ class HomeFragment : Fragment() {
         binding.rvBencana.adapter = adapter
         binding.rvBencana.layoutManager = layoutManager
         viewModel.getAllBencana().observe(viewLifecycleOwner, {
-            when(it.status) {
+            when (it.status) {
                 Status.SUCCESS -> {
                     if (it.data != null) {
                         adapter.setData(it.data)
@@ -91,14 +90,18 @@ class HomeFragment : Fragment() {
     private fun getLocation() {
         val lastLoc = fusedLocationProviderClient.lastLocation
 
-        if(ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)  != PackageManager.PERMISSION_GRANTED)
-            {
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 101)
-                return
-            }
+        if (ActivityCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                101)
+            return
+        }
         lastLoc.addOnSuccessListener { location: Location? ->
-            if (location != null){
+            if (location != null) {
                 latitude = location.latitude
                 longitude = location.longitude
                 getCuaca()
@@ -107,7 +110,7 @@ class HomeFragment : Fragment() {
     }
 
     fun getCuaca() {
-        viewModel.getCuaca(latitude,longitude).observe(viewLifecycleOwner, {
+        viewModel.getCuaca(latitude, longitude).observe(viewLifecycleOwner, {
             with(binding) {
                 layoutWeather.tvTemp.text = getString(R.string.temp, it.temp)
                 layoutWeather.tvCloud.text = it.cloud
