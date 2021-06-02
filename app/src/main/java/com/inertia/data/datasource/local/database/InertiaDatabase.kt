@@ -27,16 +27,10 @@ abstract class InertiaDatabase : RoomDatabase(){
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         InertiaDatabase::class.java, "kicksfilm")
-                        .addMigrations(MIGRATION_1_2)
                         .build()
                 }
             }
             return instance as InertiaDatabase
-        }
-        private val MIGRATION_1_2 = object : Migration(1,2) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE bencanaEntity ADD COLUMN sender_wa_number TEXT")
-            }
         }
     }
 

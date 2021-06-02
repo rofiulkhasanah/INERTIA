@@ -47,7 +47,7 @@ class ProfileFragment : Fragment() {
                 startActivity(Intent(context, LoginActivity::class.java))
                 requireActivity().finish()
             }
-        }else{
+        }else {
             binding.tvUserNama.text = user.nama
             binding.tvUserNoHp.text = user.nomorWa
             binding.btnLogout.text = getString(R.string.logout)
@@ -56,13 +56,13 @@ class ProfileFragment : Fragment() {
             }
             binding.tvLaporanmu.setOnClickListener {
                 startActivity(Intent(context, LaporanmuActivity::class.java))
-            binding.txtPenilaianmu.setOnClickListener {
-                val intent = Intent(context, TerdampakActivity::class.java)
-                intent.putExtra(TerdampakActivity.USER, user)
-                startActivity(intent)
+                binding.txtPenilaianmu.setOnClickListener {
+                    val intent = Intent(context, TerdampakActivity::class.java)
+                    intent.putExtra(TerdampakActivity.USER, user)
+                    startActivity(intent)
+                }
             }
         }
-
     }
 
     private fun showConfirmDialog() {

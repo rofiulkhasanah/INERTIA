@@ -21,6 +21,7 @@ import com.inertia.data.response.SkalaResponse
 import com.inertia.data.response.SubSektorResponse
 import com.inertia.databinding.ActivityAssessmentBinding
 import com.inertia.ui.detailassessment.DetailAssessmentActivity
+import com.inertia.ui.terdampak.TerdampakActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
