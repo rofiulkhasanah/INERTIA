@@ -48,12 +48,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/Text.Body"
+            android:textColor="@color/grey"
             android:text="@string/deskripsi_laporan" />
 
         <TextView
-            android:layout_marginTop="6dp"
             android:id="@+id/tv_isi_deskripsi"
             android:layout_width="match_parent"
+            style="@style/Text.Body"
+            tools:text="Ini Deskripsi laporan"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
@@ -73,13 +76,16 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
 
         <TextView
+            style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/grey"
             android:text="@string/lokasi" />
 
         <TextView
-            android:layout_marginTop="6dp"
+            style="@style/Text.Body"
             android:id="@+id/tv_lokasi"
+            tools:text="Ini contoh lokasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -127,13 +133,16 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <TextView
+            style="@style/Text.Body"
+            android:textColor="@color/grey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/kategori" />
 
         <TextView
-            android:layout_marginTop="6dp"
             android:id="@+id/tv_kategori"
+            style="@style/Text.Body"
+            tools:text="Contoh teks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

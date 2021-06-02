@@ -69,7 +69,9 @@ class BencanaRepository private constructor(
                         waktuBencana = item.waktuBencana,
                         waktuAduan = item.waktuBencana,
                         linkFoto = item.gambarUri,
-                        nomorWaPengadu = item.senderWaNumber
+                        nomorWaPengadu = item.senderWaNumber,
+                        kota = item.alamat?.city,
+                        provinsi = item.alamat?.state
                     )
                 }
                 local.insertBencana(listBencana)
@@ -110,7 +112,9 @@ class BencanaRepository private constructor(
                         waktuBencana = item.waktuBencana,
                         waktuAduan = item.waktuBencana,
                         linkFoto = item.gambarUri,
-                        nomorWaPengadu = item.senderWaNumber
+                        nomorWaPengadu = item.senderWaNumber,
+                        kota = item.alamat?.city,
+                        provinsi = item.alamat?.state
                     )
                 }
                 local.insertBencana(listBencana)
