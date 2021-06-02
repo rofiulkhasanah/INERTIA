@@ -12,6 +12,9 @@ interface BencanaDao {
     @Query("SELECT * FROM bencanaEntity")
     fun getAllBencana(): LiveData<List<BencanaEntity>>
 
+    @Query("SELECT * FROM bencanaEntity WHERE sender_wa_number = :nomorWa")
+    fun getBencanaByNomorWa(nomorWa: String): LiveData<List<BencanaEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertBencana(list: List<BencanaEntity>)
 }

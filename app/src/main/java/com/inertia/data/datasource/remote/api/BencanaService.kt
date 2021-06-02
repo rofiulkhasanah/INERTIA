@@ -10,6 +10,9 @@ interface BencanaService {
     @GET("report/show")
     fun getAllBencana(): Call<BencanaResponse>
 
+    @GET("report/get/{nomor_wa}")
+    fun getBencanaByNomorWa(@Path("nomor_wa") nomorWa: String): Call<BencanaResponse>
+
     @Multipart
     @POST("report/add")
     fun createLaporan(
