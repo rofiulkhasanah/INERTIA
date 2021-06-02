@@ -7,15 +7,13 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.inertia.data.datasource.local.dao.BencanaDao
-import com.inertia.data.datasource.local.dao.TerdampakDao
 import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.local.entity.TerdampakEntity
 
 @Database(
-    entities = [BencanaEntity::class, TerdampakEntity::class], version = 2)
+    entities = [BencanaEntity::class], version = 2)
 abstract class InertiaDatabase : RoomDatabase(){
     abstract fun bencanaDao(): BencanaDao
-    abstract fun terdampakDao(): TerdampakDao
 
     companion object {
         @Volatile

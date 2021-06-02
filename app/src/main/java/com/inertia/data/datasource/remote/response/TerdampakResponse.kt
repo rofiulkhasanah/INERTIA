@@ -4,11 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class TerdampakResponse(
 
-	@field:SerializedName("results")
-	val terdampakResponse: List<TerdampakResponseItem>
-)
-
-data class TerdampakResponseItem(
 	@field:SerializedName("idKasus")
 	val idKasus: String,
 

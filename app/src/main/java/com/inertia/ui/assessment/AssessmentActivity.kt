@@ -21,6 +21,7 @@ import com.inertia.data.response.SkalaResponse
 import com.inertia.data.response.SubSektorResponse
 import com.inertia.databinding.ActivityAssessmentBinding
 import com.inertia.ui.detailassessment.DetailAssessmentActivity
+import com.inertia.ui.terdampak.TerdampakActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,7 +36,7 @@ class AssessmentActivity : AppCompatActivity() {
     companion object{
         const val USER = "user"
         const val DETAIL_BENCANA = "detail_bencana"
-        const val ID_KASUS = "idKasus"
+        const val ID_KASUS = ""
     }
 
     private lateinit var binding: ActivityAssessmentBinding
@@ -166,6 +167,7 @@ class AssessmentActivity : AppCompatActivity() {
                     println("Gagal dikirim"+ t.message)
                 }
             })
+
         }
     }
 

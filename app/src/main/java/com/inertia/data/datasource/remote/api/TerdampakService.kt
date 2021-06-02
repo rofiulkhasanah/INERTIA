@@ -7,5 +7,5 @@ import retrofit2.http.Query
 
 interface TerdampakService {
     @GET("/getkasus")
-    fun getAllTerdampak(@Query("nomorWa") nomorWa: String): Call<TerdampakResponse>
+    fun getAllTerdampak(@Query("nomorWa") nomorWa: String): Call<List<TerdampakResponse>>
 }

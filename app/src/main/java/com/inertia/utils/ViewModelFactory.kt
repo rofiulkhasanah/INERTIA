@@ -5,23 +5,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.data.repository.bencana.BencanaRepository
 import com.inertia.data.repository.cuaca.CuacaRepository
-import com.inertia.data.repository.terdampak.TerdampakRepository
 import com.inertia.data.repository.user.UserRepository
 import com.inertia.ui.form.FormViewModel
 import com.inertia.ui.laporanmu.LaporanmuViewModel
 import com.inertia.ui.login.LoginViewModel
 import com.inertia.ui.main.MainViewModel
 import com.inertia.ui.register.RegisterViewModel
-import com.inertia.ui.terdampak.TerdampakViewModel
 import com.inertia.ui.verification.VerificationViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory private constructor (
     private val bencanaRepository: BencanaRepository,
     private val userRepository: UserRepository,
-    private val cuacaRepository: CuacaRepository,
-    private val terdampakRepository: TerdampakRepository
-) : ViewModelProvider.NewInstanceFactory() {
+    private val cuacaRepository: CuacaRepository
+    ) : ViewModelProvider.NewInstanceFactory() {
     companion object {
         @Volatile
         private var instance: ViewModelFactory? = null
@@ -31,8 +28,6 @@ class ViewModelFactory private constructor (
                 Injection.provideBencanaRepository(context),
                 Injection.provideUserRepository(context),
                 Injection.provideCuacaRepository(),
-                Injection.provideTerdampakRepository(context)
-
             )
         }
     }
@@ -43,7 +38,6 @@ class ViewModelFactory private constructor (
             modelClass.isAssignableFrom(VerificationViewModel::class.java) -> VerificationViewModel(userRepository) as T
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> RegisterViewModel(userRepository) as T
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(userRepository) as T
-            modelClass.isAssignableFrom(TerdampakViewModel::class.java) -> TerdampakViewModel(terdampakRepository) as T
             modelClass.isAssignableFrom(FormViewModel::class.java) -> FormViewModel(bencanaRepository, userRepository) as T
             modelClass.isAssignableFrom(LaporanmuViewModel::class.java) -> LaporanmuViewModel(bencanaRepository, userRepository) as T
             else -> throw Throwable("Unknown viewmodel class")
