@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         if (preferences.getUser().nomorWa != null) {
             val randNumber = Random(30).nextInt(100)
             val date = SimpleDateFormat("yyyymmdhhmmss", Locale.getDefault()).format(Date())
-            val fileName = "$date-$randNumber"
+            val fileName = "$date-$randNumber.jpg"
 
             output = File(File(filesDir, "photos"), fileName)
             if (output.exists()) output.delete() else output.parentFile.mkdirs()

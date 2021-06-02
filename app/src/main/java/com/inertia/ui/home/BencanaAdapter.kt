@@ -13,7 +13,6 @@ import com.inertia.ui.detail.DetailReportActivity
 class BencanaAdapter : RecyclerView.Adapter<BencanaAdapter.BencanaViewHolder>() {
 
     private val listBencana = ArrayList<BencanaEntity>()
-    var onItemClick: ((BencanaEntity) -> Unit)? = null
 
     fun setData(data: List<BencanaEntity>) {
         listBencana.clear()
@@ -32,13 +31,9 @@ class BencanaAdapter : RecyclerView.Adapter<BencanaAdapter.BencanaViewHolder>() 
 
 
                 itemView.setOnClickListener {
-                    onItemClick?.invoke(listBencana[adapterPosition])
-
-                    onItemClick = { selectedData ->
-                        val intent = Intent(itemView.context, DetailReportActivity::class.java)
-                        intent.putExtra(DetailReportActivity.EXTRA_REPORT, selectedData)
-                        it.context.startActivity(intent)
-                    }
+                    val intent = Intent(itemView.context, DetailReportActivity::class.java)
+                    intent.putExtra(DetailReportActivity.EXTRA_REPORT, bencana)
+                    it.context.startActivity(intent)
                 }
             }
         }

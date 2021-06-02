@@ -100,7 +100,6 @@ class BencanaRepository private constructor(
                     val latLongSplit = item.latLong?.split(",")
                     val lat = latLongSplit?.get(0)?.toDouble()
                     val long = latLongSplit?.get(1)?.toDouble()
-                    Log.d("latlong", "$latLongSplit")
                     BencanaEntity(
                         id = item.idAduan,
                         namaBencana = item.judul,

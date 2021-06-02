@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.R
 import com.inertia.databinding.FragmentProfileBinding
+import com.inertia.ui.laporanmu.LaporanmuActivity
 import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.main.MainActivity
 import com.inertia.ui.main.MainViewModel
@@ -51,6 +52,9 @@ class ProfileFragment : Fragment() {
             binding.btnLogout.text = getString(R.string.logout)
             binding.btnLogout.setOnClickListener {
                 showConfirmDialog()
+            }
+            binding.tvLaporanmu.setOnClickListener {
+                startActivity(Intent(context, LaporanmuActivity::class.java))
             }
         }
 

@@ -75,7 +75,7 @@
         app:layout_constraintTop_toBottomOf="@id/profil_container" />
 
     <TextView
-        android:id="@+id/txt_laporanmu"
+        android:id="@+id/tv_laporanmu"
         style="@style/Text.Body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,13 +84,15 @@
         android:background="@color/white"
         android:padding="8dp"
         android:text="@string/laporanmu"
+        android:clickable="true"
         app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pengaturan_label" />
+        app:layout_constraintTop_toBottomOf="@+id/pengaturan_label"
+        />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_ubah_profil"
         style="@style/Text.Body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -101,7 +103,7 @@
         app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_laporanmu" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_laporanmu" />
 
     <TextView
         android:id="@+id/txt_kritik_saran"
@@ -116,7 +118,7 @@
         app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_ubah_profil" />
 
     <Button
         android:id="@+id/btnLogout"
