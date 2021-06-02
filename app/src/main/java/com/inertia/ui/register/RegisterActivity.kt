@@ -3,6 +3,7 @@ package com.inertia.ui.register
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.R
@@ -10,8 +11,11 @@ import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.request.RegisterRequest
 import com.inertia.data.repository.user.IUserRepository
 import com.inertia.databinding.ActivityRegisterBinding
+import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.verification.VerificationActivity
+import com.inertia.utils.DataMapper
 import com.inertia.utils.ViewModelFactory
+import com.mirfanrafif.kicksfilm.data.source.remote.StatusResponse
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -53,24 +57,26 @@ class RegisterActivity : AppCompatActivity() {
 
             val nama = edtName.text.toString()
             val alamat = editAlamat.text.toString()
-            val nomorWa = edtRegPhone.text.toString()
+            val nomorWa = DataMapper.getValidNumber(edtRegPhone.text.toString())
 
             val request = RegisterRequest(
                 nama, alamat, gender, nomorWa, "0"
             )
             progressBar.visibility = View.VISIBLE
-            viewModel.register(request, object : IUserRepository.RegisterCallback {
-                override fun onRegisterSuccessCallback(
-                    userEntity: UserEntity,
-                    verificationCode: String?
-                ) {
-                    progressBar.visibility = View.GONE
-                    val intent = Intent(this@RegisterActivity, VerificationActivity::class.java)
-                    intent.putExtra(VerificationActivity.EXTRA_USER, userEntity)
-                    intent.putExtra(VerificationActivity.EXTRA_CODE, verificationCode)
-                    startActivity(intent)
+            viewModel.register(request).observe(this@RegisterActivity, {
+                when(it.status) {
+                    StatusResponse.SUCCESS -> {
+                        progressBar.visibility = View.GONE
+                        val intent = Intent(this@RegisterActivity, VerificationActivity::class.java)
+                        intent.putExtra(VerificationActivity.EXTRA_USER, DataMapper.mapRegisterResponseToUserEntity(it.body))
+                        intent.putExtra(VerificationActivity.EXTRA_CODE, it.body.token)
+                        startActivity(intent)
+                    }
+                    StatusResponse.ERROR -> {
+                        progressBar.visibility = View.GONE
+                        Toast.makeText(this@RegisterActivity, it.message, Toast.LENGTH_SHORT).show()
+                    }
                 }
-
             })
 
         }

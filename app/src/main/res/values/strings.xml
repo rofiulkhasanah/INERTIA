@@ -64,4 +64,7 @@
     <string name="provinsi">Provinsi</string>
     <string name="warga_terdampak">Warga Terdampak</string>
     <string name="sub_sektor">Sub Sektor</string>
+    <string name="waktu_bencana">Waktu Bencana</string>
+    <string name="tanggal_bencana">Tanggal Bencana</string>
+    <string name="koordinat">Koordinat</string>
 </resources>

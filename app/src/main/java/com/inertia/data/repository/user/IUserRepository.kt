@@ -1,22 +1,18 @@
 package com.inertia.data.repository.user
 
+import androidx.lifecycle.LiveData
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.request.RegisterRequest
+import com.inertia.data.datasource.remote.response.ApiResponse
+import com.inertia.data.datasource.remote.response.LoginResponse
+import com.inertia.data.datasource.remote.response.RegisterResponse
 
 interface IUserRepository {
     fun getUser(): UserEntity
 
-    fun login(phoneNumber: String, callback: LoginCallback)
+    fun login(phoneNumber: String): LiveData<ApiResponse<LoginResponse>>
 
-    fun register(request: RegisterRequest, callback: RegisterCallback)
+    fun register(request: RegisterRequest): LiveData<ApiResponse<RegisterResponse>>
 
     fun setUser(userEntity: UserEntity?)
-
-    interface LoginCallback {
-        fun onLoginSuccessCallback(userEntity: UserEntity, verificationCode: String?)
-    }
-
-    interface RegisterCallback {
-        fun onRegisterSuccessCallback(userEntity: UserEntity, verificationCode: String?)
-    }
 }
