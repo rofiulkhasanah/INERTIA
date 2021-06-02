@@ -71,7 +71,8 @@ class BencanaRepository private constructor(
                         linkFoto = item.gambarUri,
                         nomorWaPengadu = item.senderWaNumber,
                         kota = item.alamat?.city,
-                        provinsi = item.alamat?.state
+                        provinsi = item.alamat?.state,
+                        uriDonasi = null
                     )
                 }
                 local.insertBencana(listBencana)
@@ -114,7 +115,8 @@ class BencanaRepository private constructor(
                         linkFoto = item.gambarUri,
                         nomorWaPengadu = item.senderWaNumber,
                         kota = item.alamat?.city,
-                        provinsi = item.alamat?.state
+                        provinsi = item.alamat?.state,
+                        uriDonasi = null
                     )
                 }
                 local.insertBencana(listBencana)
@@ -122,4 +124,6 @@ class BencanaRepository private constructor(
 
         }.asLiveData()
     }
+
+    override fun updateBencana(entity: BencanaEntity): Int = local.updateBencanaUri(entity)
 }

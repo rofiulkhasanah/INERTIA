@@ -67,4 +67,5 @@
     <string name="waktu_bencana">Waktu Bencana</string>
     <string name="tanggal_bencana">Tanggal Bencana</string>
     <string name="koordinat">Koordinat</string>
+    <string name="crowdfunding">Crowdfunding</string>
 </resources>

@@ -23,4 +23,9 @@ interface BencanaService {
         @Query("waktu_bencana") waktu_bencana: String,
         @Query("lat_long") lat_long: String
     ): Call<LaporResponse>
+
+    @POST("report/update/{id_aduan}")
+    fun editDonasiUri(
+        @Path("id_aduan") idAduan: String,
+        @Path("url") donasiUri: String)
 }

@@ -47,4 +47,7 @@ data class BencanaEntity(
 
     @ColumnInfo(name = "provinsi")
     var provinsi: String?,
+
+    @ColumnInfo(name = "uri_donasi")
+    var uriDonasi: String?,
 ) : Parcelable
