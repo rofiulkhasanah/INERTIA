@@ -11,7 +11,7 @@ import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.local.entity.TerdampakEntity
 
 @Database(
-    entities = [BencanaEntity::class], version = 2)
+    entities = [BencanaEntity::class], version = 1)
 abstract class InertiaDatabase : RoomDatabase(){
     abstract fun bencanaDao(): BencanaDao
 

@@ -11,7 +11,6 @@ import com.inertia.data.datasource.remote.UserRemoteDataSource
 import com.inertia.data.datasource.remote.api.InertiaService
 import com.inertia.data.repository.bencana.BencanaRepository
 import com.inertia.data.repository.cuaca.CuacaRepository
-import com.inertia.data.repository.terdampak.TerdampakRepository
 import com.inertia.data.repository.user.UserRepository
 
 object Injection {
