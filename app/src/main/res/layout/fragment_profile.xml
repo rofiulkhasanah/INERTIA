@@ -49,7 +49,7 @@
                 style="@style/Text.Body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/nama"
+                tools:text="@string/nama"
                 android:textStyle="bold" />
 
             <TextView
@@ -57,7 +57,7 @@
                 style="@style/Text.Body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/nohp" />
+                tools:text="@string/nohp" />
 
         </LinearLayout>
     </LinearLayout>

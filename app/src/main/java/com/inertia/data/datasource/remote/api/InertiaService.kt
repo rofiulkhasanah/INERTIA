@@ -15,8 +15,7 @@ class InertiaService {
         .build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://35.224.208.225/")
-
+        .baseUrl("http://35.224.208.225/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
@@ -24,6 +23,7 @@ class InertiaService {
     private val retrofitPenilaian = Retrofit.Builder()
         .baseUrl("http://061b47ae7767.ngrok.io/")
         .addConverterFactory(GsonConverterFactory.create())
+        .client(client)
         .build()
 
     fun getBencanaService(): BencanaService = retrofit.create(BencanaService::class.java)

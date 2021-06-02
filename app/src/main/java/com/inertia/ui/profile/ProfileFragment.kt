@@ -38,7 +38,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val user = viewModel.getUser()
+        val user= viewModel.getUser()
         if (user.nomorWa == null) {
             binding.tvUserNama.text = getString(R.string.silakan_login)
             binding.tvUserNoHp.text = ""
@@ -47,7 +47,7 @@ class ProfileFragment : Fragment() {
                 startActivity(Intent(context, LoginActivity::class.java))
                 requireActivity().finish()
             }
-        } else {
+        }else{
             binding.tvUserNama.text = user.nama
             binding.tvUserNoHp.text = user.nomorWa
             binding.btnLogout.text = getString(R.string.logout)
@@ -56,14 +56,13 @@ class ProfileFragment : Fragment() {
             }
             binding.tvLaporanmu.setOnClickListener {
                 startActivity(Intent(context, LaporanmuActivity::class.java))
-                binding.txtPenilaianmu.setOnClickListener {
-                    val intent = Intent(context, TerdampakActivity::class.java)
-                    intent.putExtra(TerdampakActivity.USER, user)
-                    startActivity(intent)
-                }
+            binding.txtPenilaianmu.setOnClickListener {
+                val intent = Intent(context, TerdampakActivity::class.java)
+                intent.putExtra(TerdampakActivity.USER, user)
+                startActivity(intent)
             }
-
         }
+
     }
 
     private fun showConfirmDialog() {
