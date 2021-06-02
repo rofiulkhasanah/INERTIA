@@ -13,6 +13,7 @@ import com.inertia.databinding.FragmentProfileBinding
 import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.main.MainActivity
 import com.inertia.ui.main.MainViewModel
+import com.inertia.ui.terdampak.TerdampakActivity
 import com.inertia.utils.ViewModelFactory
 
 class ProfileFragment : Fragment() {
@@ -51,6 +52,11 @@ class ProfileFragment : Fragment() {
             binding.btnLogout.text = getString(R.string.logout)
             binding.btnLogout.setOnClickListener {
                 showConfirmDialog()
+            }
+            binding.txtPenilaianmu.setOnClickListener {
+                val intent = Intent(context, TerdampakActivity::class.java)
+                intent.putExtra(TerdampakActivity.USER, user)
+                startActivity(intent)
             }
         }
 
