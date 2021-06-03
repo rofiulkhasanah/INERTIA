@@ -46,7 +46,7 @@ class VerificationActivity : AppCompatActivity() {
     private fun verify(otp: String) {
         if (otp == code) {
             viewModel.saveUser(user)
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
             finish()
         }else{
             binding.otpView.setLineColor(Color.RED)

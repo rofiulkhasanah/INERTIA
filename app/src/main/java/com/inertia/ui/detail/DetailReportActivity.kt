@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -77,6 +78,17 @@ class DetailReportActivity : AppCompatActivity() {
                 Glide.with(this@DetailReportActivity)
                     .load(detailBencana.linkFoto)
                     .into(binding.imgDetailLaporan)
+            binding.tvLokasi.text = "${detailBencana.kota}, ${detailBencana.provinsi}"
+            if (detailBencana.uriDonasi?.isNotEmpty() == true) {
+                binding.crowdfundingLayout.visibility = View.VISIBLE
+                binding.tvCrowdfunding.text = "Klik disini"
+                binding.crowdfundingLayout.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(detailBencana.uriDonasi))
+                    startActivity(intent)
+                }
+            }
+
+
         }
     }
 }

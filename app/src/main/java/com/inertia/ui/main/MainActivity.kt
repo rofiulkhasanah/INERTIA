@@ -40,13 +40,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val factory = ViewModelFactory.getInstance(this)
-        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
     }
 
     override fun onStart() {
         super.onStart()
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
         val homeFragment = HomeFragment()
         val profileFragment = ProfileFragment()
