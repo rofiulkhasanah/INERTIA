@@ -23,4 +23,8 @@ class BencanaLocalDataSource private constructor(private val bencanaDao: Bencana
     fun getBencanaByNomorWa(nomorWa: String) = bencanaDao.getBencanaByNomorWa(nomorWa)
 
     fun insertBencana(list: List<BencanaEntity>) = bencanaDao.insertBencana(list)
+
+    fun getBencanaById(id: String) = bencanaDao.getBencanaById(id)
+
+    fun updateBencanaUri(idAduan: String, uriDonasi: String) = bencanaDao.updateBencana(idAduan, uriDonasi)
 }

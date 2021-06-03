@@ -16,8 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.INERTIA"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.laporanmu.LaporanmuActivity"></activity>
-        <activity android:name=".ui.terdampak.TerdampakActivity"></activity>
+        <activity android:name=".ui.laporanmu.LaporanmuActivity" />
+        <activity android:name=".ui.terdampak.TerdampakActivity" />
         <activity android:name=".ui.detailassessment.DetailAssessmentActivity" />
         <activity android:name=".ui.assessment.AssessmentActivity" />
         <activity android:name=".ui.detail.DetailReportActivity" />
@@ -36,6 +36,14 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

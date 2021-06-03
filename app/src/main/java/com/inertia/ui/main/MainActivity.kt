@@ -40,15 +40,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
 
+    override fun onStart() {
+        super.onStart()
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
-        supportActionBar?.elevation = 0f
-
         val homeFragment = HomeFragment()
         val profileFragment = ProfileFragment()
-
         moveFragment(homeFragment)
 
         binding.btnReport.setOnClickListener {

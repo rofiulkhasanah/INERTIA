@@ -1,7 +1,10 @@
 package com.inertia.data.repository.bencana
 
+import android.net.Network
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.room.Update
 import com.inertia.data.NetworkBoundResource
 import com.inertia.data.datasource.local.BencanaLocalDataSource
 import com.inertia.data.datasource.local.entity.BencanaEntity
@@ -9,6 +12,7 @@ import com.inertia.data.datasource.remote.BencanaRemoteDataSource
 import com.inertia.data.datasource.remote.request.BencanaRequest
 import com.inertia.data.datasource.remote.response.*
 import com.inertia.utils.AppExecutor
+import com.mirfanrafif.kicksfilm.data.source.remote.StatusResponse
 import com.mirfanrafif.kicksfilm.vo.Resource
 
 class BencanaRepository private constructor(
@@ -58,7 +62,6 @@ class BencanaRepository private constructor(
                     val latLongSplit = item.latLong?.split(",")
                     val lat = latLongSplit?.get(0)?.toDouble()
                     val long = latLongSplit?.get(1)?.toDouble()
-                    Log.d("latlong", "$latLongSplit")
                     BencanaEntity(
                         id = item.idAduan,
                         namaBencana = item.judul,
@@ -70,8 +73,9 @@ class BencanaRepository private constructor(
                         waktuAduan = item.waktuBencana,
                         linkFoto = item.gambarUri,
                         nomorWaPengadu = item.senderWaNumber,
-                        kota = item.alamat?.city,
-                        provinsi = item.alamat?.state
+                        kota = item.alamat?.city ?: item.alamat?.county,
+                        provinsi = item.alamat?.state,
+                        uriDonasi = item.url
                     )
                 }
                 local.insertBencana(listBencana)
@@ -114,12 +118,27 @@ class BencanaRepository private constructor(
                         linkFoto = item.gambarUri,
                         nomorWaPengadu = item.senderWaNumber,
                         kota = item.alamat?.city,
-                        provinsi = item.alamat?.state
+                        provinsi = item.alamat?.state,
+                        uriDonasi = item.url
                     )
                 }
                 local.insertBencana(listBencana)
             }
 
         }.asLiveData()
+    }
+
+    override fun updateBencana(idAduan: String, uriDonasi: String): LiveData<BencanaEntity> {
+        val apiResponse = remote.updateUriDonasi(idAduan, uriDonasi)
+
+        if (apiResponse != null) {
+            when(apiResponse.status) {
+                StatusResponse.SUCCESS -> {
+                    appExecutor.diskIO().execute { local.updateBencanaUri(idAduan, uriDonasi) }
+                }
+                else -> {}
+            }
+        }
+        return local.getBencanaById(idAduan)
     }
 }
