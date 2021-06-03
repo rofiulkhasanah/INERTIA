@@ -35,7 +35,7 @@ data class Address(
 data class Bencana(
 
 	@field:SerializedName("id_aduan")
-	val idAduan: String? = null,
+	val idAduan: String,
 
 	@field:SerializedName("kronologi")
 	val kronologi: String? = null,
