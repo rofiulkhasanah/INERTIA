@@ -23,7 +23,7 @@ interface PenilaianService {
 
     @POST("/storeformpenilaian")
     fun storeFormPenilaian(
-        @Query("username") username: String?,
+        @Query("nomorWa") username: String?,
         @Query("nmBencana") nmBencana: String?,
         @Query("idSub") idSub: Int?,
         @Query("name") name: String?,

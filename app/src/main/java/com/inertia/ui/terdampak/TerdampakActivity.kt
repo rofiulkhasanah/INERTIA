@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.inertia.R
 import com.inertia.data.datasource.local.entity.TerdampakEntity
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.local.preference.UserPreferences
@@ -30,18 +27,18 @@ class TerdampakActivity : AppCompatActivity() {
         const val USER = "user"
     }
     private lateinit var nomor_wa: String
+    private lateinit var preferences: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTerdampakBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        preferences = UserPreferences(this)
         getData()
     }
 
     private fun getData() {
-        val detailUser = intent.getParcelableExtra<UserEntity>(AssessmentActivity.USER)
-
-        nomor_wa = detailUser?.nomorWa.toString()
+        nomor_wa = preferences.getUser().nomorWa.toString()
         val terdampakAdapter = TerdampakAdapter()
         InertiaService().getTerdampak().getAllTerdampak(nomor_wa).enqueue(object :
             retrofit2.Callback<List<TerdampakResponse>> {
@@ -49,7 +46,6 @@ class TerdampakActivity : AppCompatActivity() {
                 call: Call<List<TerdampakResponse>>,
                 response: Response<List<TerdampakResponse>>
             ) {
-
                 val data = response.body()
                 if (data != null) {
                     terdampakResponseItem = response.body() as ArrayList<TerdampakResponse>
@@ -70,6 +66,7 @@ class TerdampakActivity : AppCompatActivity() {
                         data.add(s)
                     }
                     terdampakAdapter.setData(data)
+                    binding.progressBar.visibility = if(data.isNotEmpty()) View.GONE else View.VISIBLE
                 }
             }
 
