@@ -12,6 +12,7 @@ class InertiaService {
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .connectTimeout(120, TimeUnit.SECONDS)
         .readTimeout(120, TimeUnit.SECONDS)
+        .retryOnConnectionFailure(true)
         .build()
 
     private val retrofit = Retrofit.Builder()
@@ -21,7 +22,7 @@ class InertiaService {
         .build()
 
     private val retrofitPenilaian = Retrofit.Builder()
-        .baseUrl("http://061b47ae7767.ngrok.io/")
+        .baseUrl("http://85e073f151ca.ngrok.io/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()

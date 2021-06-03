@@ -43,12 +43,13 @@ class MainActivity : AppCompatActivity() {
 
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
+    }
 
-        supportActionBar?.elevation = 0f
+    override fun onStart() {
+        super.onStart()
 
         val homeFragment = HomeFragment()
         val profileFragment = ProfileFragment()
-
         moveFragment(homeFragment)
 
         binding.btnReport.setOnClickListener {

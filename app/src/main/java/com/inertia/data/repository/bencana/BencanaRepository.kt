@@ -70,7 +70,7 @@ class BencanaRepository private constructor(
                         waktuAduan = item.waktuBencana,
                         linkFoto = item.gambarUri,
                         nomorWaPengadu = item.senderWaNumber,
-                        kota = item.alamat?.city,
+                        kota = item.alamat?.city ?: item.alamat?.county,
                         provinsi = item.alamat?.state,
                         uriDonasi = null
                     )
