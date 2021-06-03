@@ -3,12 +3,11 @@ package com.inertia.data.datasource.remote
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.room.Update
+import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.remote.api.BencanaService
 import com.inertia.data.datasource.remote.request.BencanaRequest
-import com.inertia.data.datasource.remote.response.ApiResponse
-import com.inertia.data.datasource.remote.response.BencanaItem
-import com.inertia.data.datasource.remote.response.BencanaResponse
-import com.inertia.data.datasource.remote.response.LaporResponse
+import com.inertia.data.datasource.remote.response.*
 import com.inertia.utils.DummyData
 import com.inertia.utils.MultipartHelper
 import retrofit2.Call
@@ -122,5 +121,30 @@ class BencanaRemoteDataSource private constructor(private val service: BencanaSe
 
         })
         return liveDataResponse
+    }
+
+    fun updateUriDonasi(idAduan: String, uriDonasi: String): ApiResponse<UpdateBencanaResponse>? {
+        var result: ApiResponse<UpdateBencanaResponse>? = null
+        service.editDonasiUri(idAduan, uriDonasi).enqueue(object : Callback<UpdateBencanaResponse> {
+            override fun onResponse(
+                call: Call<UpdateBencanaResponse>,
+                response: Response<UpdateBencanaResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    if (data != null) {
+                        result =  ApiResponse.success(data)
+                    }
+                }else{
+                    result = ApiResponse.error(response.message(), UpdateBencanaResponse(idAduan))
+                }
+            }
+
+            override fun onFailure(call: Call<UpdateBencanaResponse>, t: Throwable) {
+                result = ApiResponse.error(t.message, UpdateBencanaResponse(idAduan))
+            }
+
+        })
+        return result
     }
 }

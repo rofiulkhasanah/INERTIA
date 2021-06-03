@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.inertia.R
+import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.request.BencanaRequest
 import com.inertia.databinding.ActivityFormBinding
@@ -98,6 +99,19 @@ class FormActivity : AppCompatActivity() {
                     when(it.status) {
                         StatusResponse.SUCCESS -> {
                             Toast.makeText(this@FormActivity, "Sukses mengirim laporan", Toast.LENGTH_SHORT).show()
+                            val bencana = it.body.bencana
+                            val id = bencana?.idAduan
+                            if (id != null) {
+                                val entity = BencanaEntity(
+                                    id = id,
+                                    namaBencana = bencana.judul,
+                                    kronologiBencana = bencana.kronologi,
+                                    jenisBencana = bencana.jenisBencana,
+                                    nomorWaPengadu = bencana.senderWaNumber,
+                                    waktuBencana = bencana.waktuBencana
+                                )
+                            }
+
                             finish()
                         }
                         StatusResponse.ERROR -> {

@@ -43,10 +43,10 @@ data class BencanaEntity(
     var nomorWaPengadu: String?,
 
     @ColumnInfo(name = "kota")
-    var kota: String?,
+    var kota: String? = null,
 
     @ColumnInfo(name = "provinsi")
-    var provinsi: String?,
+    var provinsi: String? = null,
 
     @ColumnInfo(name = "uri_donasi")
     var uriDonasi: String?,
