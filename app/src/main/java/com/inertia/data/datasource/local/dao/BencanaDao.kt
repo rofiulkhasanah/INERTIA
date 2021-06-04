@@ -6,10 +6,13 @@ import com.inertia.data.datasource.local.entity.BencanaEntity
 
 @Dao
 interface BencanaDao {
-    @Query("SELECT * FROM bencanaEntity ORDER BY idbencana")
+    @Query("SELECT * FROM bencanaEntity")
     fun getAllBencana(): LiveData<List<BencanaEntity>>
 
-    @Query("SELECT * FROM bencanaEntity WHERE sender_wa_number = :nomorWa ORDER BY idbencana")
+    @Query("SELECT * FROM bencanaEntity WHERE idbencana = :id")
+    fun getBencanaById(id: String): LiveData<BencanaEntity>
+
+    @Query("SELECT * FROM bencanaEntity WHERE sender_wa_number = :nomorWa")
     fun getBencanaByNomorWa(nomorWa: String): LiveData<List<BencanaEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -20,6 +23,6 @@ interface BencanaDao {
 //        SET uri_donasi = :uriDonasi
 //        WHERE idbencana = :idAduan
 //    """)
-    @Update(entity = BencanaEntity::class)
-    fun updateBencana(bencanaEntity: BencanaEntity): Int
+    @Query("UPDATE bencanaEntity SET uri_donasi = :uriDonasi WHERE idbencana = :idAduan")
+    fun updateBencana(idAduan: String, uriDonasi: String)
 }

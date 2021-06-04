@@ -15,5 +15,5 @@ interface IBencanaRepository {
 
     fun getLaporanByNomorWa(nomorWa: String): LiveData<Resource<List<BencanaEntity>>>
 
-    fun updateBencana(entity: BencanaEntity): Int
+    fun updateBencana(idAduan: String, uriDonasi: String): LiveData<BencanaEntity>
 }
