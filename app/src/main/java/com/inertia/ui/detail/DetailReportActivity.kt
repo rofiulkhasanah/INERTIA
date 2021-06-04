@@ -2,18 +2,13 @@ package com.inertia.ui.detail
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.inertia.R
 import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.local.entity.UserEntity
@@ -22,8 +17,14 @@ import com.inertia.databinding.CrowdfundingAlertLayoutBinding
 import com.inertia.ui.assessment.AssessmentActivity
 import com.inertia.ui.login.LoginActivity
 import com.inertia.utils.ViewModelFactory
+import com.mapbox.mapboxsdk.Mapbox
+import com.mapbox.mapboxsdk.camera.CameraPosition
+import com.mapbox.mapboxsdk.camera.CameraUpdate
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
+import com.mapbox.mapboxsdk.geometry.LatLng
+import com.mapbox.mapboxsdk.maps.Style
 
-class DetailReportActivity : AppCompatActivity(), OnMapReadyCallback {
+class DetailReportActivity : AppCompatActivity() {
     companion object{
         const val EXTRA_REPORT = "extra_report"
     }
@@ -36,6 +37,7 @@ class DetailReportActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Mapbox.getInstance(this, resources.getString(R.string.mapbox_access_token))
         binding = ActivityDetailReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
@@ -45,17 +47,10 @@ class DetailReportActivity : AppCompatActivity(), OnMapReadyCallback {
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[DetailReportViewModel::class.java]
 
-        detailBencana = intent.getParcelableExtra(EXTRA_REPORT)
+        viewModel.setBencana(intent.getParcelableExtra(EXTRA_REPORT))
         showFab()
         user = viewModel.getUser()
-        showDetailBencana(detailBencana)
-        prepareMap()
-    }
-
-    private fun prepareMap() {
-        val mapFragment: SupportMapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment)
-                as SupportMapFragment
-        mapFragment.getMapAsync(this)
+        showDetailBencana()
     }
 
     private fun showFab() {
@@ -86,26 +81,36 @@ class DetailReportActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun showDetailBencana(detailBencana: BencanaEntity?) {
-        detailBencana?.let {
-            binding.tvIsiDeskripsi.text = detailBencana.kronologiBencana
-            binding.tvKategori.text = detailBencana.jenisBencana
-            binding.tvNamaBencana.text = detailBencana.namaBencana
-                Glide.with(this@DetailReportActivity)
-                    .load(detailBencana.linkFoto)
-                    .into(binding.imgDetailLaporan)
-            binding.tvLokasi.text = "${detailBencana.kota}, ${detailBencana.provinsi}"
-            if (detailBencana.uriDonasi?.isNotEmpty() == true) {
-                binding.crowdfundingLayout.visibility = View.VISIBLE
-                binding.tvCrowdfunding.text = "Klik disini"
-                binding.crowdfundingLayout.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(detailBencana.uriDonasi))
+    private fun showDetailBencana() {
+        viewModel.getBencana().observe(this, {
+            binding.contentDetail.tvIsiDeskripsi.text = it.kronologiBencana
+            binding.contentDetail.tvKategori.text = it.jenisBencana
+            binding.contentDetail.tvNamaBencana.text = it.namaBencana
+            Glide.with(this@DetailReportActivity)
+                .load(it.linkFoto)
+                .into(binding.contentDetail.imgDetailLaporan)
+            binding.contentDetail.tvLokasi.text = "${it.kota}, ${it.provinsi}"
+            if (it.uriDonasi?.isNotEmpty() == true) {
+                binding.contentDetail.crowdfundingLayout.visibility = View.VISIBLE
+                binding.contentDetail.tvCrowdfunding.text = "Klik disini"
+                binding.contentDetail.crowdfundingLayout.setOnClickListener { v ->
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.uriDonasi))
                     startActivity(intent)
                 }
             }
+            binding.contentDetail.maps.getMapAsync { map ->
+                map.setStyle(Style.MAPBOX_STREETS) { style ->
+                    val latitude = it.latitude ?: 0.00
+                    val longitude = it.longitude ?: 0.00
+                    val position = CameraPosition.Builder()
+                        .target(LatLng(longitude, latitude))
+                        .zoom(10.0)
+                        .build()
+                    map.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000)
 
-
-        }
+                }
+            }
+        })
     }
 
     private fun showAlertDialog() {
@@ -117,7 +122,8 @@ class DetailReportActivity : AppCompatActivity(), OnMapReadyCallback {
                 val id = detailBencana?.id
                 if (id != null) {
                     viewModel.updateBencana(id, donasiUri).observe(this, {
-                        showDetailBencana(it)
+                        detailBencana = it
+                        showDetailBencana()
                     })
                 }
 //                binding.crowdfundingLayout.visibility = View.VISIBLE
@@ -128,18 +134,5 @@ class DetailReportActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val alert = builder.create()
         alert.show()
-    }
-
-    override fun onMapReady(p0: GoogleMap) {
-        val latitude = detailBencana?.latitude
-        val longitude = detailBencana?.longitude
-        if (latitude != null && longitude != null) {
-            val latLng = LatLng(latitude, longitude)
-            p0.addMarker(
-                MarkerOptions()
-                    .position(latLng)
-                    .title("Lokasi")
-            )
-        }
     }
 }
