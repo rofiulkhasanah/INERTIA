@@ -2,37 +2,7 @@ package com.inertia.data.datasource.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class LaporResponse(
-
-	@field:SerializedName("address")
-	val address: Address? = null,
-
-	@field:SerializedName("bencana")
-	val bencana: Bencana? = null
-)
-
-data class Address(
-
-	@field:SerializedName("country")
-	val country: String? = null,
-
-	@field:SerializedName("country_code")
-	val countryCode: String? = null,
-
-	@field:SerializedName("city")
-	val city: String? = null,
-
-	@field:SerializedName("postcode")
-	val postcode: String? = null,
-
-	@field:SerializedName("state")
-	val state: String? = null,
-
-	@field:SerializedName("village")
-	val village: String? = null
-)
-
-data class Bencana(
+data class UpdateBencanaResponse(
 
 	@field:SerializedName("id_aduan")
 	val idAduan: String,
@@ -56,5 +26,8 @@ data class Bencana(
 	val waktuBencana: String? = null,
 
 	@field:SerializedName("judul")
-	val judul: String? = null
+	val judul: String? = null,
+
+	@field:SerializedName("url")
+	val url: String? = null
 )

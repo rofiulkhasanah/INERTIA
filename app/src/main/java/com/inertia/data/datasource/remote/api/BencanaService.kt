@@ -2,6 +2,7 @@ package com.inertia.data.datasource.remote.api
 
 import com.inertia.data.datasource.remote.response.BencanaResponse
 import com.inertia.data.datasource.remote.response.LaporResponse
+import com.inertia.data.datasource.remote.response.UpdateBencanaResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -23,4 +24,10 @@ interface BencanaService {
         @Query("waktu_bencana") waktu_bencana: String,
         @Query("lat_long") lat_long: String
     ): Call<LaporResponse>
+
+    @POST("report/update")
+    fun editDonasiUri(
+        @Query("id_aduan") idAduan: String,
+        @Query("url") donasiUri: String):
+            Call<UpdateBencanaResponse>
 }

@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,14 +57,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun getBencanaData() {
-        val adapter = BencanaAdapter()
-        val layoutManager = GridLayoutManager(context, 2)
-        binding.rvBencana.adapter = adapter
-        binding.rvBencana.layoutManager = layoutManager
         viewModel.getAllBencana().observe(viewLifecycleOwner, {
+            val adapter = BencanaAdapter()
+            val layoutManager = GridLayoutManager(context, 2)
+            binding.rvBencana.adapter = adapter
+            binding.rvBencana.layoutManager = layoutManager
             when(it.status) {
                 Status.SUCCESS -> {
                     if (it.data != null) {
+                        Log.d("HomeFragment", "Jumlah Data: ${it.data.size}")
                         adapter.setData(it.data)
                     }
                     binding.bencanaLoading.visibility = View.GONE

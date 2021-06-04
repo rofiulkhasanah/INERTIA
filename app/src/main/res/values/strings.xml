@@ -67,4 +67,6 @@
     <string name="waktu_bencana">Waktu Bencana</string>
     <string name="tanggal_bencana">Tanggal Bencana</string>
     <string name="koordinat">Koordinat</string>
+    <string name="crowdfunding">Crowdfunding</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoibTF5NHJ1NSIsImEiOiJja3Bld3pubGIxcXk1MnFvMW5yN25nY2FyIn0.j9Ji_cGQ-t7VXuLpoN9VPQ</string>
 </resources>

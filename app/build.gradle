@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id("com.google.secrets_gradle_plugin") version "0.6"
 }
 
 android {
@@ -64,6 +65,7 @@ dependencies {
 
     //fused
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
 
     testImplementation 'junit:junit:4.13.2'
     //mockito

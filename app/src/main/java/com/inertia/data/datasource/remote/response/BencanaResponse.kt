@@ -8,6 +8,36 @@ data class BencanaResponse(
 	val bencana: List<BencanaItem>? = null
 )
 
+data class Alamat(
+
+	@field:SerializedName("country")
+	val country: String? = null,
+
+	@field:SerializedName("country_code")
+	val countryCode: String? = null,
+
+	@field:SerializedName("city")
+	val city: String? = null,
+
+	@field:SerializedName("road")
+	val road: String? = null,
+
+	@field:SerializedName("postcode")
+	val postcode: String? = null,
+
+	@field:SerializedName("state")
+	val state: String? = null,
+
+	@field:SerializedName("village")
+	val village: String? = null,
+
+	@field:SerializedName("county")
+	val county: String? = null,
+
+	@field:SerializedName("municipality")
+	val municipality: String? = null
+)
+
 data class BencanaItem(
 
 	@field:SerializedName("id_aduan")
@@ -35,32 +65,8 @@ data class BencanaItem(
 	val judul: String? = null,
 
 	@field:SerializedName("alamat")
-	val alamat: Alamat? = null
-)
+	val alamat: Alamat? = null,
 
-data class Alamat(
-
-	@field:SerializedName("country")
-	val country: String? = null,
-
-	@field:SerializedName("country_code")
-	val countryCode: String? = null,
-
-	@field:SerializedName("city")
-	val city: String? = null,
-
-	@field:SerializedName("postcode")
-	val postcode: String? = null,
-
-	@field:SerializedName("state")
-	val state: String? = null,
-
-	@field:SerializedName("village")
-	val village: String? = null,
-
-	@field:SerializedName("county")
-	val county: String? = null,
-
-	@field:SerializedName("municipality")
-	val municipality: String? = null
+	@field:SerializedName("url")
+	val url: String? = null
 )

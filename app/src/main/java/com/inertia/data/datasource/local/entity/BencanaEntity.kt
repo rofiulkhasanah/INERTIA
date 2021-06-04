@@ -40,5 +40,14 @@ data class BencanaEntity(
     var linkFoto: String?,
 
     @ColumnInfo(name = "sender_wa_number")
-    var nomorWaPengadu: String?
+    var nomorWaPengadu: String?,
+
+    @ColumnInfo(name = "kota")
+    var kota: String? = null,
+
+    @ColumnInfo(name = "provinsi")
+    var provinsi: String? = null,
+
+    @ColumnInfo(name = "uri_donasi")
+    var uriDonasi: String?,
 ) : Parcelable
