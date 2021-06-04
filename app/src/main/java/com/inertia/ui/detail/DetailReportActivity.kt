@@ -9,6 +9,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.inertia.R
 import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.local.entity.UserEntity
@@ -17,12 +21,6 @@ import com.inertia.databinding.CrowdfundingAlertLayoutBinding
 import com.inertia.ui.assessment.AssessmentActivity
 import com.inertia.ui.login.LoginActivity
 import com.inertia.utils.ViewModelFactory
-import com.mapbox.mapboxsdk.Mapbox
-import com.mapbox.mapboxsdk.camera.CameraPosition
-import com.mapbox.mapboxsdk.camera.CameraUpdate
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.maps.Style
 
 class DetailReportActivity : AppCompatActivity() {
     companion object{
@@ -34,10 +32,10 @@ class DetailReportActivity : AppCompatActivity() {
     private lateinit var user: UserEntity
     private var isFabVisible = false
     private var detailBencana: BencanaEntity? = null
+    private lateinit var mapFragment: SupportMapFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Mapbox.getInstance(this, resources.getString(R.string.mapbox_access_token))
         binding = ActivityDetailReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
@@ -50,6 +48,7 @@ class DetailReportActivity : AppCompatActivity() {
         viewModel.setBencana(intent.getParcelableExtra(EXTRA_REPORT))
         showFab()
         user = viewModel.getUser()
+        mapFragment = supportFragmentManager.findFragmentById(R.id.maps) as SupportMapFragment
         showDetailBencana()
     }
 
@@ -98,31 +97,28 @@ class DetailReportActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
-            binding.contentDetail.maps.getMapAsync { map ->
-                map.setStyle(Style.MAPBOX_STREETS) { style ->
-                    val latitude = it.latitude ?: 0.00
-                    val longitude = it.longitude ?: 0.00
-                    val position = CameraPosition.Builder()
-                        .target(LatLng(longitude, latitude))
-                        .zoom(13.0)
-                        .build()
-                    map.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000)
-                    map.addOnMapClickListener {
-                        // Create a Uri from an intent string. Use the result to create an Intent.
-                        val gmmIntentUri = Uri.parse("geo:$longitude,$latitude")
+            mapFragment.getMapAsync { map ->
+                val latitude = it.latitude ?: 0.00
+                val longitude = it.longitude ?: 0.00
+                val latLong = LatLng(longitude, latitude)
+                map.addMarker(MarkerOptions().position(latLong))
+                map.moveCamera(CameraUpdateFactory.newLatLng(latLong))
+                map.moveCamera(CameraUpdateFactory.zoomTo(13.0f))
+                map.setOnMapClickListener {
+                    // Create a Uri from an intent string. Use the result to create an Intent.
+                    val gmmIntentUri = Uri.parse("geo:$longitude,$latitude")
 
-                        // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
-                        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                        // Make the Intent explicit by setting the Google Maps package
-                        mapIntent.setPackage("com.google.android.apps.maps")
+                    // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                    // Make the Intent explicit by setting the Google Maps package
+                    mapIntent.setPackage("com.google.android.apps.maps")
 
-                        // Attempt to start an activity that can handle the Intent
-                        startActivity(mapIntent)
-
-                        true
-                    }
+                    // Attempt to start an activity that can handle the Intent
+                    startActivity(mapIntent)
                 }
             }
+
+
         })
     }
 

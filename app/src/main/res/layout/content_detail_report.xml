@@ -88,10 +88,11 @@
             android:layout_height="wrap_content"
             tools:text="Ini contoh lokasi" />
 
-        <com.mapbox.mapboxsdk.maps.MapView
+        <fragment
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/maps"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             />
     </LinearLayout>
 
