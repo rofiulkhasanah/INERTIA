@@ -65,9 +65,13 @@ class AssessmentActivity : AppCompatActivity() {
         val detailUser = intent.getParcelableExtra<UserEntity>(USER)
 
         jenisBencana = detailBencana?.jenisBencana
+        kota = detailBencana?.kota
+        provinsi = detailBencana?.provinsi
         nomor_wa = detailUser?.nomorWa
 
         binding.edtJenisBencana.setText(jenisBencana)
+        binding.edtKota.setText(kota)
+        binding.edtProvinsi.setText(provinsi)
 
         initSpinner()
 
@@ -102,6 +106,7 @@ class AssessmentActivity : AppCompatActivity() {
             val valKota = binding.edtKota.text.toString()
             val valProvinsi = binding.edtProvinsi.text.toString()
             val valPenilaian: ArrayList<PenilaianEntity> = ArrayList()
+            val valJBencana = binding.edtJenisBencana.text.toString()
 
             val penilaianEntity1 = PenilaianEntity()
             val penilaianEntity2 = PenilaianEntity()
@@ -142,9 +147,9 @@ class AssessmentActivity : AppCompatActivity() {
 
             InertiaService().getPenilaian().storeFormPenilaian(
                 nomor_wa,
-                binding.edtJenisBencana.text.toString(),
+                valJBencana,
                 subSektorItem?.toInt(),
-                binding.edtName.text.toString(),
+                valNama,
                 valAlamat,
                 valProvinsi,
                 valKota,

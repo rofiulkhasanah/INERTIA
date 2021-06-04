@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 class InertiaService {
+
     private val client = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .connectTimeout(120, TimeUnit.SECONDS)
@@ -20,7 +21,7 @@ class InertiaService {
         .build()
 
     private val retrofitPenilaian = Retrofit.Builder()
-        .baseUrl("https://f76b9ef945c7.ngrok.io/")
+        .baseUrl("https://f76b9ef945c7.ngrok.io")
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()

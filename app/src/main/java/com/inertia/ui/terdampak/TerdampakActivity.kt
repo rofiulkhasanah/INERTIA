@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.inertia.R
 import com.inertia.data.datasource.local.entity.TerdampakEntity
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.local.preference.UserPreferences
@@ -33,12 +36,12 @@ class TerdampakActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTerdampakBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        preferences = UserPreferences(this)
         getData()
     }
 
     private fun getData() {
         nomor_wa = preferences.getUser().nomorWa.toString()
+
         val terdampakAdapter = TerdampakAdapter()
         InertiaService().getTerdampak().getAllTerdampak(nomor_wa).enqueue(object :
             retrofit2.Callback<List<TerdampakResponse>> {
@@ -46,6 +49,7 @@ class TerdampakActivity : AppCompatActivity() {
                 call: Call<List<TerdampakResponse>>,
                 response: Response<List<TerdampakResponse>>
             ) {
+
                 val data = response.body()
                 if (data != null) {
                     terdampakResponseItem = response.body() as ArrayList<TerdampakResponse>

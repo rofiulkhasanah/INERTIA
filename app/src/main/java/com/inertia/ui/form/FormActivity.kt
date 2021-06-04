@@ -126,9 +126,6 @@ class FormActivity : AppCompatActivity() {
                         }
                     }
                 })
-
-
-
             }
         }
     }
