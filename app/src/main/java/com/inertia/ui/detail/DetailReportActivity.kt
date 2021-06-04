@@ -107,7 +107,6 @@ class DetailReportActivity : AppCompatActivity() {
                         .zoom(10.0)
                         .build()
                     map.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000)
-
                 }
             }
         })
