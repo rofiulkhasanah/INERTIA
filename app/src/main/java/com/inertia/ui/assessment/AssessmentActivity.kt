@@ -20,7 +20,6 @@ import com.inertia.data.response.JenisBencanaResponse
 import com.inertia.data.response.SkalaResponse
 import com.inertia.data.response.SubSektorResponse
 import com.inertia.databinding.ActivityAssessmentBinding
-import com.inertia.ui.detailassessment.DetailAssessmentActivity
 import com.inertia.ui.terdampak.TerdampakActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,6 +54,7 @@ class AssessmentActivity : AppCompatActivity() {
     private var alternatifValue3: ArrayList<String> = ArrayList()
     private var alternatifValue4: ArrayList<String> = ArrayList()
     private var alternatifValue5: ArrayList<String> = ArrayList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,6 +96,7 @@ class AssessmentActivity : AppCompatActivity() {
                 edtProvinsi.error = "Kolom harus diisi"
                 edtProvinsi.requestFocus()
             }
+            
             val valAlamat = binding.edtAlamat.text.toString()
             val valNama = binding.edtName.text.toString()
             val valKota = binding.edtKota.text.toString()
@@ -153,8 +154,8 @@ class AssessmentActivity : AppCompatActivity() {
                 override fun onResponse(
                     call: Call<StoreFormPenilaianResponse>,
                     response: Response<StoreFormPenilaianResponse>
-                ) {
-
+                )
+                {
                     val data = response.body()
                     if (data != null) {
                         Toast.makeText(this@AssessmentActivity, "Berhasil Disimpan", Toast.LENGTH_SHORT).show()
