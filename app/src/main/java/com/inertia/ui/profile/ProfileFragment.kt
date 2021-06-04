@@ -20,7 +20,7 @@ import com.inertia.utils.ViewModelFactory
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +30,7 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(inflater)
         if (activity != null) {
             val factory = ViewModelFactory.getInstance(requireActivity())
-            viewModel = ViewModelProvider(requireActivity(), factory)[MainViewModel::class.java]
+            viewModel = ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
         }
         return binding.root
     }

@@ -44,11 +44,11 @@ class DetailReportActivity : AppCompatActivity() {
         super.onStart()
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[DetailReportViewModel::class.java]
-
         viewModel.setBencana(intent.getParcelableExtra(EXTRA_REPORT))
-        showFab()
-        user = viewModel.getUser()
         mapFragment = supportFragmentManager.findFragmentById(R.id.maps) as SupportMapFragment
+        user = viewModel.getUser()
+
+        showFab()
         showDetailBencana()
     }
 

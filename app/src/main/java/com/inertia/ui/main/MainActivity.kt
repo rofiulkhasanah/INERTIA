@@ -16,6 +16,7 @@ import com.inertia.R
 import com.inertia.databinding.ActivityMainBinding
 import com.inertia.ui.form.FormActivity
 import com.inertia.ui.home.HomeFragment
+import com.inertia.ui.home.HomeViewModel
 import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.profile.ProfileFragment
 import com.inertia.utils.ViewModelFactory

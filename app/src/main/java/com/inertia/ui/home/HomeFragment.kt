@@ -30,7 +30,7 @@ import java.lang.ClassCastException
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: HomeViewModel
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     override fun onCreateView(
@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
             val factory = ViewModelFactory.getInstance(requireActivity())
-            viewModel = ViewModelProvider(requireActivity(), factory)[MainViewModel::class.java]
+            viewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
         }
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
