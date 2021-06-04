@@ -20,6 +20,7 @@ import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.request.BencanaRequest
 import com.inertia.databinding.ActivityFormBinding
+import com.inertia.ui.detail.DetailReportActivity
 import com.inertia.ui.main.MainActivity
 import com.inertia.utils.LocationProvider
 import com.inertia.utils.ViewModelFactory
@@ -100,18 +101,23 @@ class FormActivity : AppCompatActivity() {
                         StatusResponse.SUCCESS -> {
                             Toast.makeText(this@FormActivity, "Sukses mengirim laporan", Toast.LENGTH_SHORT).show()
                             val bencana = it.body.bencana
-                            val id = bencana?.idAduan
-                            if (id != null) {
+                            val alamat = it.body.address
+                            if (bencana != null && alamat != null) {
+                                val latLongSplit = bencana.latLong?.split(",")
+                                val lat = latLongSplit?.get(0)?.toDouble()
+                                val long = latLongSplit?.get(1)?.toDouble()
                                 val entity = BencanaEntity(
-                                    id = id,
-                                    namaBencana = bencana.judul,
-                                    kronologiBencana = bencana.kronologi,
-                                    jenisBencana = bencana.jenisBencana,
-                                    nomorWaPengadu = bencana.senderWaNumber,
-                                    waktuBencana = bencana.waktuBencana
-                                )
+                                    bencana.idAduan,
+                                    bencana.judul,
+                                    bencana.jenisBencana,
+                                    bencana.kronologi,
+                                    lat,
+                                    long, null, bencana.waktuBencana,
+                                    bencana.gambarUri, bencana.senderWaNumber, alamat.city, alamat.state, null)
+                                startActivity(Intent(this@FormActivity, DetailReportActivity::class.java).apply {
+                                    putExtra(DetailReportActivity.EXTRA_REPORT, entity)
+                                })
                             }
-
                             finish()
                         }
                         StatusResponse.ERROR -> {
