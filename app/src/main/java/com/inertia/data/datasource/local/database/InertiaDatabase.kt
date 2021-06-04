@@ -24,7 +24,7 @@ abstract class InertiaDatabase : RoomDatabase(){
                 synchronized(this) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        InertiaDatabase::class.java, "kicksfilm")
+                        InertiaDatabase::class.java, "inertia")
                         .build()
                 }
             }

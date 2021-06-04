@@ -104,9 +104,23 @@ class DetailReportActivity : AppCompatActivity() {
                     val longitude = it.longitude ?: 0.00
                     val position = CameraPosition.Builder()
                         .target(LatLng(longitude, latitude))
-                        .zoom(10.0)
+                        .zoom(13.0)
                         .build()
                     map.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000)
+                    map.addOnMapClickListener {
+                        // Create a Uri from an intent string. Use the result to create an Intent.
+                        val gmmIntentUri = Uri.parse("geo:$longitude,$latitude")
+
+                        // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+                        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                        // Make the Intent explicit by setting the Google Maps package
+                        mapIntent.setPackage("com.google.android.apps.maps")
+
+                        // Attempt to start an activity that can handle the Intent
+                        startActivity(mapIntent)
+
+                        true
+                    }
                 }
             }
         })
