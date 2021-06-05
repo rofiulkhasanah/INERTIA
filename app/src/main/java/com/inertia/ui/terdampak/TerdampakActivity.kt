@@ -1,23 +1,15 @@
 package com.inertia.ui.terdampak
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.inertia.R
 import com.inertia.data.datasource.local.entity.TerdampakEntity
 import com.inertia.data.datasource.local.entity.UserEntity
-import com.inertia.data.datasource.local.preference.UserPreferences
 import com.inertia.data.datasource.remote.api.InertiaService
 import com.inertia.data.datasource.remote.response.TerdampakResponse
 import com.inertia.databinding.ActivityTerdampakBinding
 import com.inertia.ui.assessment.AssessmentActivity
-import com.inertia.ui.main.MainViewModel
-import com.inertia.utils.ViewModelFactory
-import com.mirfanrafif.kicksfilm.vo.Status
 import retrofit2.Call
 import retrofit2.Response
 

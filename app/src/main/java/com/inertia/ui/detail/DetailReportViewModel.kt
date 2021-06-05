@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.inertia.data.datasource.local.entity.BencanaEntity
-import com.inertia.data.datasource.remote.response.Bencana
 import com.inertia.data.repository.bencana.BencanaRepository
 import com.inertia.data.repository.user.UserRepository
 

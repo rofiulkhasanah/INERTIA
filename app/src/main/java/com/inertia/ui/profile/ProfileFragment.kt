@@ -13,7 +13,6 @@ import com.inertia.databinding.FragmentProfileBinding
 import com.inertia.ui.laporanmu.LaporanmuActivity
 import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.main.MainActivity
-import com.inertia.ui.main.MainViewModel
 import com.inertia.ui.terdampak.TerdampakActivity
 import com.inertia.utils.ViewModelFactory
 

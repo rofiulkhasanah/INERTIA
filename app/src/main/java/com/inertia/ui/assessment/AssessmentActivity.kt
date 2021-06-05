@@ -1,13 +1,13 @@
 package com.inertia.ui.assessment
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.inertia.R
 import com.inertia.data.datasource.local.entity.BencanaEntity
@@ -20,7 +20,6 @@ import com.inertia.data.response.JenisBencanaResponse
 import com.inertia.data.response.SkalaResponse
 import com.inertia.data.response.SubSektorResponse
 import com.inertia.databinding.ActivityAssessmentBinding
-import com.inertia.ui.detailassessment.DetailAssessmentActivity
 import com.inertia.ui.terdampak.TerdampakActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,7 +45,7 @@ class AssessmentActivity : AppCompatActivity() {
 
     private var jenisBencana: String? = null
     private var nomor_wa: String? = null
-    private var tanggal: String? = SimpleDateFormat("yyyy-m-d").format(Date()).toString()
+    private var tanggal: String? = SimpleDateFormat("yyyy-m-d", Locale.getDefault()).format(Date()).toString()
     private var kota: String? = null
     private var provinsi: String? = null
     private var subSektorItem: String? = null

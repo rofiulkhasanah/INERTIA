@@ -7,11 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.R
-import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.request.RegisterRequest
-import com.inertia.data.repository.user.IUserRepository
 import com.inertia.databinding.ActivityRegisterBinding
-import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.verification.VerificationActivity
 import com.inertia.utils.DataMapper
 import com.inertia.utils.ViewModelFactory
@@ -36,48 +33,62 @@ class RegisterActivity : AppCompatActivity() {
     private fun register(){
         with(binding) {
             progressBar.visibility = View.VISIBLE
-            if (edtName.text?.isEmpty() == true) {
-                edtName.error = "Kolom harus diisi"
-                edtName.requestFocus()
-                return
-            } else if (edtRegPhone.text?.isEmpty() == true) {
-                edtRegPhone.error = "Kolom harus diisi"
-                edtRegPhone.requestFocus()
-                return
-            }else if (editAlamat.text?.isEmpty() == true) {
-                editAlamat.error = "Kolom harus diisi"
-                editAlamat.requestFocus()
-                return
-            }
-            val gender = when(rgJenisKelamin.checkedRadioButtonId) {
-                R.id.gender_laki -> "Laki - Laki"
-                R.id.gender_perempuan -> "Perempuan"
-                else -> return
-            }
-
-            val nama = edtName.text.toString()
-            val alamat = editAlamat.text.toString()
-            val nomorWa = DataMapper.getValidNumber(edtRegPhone.text.toString())
-
-            val request = RegisterRequest(
-                nama, alamat, gender, nomorWa, "0"
-            )
-            progressBar.visibility = View.VISIBLE
-            viewModel.register(request).observe(this@RegisterActivity, {
-                when(it.status) {
-                    StatusResponse.SUCCESS -> {
-                        progressBar.visibility = View.GONE
-                        val intent = Intent(this@RegisterActivity, VerificationActivity::class.java)
-                        intent.putExtra(VerificationActivity.EXTRA_USER, DataMapper.mapRegisterResponseToUserEntity(it.body))
-                        intent.putExtra(VerificationActivity.EXTRA_CODE, it.body.token)
-                        startActivity(intent)
-                    }
-                    StatusResponse.ERROR -> {
-                        progressBar.visibility = View.GONE
-                        Toast.makeText(this@RegisterActivity, it.message, Toast.LENGTH_SHORT).show()
-                    }
+            when {
+                edtName.text?.isEmpty() == true -> {
+                    edtName.error = "Kolom harus diisi"
+                    edtName.requestFocus()
+                    return
                 }
-            })
+                edtRegPhone.text?.isEmpty() == true -> {
+                    edtRegPhone.error = "Kolom harus diisi"
+                    edtRegPhone.requestFocus()
+                    return
+                }
+                editAlamat.text?.isEmpty() == true -> {
+                    editAlamat.error = "Kolom harus diisi"
+                    editAlamat.requestFocus()
+                    return
+                }
+                else -> {
+                    val gender = when (rgJenisKelamin.checkedRadioButtonId) {
+                        R.id.gender_laki -> "Laki - Laki"
+                        R.id.gender_perempuan -> "Perempuan"
+                        else -> return
+                    }
+
+                    val nama = edtName.text.toString()
+                    val alamat = editAlamat.text.toString()
+                    val nomorWa = DataMapper.getValidNumber(edtRegPhone.text.toString())
+
+                    val request = RegisterRequest(
+                        nama, alamat, gender, nomorWa, "0"
+                    )
+                    progressBar.visibility = View.VISIBLE
+                    viewModel.register(request).observe(this@RegisterActivity, {
+                        when (it.status) {
+                            StatusResponse.SUCCESS -> {
+                                progressBar.visibility = View.GONE
+                                val intent =
+                                    Intent(this@RegisterActivity, VerificationActivity::class.java)
+                                intent.putExtra(
+                                    VerificationActivity.EXTRA_USER,
+                                    DataMapper.mapRegisterResponseToUserEntity(it.body)
+                                )
+                                intent.putExtra(VerificationActivity.EXTRA_CODE, it.body.token)
+                                startActivity(intent)
+                            }
+                            StatusResponse.ERROR -> {
+                                progressBar.visibility = View.GONE
+                                Toast.makeText(
+                                    this@RegisterActivity,
+                                    it.message,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    })
+                }
+            }
 
         }
     }

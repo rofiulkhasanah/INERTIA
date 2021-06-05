@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/background"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -47,7 +43,8 @@
         app:layout_constraintBottom_toTopOf="@+id/assesment_fab"
         app:layout_constraintEnd_toEndOf="@+id/add_fab"
         app:layout_constraintStart_toStartOf="@+id/add_fab"
-        app:srcCompat="@drawable/ic_crowdfunding" />
+        app:srcCompat="@drawable/ic_crowdfunding"
+        android:contentDescription="@string/membuka_menu_lainnya" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/assesment_fab"
@@ -61,6 +58,7 @@
         app:layout_constraintBottom_toTopOf="@+id/add_fab"
         app:layout_constraintEnd_toEndOf="@+id/crowdfunding_fab"
         app:layout_constraintStart_toStartOf="@+id/crowdfunding_fab"
-        app:srcCompat="@drawable/ic_baseline_assessment_24" />
+        app:srcCompat="@drawable/ic_baseline_assessment_24"
+        android:contentDescription="@string/mengisi_assesment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

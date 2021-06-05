@@ -88,10 +88,9 @@ class DetailReportActivity : AppCompatActivity() {
             Glide.with(this@DetailReportActivity)
                 .load(it.linkFoto)
                 .into(binding.contentDetail.imgDetailLaporan)
-            binding.contentDetail.tvLokasi.text = "${it.kota}, ${it.provinsi}"
+            binding.contentDetail.tvLokasi.text = resources.getString(R.string.kota_provinsi, it.kota, it.provinsi)
             if (it.uriDonasi?.isNotEmpty() == true) {
                 binding.contentDetail.crowdfundingLayout.visibility = View.VISIBLE
-                binding.contentDetail.tvCrowdfunding.text = "Klik disini"
                 binding.contentDetail.crowdfundingLayout.setOnClickListener { v ->
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.uriDonasi))
                     startActivity(intent)

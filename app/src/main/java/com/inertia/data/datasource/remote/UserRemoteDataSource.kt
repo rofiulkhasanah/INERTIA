@@ -3,18 +3,16 @@ package com.inertia.data.datasource.remote
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.api.UserService
 import com.inertia.data.datasource.remote.request.RegisterRequest
 import com.inertia.data.datasource.remote.response.ApiResponse
 import com.inertia.data.datasource.remote.response.LoginResponse
 import com.inertia.data.datasource.remote.response.RegisterResponse
-import com.inertia.data.repository.user.IUserRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserRemoteDataSource(val service: UserService) {
+class UserRemoteDataSource(private val service: UserService) {
     fun login(phoneNumber: String): LiveData<ApiResponse<LoginResponse>> {
         val loginLiveData = MutableLiveData<ApiResponse<LoginResponse>>()
         service.login(phoneNumber).enqueue(object : Callback<LoginResponse> {
