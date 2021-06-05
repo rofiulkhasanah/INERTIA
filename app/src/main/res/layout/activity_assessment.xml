@@ -38,6 +38,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:hint="@string/jenisbencana"
             android:background="@color/background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -146,6 +147,10 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:padding="16dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:focusableInTouchMode="false"
                 android:textColorHint="#000000" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -166,6 +171,10 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:padding="16dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:focusableInTouchMode="false"
                 android:textColorHint="#000000" />
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -55,6 +55,7 @@ class AssessmentActivity : AppCompatActivity() {
     private var alternatifValue4: ArrayList<String> = ArrayList()
     private var alternatifValue5: ArrayList<String> = ArrayList()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAssessmentBinding.inflate(layoutInflater)
@@ -64,9 +65,13 @@ class AssessmentActivity : AppCompatActivity() {
         val detailUser = intent.getParcelableExtra<UserEntity>(USER)
 
         jenisBencana = detailBencana?.jenisBencana
+        kota = detailBencana?.kota
+        provinsi = detailBencana?.provinsi
         nomor_wa = detailUser?.nomorWa
 
         binding.edtJenisBencana.setText(jenisBencana)
+        binding.edtKota.setText(kota)
+        binding.edtProvinsi.setText(provinsi)
 
         initSpinner()
 
@@ -95,11 +100,13 @@ class AssessmentActivity : AppCompatActivity() {
                 edtProvinsi.error = "Kolom harus diisi"
                 edtProvinsi.requestFocus()
             }
+            
             val valAlamat = binding.edtAlamat.text.toString()
             val valNama = binding.edtName.text.toString()
             val valKota = binding.edtKota.text.toString()
             val valProvinsi = binding.edtProvinsi.text.toString()
             val valPenilaian: ArrayList<PenilaianEntity> = ArrayList()
+            val valJBencana = binding.edtJenisBencana.text.toString()
 
             val penilaianEntity1 = PenilaianEntity()
             val penilaianEntity2 = PenilaianEntity()
@@ -140,9 +147,9 @@ class AssessmentActivity : AppCompatActivity() {
 
             InertiaService().getPenilaian().storeFormPenilaian(
                 nomor_wa,
-                binding.edtJenisBencana.text.toString(),
+                valJBencana,
                 subSektorItem?.toInt(),
-                binding.edtName.text.toString(),
+                valNama,
                 valAlamat,
                 valProvinsi,
                 valKota,
@@ -152,8 +159,8 @@ class AssessmentActivity : AppCompatActivity() {
                 override fun onResponse(
                     call: Call<StoreFormPenilaianResponse>,
                     response: Response<StoreFormPenilaianResponse>
-                ) {
-
+                )
+                {
                     val data = response.body()
                     if (data != null) {
                         Toast.makeText(this@AssessmentActivity, "Berhasil Disimpan", Toast.LENGTH_SHORT).show()
