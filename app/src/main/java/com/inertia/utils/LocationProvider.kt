@@ -10,11 +10,9 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.inertia.ui.home.HomeFragment
-import java.lang.ClassCastException
 
 object LocationProvider {
     fun getLocation(activity: Activity): LiveData<Location> {

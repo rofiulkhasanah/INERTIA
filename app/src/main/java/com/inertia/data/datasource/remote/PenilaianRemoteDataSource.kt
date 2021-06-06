@@ -1,18 +1,15 @@
 package com.inertia.data.datasource.remote
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.inertia.data.datasource.remote.api.PenilaianService
 import com.inertia.data.datasource.remote.request.StoreFormPenilaianRequest
-import com.inertia.data.datasource.remote.response.*
+import com.inertia.data.datasource.remote.response.StoreFormPenilaianResponse
 import com.inertia.data.repository.penilaian.IPenilaianRepository
-import com.inertia.utils.DummyData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PenilaianRemoteDataSource(val service: PenilaianService) {
+class PenilaianRemoteDataSource(private val service: PenilaianService) {
 
     companion object {
         @Volatile

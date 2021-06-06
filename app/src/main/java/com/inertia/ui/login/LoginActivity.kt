@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.data.datasource.local.entity.UserEntity
-import com.inertia.data.repository.user.IUserRepository
 import com.inertia.databinding.ActivityLoginBinding
 import com.inertia.ui.register.RegisterActivity
 import com.inertia.ui.verification.VerificationActivity

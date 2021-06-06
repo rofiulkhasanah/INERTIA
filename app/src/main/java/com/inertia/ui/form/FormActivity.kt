@@ -1,28 +1,19 @@
 package com.inertia.ui.form
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.inertia.R
 import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.request.BencanaRequest
 import com.inertia.databinding.ActivityFormBinding
 import com.inertia.ui.detail.DetailReportActivity
-import com.inertia.ui.main.MainActivity
-import com.inertia.utils.LocationProvider
 import com.inertia.utils.ViewModelFactory
 import com.mirfanrafif.kicksfilm.data.source.remote.StatusResponse
 import java.io.File
@@ -71,61 +62,66 @@ class FormActivity : AppCompatActivity() {
 
     private fun kirimForm(latLong: String){
         binding.apply {
-            if (editNamaBencana.text?.isEmpty() == true) {
-                editNamaBencana.error = "Kolom harus diisi"
-                editNamaBencana.requestFocus()
-                return
-            } else if (editDeksripsiLaporanBencana.text?.isEmpty() == true) {
-                editDeksripsiLaporanBencana.error = "Kolom harus diisi"
-                editDeksripsiLaporanBencana.requestFocus()
-                return
-            }else if(user?.nomorWa == null) {
-                Toast.makeText(this@FormActivity, "Anda Belum Login. Silakan login dahulu", Toast.LENGTH_SHORT).show()
-                return
-            }else{
-                val nomorWa = user?.nomorWa ?: ""
-                val formatter = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.getDefault())
-                val waktuBencana = formatter.format(Date())
+            when {
+                editNamaBencana.text?.isEmpty() == true -> {
+                    editNamaBencana.error = "Kolom harus diisi"
+                    editNamaBencana.requestFocus()
+                    return
+                }
+                editDeksripsiLaporanBencana.text?.isEmpty() == true -> {
+                    editDeksripsiLaporanBencana.error = "Kolom harus diisi"
+                    editDeksripsiLaporanBencana.requestFocus()
+                    return
+                }
+                user?.nomorWa == null -> {
+                    Toast.makeText(this@FormActivity, "Anda Belum Login. Silakan login dahulu", Toast.LENGTH_SHORT).show()
+                    return
+                }
+                else -> {
+                    val nomorWa = user?.nomorWa ?: ""
+                    val formatter = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.getDefault())
+                    val waktuBencana = formatter.format(Date())
 
-                val request = BencanaRequest(
-                    file,
-                    editNamaBencana.text.toString(),
-                    editDeksripsiLaporanBencana.text.toString(),
-                    nomorWa,
-                    waktuBencana,
-                    latLong
-                )
-                formProgressbar.visibility = View.VISIBLE
-                viewModel.createLaporan(request).observe(this@FormActivity, {
-                    when(it.status) {
-                        StatusResponse.SUCCESS -> {
-                            Toast.makeText(this@FormActivity, "Sukses mengirim laporan", Toast.LENGTH_SHORT).show()
-                            val bencana = it.body.bencana
-                            val alamat = it.body.address
-                            if (bencana != null && alamat != null) {
-                                val latLongSplit = bencana.latLong?.split(",")
-                                val lat = latLongSplit?.get(0)?.toDouble()
-                                val long = latLongSplit?.get(1)?.toDouble()
-                                val entity = BencanaEntity(
-                                    bencana.idAduan,
-                                    bencana.judul,
-                                    bencana.jenisBencana,
-                                    bencana.kronologi,
-                                    lat,
-                                    long, null, bencana.waktuBencana,
-                                    bencana.gambarUri, bencana.senderWaNumber, alamat.city, alamat.state, null)
-                                startActivity(Intent(this@FormActivity, DetailReportActivity::class.java).apply {
-                                    putExtra(DetailReportActivity.EXTRA_REPORT, entity)
-                                })
+                    val request = BencanaRequest(
+                        file,
+                        editNamaBencana.text.toString(),
+                        editDeksripsiLaporanBencana.text.toString(),
+                        nomorWa,
+                        waktuBencana,
+                        latLong
+                    )
+                    formProgressbar.visibility = View.VISIBLE
+                    viewModel.createLaporan(request).observe(this@FormActivity, {
+                        when(it.status) {
+                            StatusResponse.SUCCESS -> {
+                                Toast.makeText(this@FormActivity, "Sukses mengirim laporan", Toast.LENGTH_SHORT).show()
+                                val bencana = it.body.bencana
+                                val alamat = it.body.address
+                                if (bencana != null && alamat != null) {
+                                    val latLongSplit = bencana.latLong?.split(",")
+                                    val lat = latLongSplit?.get(0)?.toDouble()
+                                    val long = latLongSplit?.get(1)?.toDouble()
+                                    val entity = BencanaEntity(
+                                        bencana.idAduan,
+                                        bencana.judul,
+                                        bencana.jenisBencana,
+                                        bencana.kronologi,
+                                        lat,
+                                        long, null, bencana.waktuBencana,
+                                        bencana.gambarUri, bencana.senderWaNumber, alamat.city, alamat.state, null)
+                                    startActivity(Intent(this@FormActivity, DetailReportActivity::class.java).apply {
+                                        putExtra(DetailReportActivity.EXTRA_REPORT, entity)
+                                    })
+                                }
+                                finish()
                             }
-                            finish()
+                            StatusResponse.ERROR -> {
+                                formProgressbar.visibility = View.GONE
+                                Toast.makeText(this@FormActivity, "Gagal mengirim laporan: ${it.message}", Toast.LENGTH_SHORT).show()
+                            }
                         }
-                        StatusResponse.ERROR -> {
-                            formProgressbar.visibility = View.GONE
-                            Toast.makeText(this@FormActivity, "Gagal mengirim laporan: ${it.message}", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                })
+                    })
+                }
             }
         }
     }

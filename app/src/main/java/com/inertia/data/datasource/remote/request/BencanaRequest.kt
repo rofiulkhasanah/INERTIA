@@ -1,9 +1,5 @@
 package com.inertia.data.datasource.remote.request
 
-import android.net.Uri
-import okhttp3.MultipartBody
-import retrofit2.http.Part
-import retrofit2.http.Query
 import java.io.File
 
 data class BencanaRequest(
