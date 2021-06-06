@@ -1,12 +1,9 @@
 package com.inertia.ui.detailassessment
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.inertia.R
-import com.inertia.data.datasource.local.entity.PenilaianEntity
+import androidx.appcompat.app.AppCompatActivity
 import com.inertia.data.datasource.remote.api.InertiaService
 import com.inertia.data.datasource.remote.response.PenilaianResponse
-import com.inertia.databinding.ActivityAssessmentBinding
 import com.inertia.databinding.ActivityDetailAssessmentBinding
 import retrofit2.Call
 import retrofit2.Callback

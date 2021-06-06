@@ -4,11 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.inertia.data.datasource.local.dao.BencanaDao
 import com.inertia.data.datasource.local.entity.BencanaEntity
-import com.inertia.data.datasource.local.entity.TerdampakEntity
 
 @Database(
     entities = [BencanaEntity::class], version = 1)
@@ -24,7 +21,7 @@ abstract class InertiaDatabase : RoomDatabase(){
                 synchronized(this) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        InertiaDatabase::class.java, "kicksfilm")
+                        InertiaDatabase::class.java, "inertia")
                         .build()
                 }
             }

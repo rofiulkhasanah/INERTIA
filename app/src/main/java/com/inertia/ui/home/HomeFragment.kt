@@ -1,36 +1,26 @@
 package com.inertia.ui.home
 
-import android.Manifest
-import android.content.IntentSender
-import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.inertia.R
 import com.inertia.databinding.FragmentHomeBinding
-import com.inertia.ui.main.MainViewModel
-import com.inertia.utils.LocationProvider
 import com.inertia.utils.ViewModelFactory
 import com.mirfanrafif.kicksfilm.vo.Status
-import java.lang.ClassCastException
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: HomeViewModel
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     override fun onCreateView(
@@ -46,7 +36,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
             val factory = ViewModelFactory.getInstance(requireActivity())
-            viewModel = ViewModelProvider(requireActivity(), factory)[MainViewModel::class.java]
+            viewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
         }
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())

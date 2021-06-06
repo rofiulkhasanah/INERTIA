@@ -2,7 +2,6 @@ package com.inertia.data.datasource.remote.api
 
 import com.inertia.data.datasource.remote.response.PenilaianResponse
 import com.inertia.data.datasource.remote.response.StoreFormPenilaianResponse
-import com.inertia.data.datasource.remote.response.TerdampakResponse
 import com.inertia.data.response.JenisBencanaResponse
 import com.inertia.data.response.SkalaResponse
 import com.inertia.data.response.SubSektorResponse

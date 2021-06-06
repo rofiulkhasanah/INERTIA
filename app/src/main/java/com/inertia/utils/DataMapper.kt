@@ -3,7 +3,6 @@ package com.inertia.utils
 import com.inertia.data.datasource.local.entity.UserEntity
 import com.inertia.data.datasource.remote.response.LoginResponse
 import com.inertia.data.datasource.remote.response.RegisterResponse
-import java.lang.Exception
 
 object DataMapper {
     fun mapLoginResponseToUserEntity(data: LoginResponse): UserEntity {

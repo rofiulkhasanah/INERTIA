@@ -3,8 +3,6 @@ package com.inertia.data.datasource.remote
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.room.Update
-import com.inertia.data.datasource.local.entity.BencanaEntity
 import com.inertia.data.datasource.remote.api.BencanaService
 import com.inertia.data.datasource.remote.request.BencanaRequest
 import com.inertia.data.datasource.remote.response.*
