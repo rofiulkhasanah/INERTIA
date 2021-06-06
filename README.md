@@ -9,8 +9,8 @@ Inertia is an app to report a natural disaster like Flood, Earthquake, Cyclone a
 - Rofi'Ul Khasanah (Android Dev)
 - Mohamad Fajar Mahardika (DevOps)
 - Achmad Syarif Abdullah (Backend Dev)
-- Muhammad Cendekia Airlangga (Data Analyst)
-- Auliyah Safitri Soetam Putri (Data Analyst)
+- Muhammad Cendekia Airlangga (ML Dev)
+- Auliyah Safitri Soetam Putri (ML Dev)
 
 ### Background Story
 Geographically, Indonesia is located in the ring of fire. An area which is very prone to natural disasters. Throughout January 2021-April 2021 alone, there are one thousand, two hundred and five natural disasters occuring in Indonesia, and the number is not slowing down.
