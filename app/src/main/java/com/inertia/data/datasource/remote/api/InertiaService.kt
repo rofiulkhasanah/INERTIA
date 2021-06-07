@@ -22,7 +22,7 @@ class InertiaService {
         .build()
 
     private val retrofitPenilaian = Retrofit.Builder()
-        .baseUrl("https://f76b9ef945c7.ngrok.io")
+        .baseUrl("http://34.82.125.98:8000/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()

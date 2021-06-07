@@ -3,6 +3,7 @@ package com.inertia.ui.register
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -25,6 +26,7 @@ class RegisterActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory)[RegisterViewModel::class.java]
         setContentView(binding.root)
 
+        setDropdownItem()
         binding.btnRegister.setOnClickListener {
             register()
         }
@@ -59,9 +61,14 @@ class RegisterActivity : AppCompatActivity() {
                     val nama = edtName.text.toString()
                     val alamat = editAlamat.text.toString()
                     val nomorWa = DataMapper.getValidNumber(edtRegPhone.text.toString())
-
+                    var jenisPengguna : String? = null
+                    if (binding.spinner.selectedItemPosition == 0){
+                        jenisPengguna = "0"
+                    }else if(binding.spinner.selectedItemPosition == 1){
+                        jenisPengguna = "1"
+                    }
                     val request = RegisterRequest(
-                        nama, alamat, gender, nomorWa, "0"
+                        nama, alamat, gender, nomorWa, jenisPengguna.toString()
                     )
                     progressBar.visibility = View.VISIBLE
                     viewModel.register(request).observe(this@RegisterActivity, {
@@ -91,5 +98,11 @@ class RegisterActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun setDropdownItem() {
+        val sortFilter = arrayOf("Pengguna Biasa", "Penanggung Jawab")
+        val arrayAdapter = ArrayAdapter(this, R.layout.spinner_item, sortFilter)
+        binding.spinner.adapter = arrayAdapter
     }
 }

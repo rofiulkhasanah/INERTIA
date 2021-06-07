@@ -11,6 +11,7 @@
         android:id="@+id/tv_nama_bencana"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/nama_bencana"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,9 +21,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/alamat"
         android:id="@+id/tv_alamat"
         app:layout_constraintStart_toStartOf="@+id/tv_nama_bencana"
         app:layout_constraintTop_toBottomOf="@+id/tv_nama_bencana" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/alamat"
+        android:fontFamily="@font/poppins_medium"
+        android:id="@+id/tv_kotaprovinsi"
+        app:layout_constraintStart_toStartOf="@+id/tv_alamat"
+        app:layout_constraintTop_toBottomOf="@+id/tv_alamat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

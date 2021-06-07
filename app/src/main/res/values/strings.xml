@@ -66,4 +66,5 @@
     <string name="perempuan">Perempuan</string>
     <string name="kota_provinsi">%1$s, %2$s</string>
     <string name="klik_disini">Klik Disini</string>
+    <string name="labeldaftar">Daftar Sebagai ...</string>
 </resources>

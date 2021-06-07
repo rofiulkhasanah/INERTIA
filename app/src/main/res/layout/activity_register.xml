@@ -123,7 +123,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/perempuan" />
+
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView4"
+        style="@style/Text.Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/labeldaftar"
+        app:layout_constraintEnd_toEndOf="@+id/rg_jenis_kelamin"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/rg_jenis_kelamin"
+        app:layout_constraintTop_toBottomOf="@+id/rg_jenis_kelamin" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bencana_label"
+            tools:listitem="@layout/spinner_item" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_register"

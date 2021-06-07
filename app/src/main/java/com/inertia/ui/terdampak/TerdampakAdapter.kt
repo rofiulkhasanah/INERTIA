@@ -12,7 +12,6 @@ import com.inertia.ui.detailassessment.DetailAssessmentActivity
 class TerdampakAdapter : RecyclerView.Adapter<TerdampakAdapter.TerdampakViewHolder>() {
 
     private val listTerdampak = ArrayList<TerdampakEntity>()
-    var onItemClick: ((TerdampakEntity) -> Unit)? = null
 
     fun setData(data: List<TerdampakEntity>) {
         listTerdampak.clear()
@@ -28,14 +27,9 @@ class TerdampakAdapter : RecyclerView.Adapter<TerdampakAdapter.TerdampakViewHold
                 tvAlamat.text = terdampak.alamat
 
                 itemView.setOnClickListener {
-                    onItemClick?.invoke(listTerdampak[adapterPosition])
-
-                    onItemClick = { selectedData ->
-                        val intent = Intent(itemView.context, DetailAssessmentActivity::class.java)
-                        intent.putExtra(DetailAssessmentActivity.idKasus, selectedData.idKasus)
-                        Toast.makeText(itemView.context, "${DetailAssessmentActivity.idKasus} : ${selectedData.idKasus}", Toast.LENGTH_SHORT).show()
-                        it.context.startActivity(intent)
-                    }
+                    val intent = Intent(itemView.context, DetailAssessmentActivity::class.java)
+                    intent.putExtra(DetailAssessmentActivity.idKasus, terdampak.idKasus)
+                    it.context.startActivity(intent)
                 }
             }
         }
