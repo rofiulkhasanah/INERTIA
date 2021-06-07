@@ -19,6 +19,7 @@ import com.mirfanrafif.kicksfilm.vo.Status
 
 
 class HomeFragment : Fragment() {
+
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -98,5 +99,15 @@ class HomeFragment : Fragment() {
 
     companion object {
         const val REQUEST_CHECK_SETTINGS = 10
+
+        @Volatile
+        private var instance: HomeFragment? = null
+
+        @JvmStatic
+        fun getInstance(): HomeFragment = instance ?: synchronized(this) {
+            instance ?: HomeFragment().apply {
+                instance = this
+            }
+        }
     }
 }

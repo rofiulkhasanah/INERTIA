@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.R
 import com.inertia.databinding.FragmentProfileBinding
+import com.inertia.ui.home.HomeFragment
 import com.inertia.ui.laporanmu.LaporanmuActivity
 import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.main.MainActivity
@@ -79,5 +80,17 @@ class ProfileFragment : Fragment() {
 
         val alertDialog = builder.create()
         alertDialog.show()
+    }
+
+    companion object {
+        @Volatile
+        private var instance: ProfileFragment? = null
+
+        @JvmStatic
+        fun getInstance(): ProfileFragment = instance ?: synchronized(this) {
+            instance ?: ProfileFragment().apply {
+                instance = this
+            }
+        }
     }
 }
