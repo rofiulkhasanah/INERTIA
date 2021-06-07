@@ -2,10 +2,12 @@ package com.inertia.ui.terdampak
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inertia.data.datasource.local.entity.TerdampakEntity
 import com.inertia.data.datasource.local.entity.UserEntity
+import com.inertia.data.datasource.local.preference.UserPreferences
 import com.inertia.data.datasource.remote.api.InertiaService
 import com.inertia.data.datasource.remote.response.TerdampakResponse
 import com.inertia.databinding.ActivityTerdampakBinding

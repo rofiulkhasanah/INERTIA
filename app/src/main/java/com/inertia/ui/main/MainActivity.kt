@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
-        val homeFragment = HomeFragment()
-        val profileFragment = ProfileFragment()
+        val homeFragment = HomeFragment.getInstance()
+        val profileFragment = ProfileFragment.getInstance()
         moveFragment(homeFragment)
 
         binding.btnReport.setOnClickListener {
