@@ -1,5 +1,7 @@
 # INERTIA
 
+![Logo](logo.png)
+
 ### What Is Inertia
 
 Inertia is an app to report a natural disaster like Flood, Earthquake, Cyclone and Wildfire so that government can take action quickly.
@@ -16,6 +18,11 @@ Inertia is an app to report a natural disaster like Flood, Earthquake, Cyclone a
 Geographically, Indonesia is located in the ring of fire. An area which is very prone to natural disasters. Throughout January 2021-April 2021 alone, there are one thousand, two hundred and five natural disasters occuring in Indonesia, and the number is not slowing down.
 
 This natural disaster varies from cyclone, flood, earthquake, wildfires, and more. This disaster has also caused hundreds of death and roughly five millions people to suffer.
+
+### Project Repositories
+- [Android](https://github.com/rofiulkhasanah/INERTIA)
+- [ML](https://github.com/mcairlangga-1/Bangkit-Capstone-Project)
+- [Cloud - Backend]()
 
 ### How to use
 
