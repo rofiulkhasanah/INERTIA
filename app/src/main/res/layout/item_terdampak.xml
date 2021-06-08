@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/alamat"
+        android:text="@string/kota_provinsi"
         android:fontFamily="@font/poppins_medium"
         android:id="@+id/tv_kotaprovinsi"
         app:layout_constraintStart_toStartOf="@+id/tv_alamat"

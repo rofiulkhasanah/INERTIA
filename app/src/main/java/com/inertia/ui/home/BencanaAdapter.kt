@@ -35,7 +35,7 @@ class BencanaAdapter : RecyclerView.Adapter<BencanaAdapter.BencanaViewHolder>() 
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailReportActivity::class.java)
-                    intent.putExtra(DetailReportActivity.EXTRA_REPORT, bencana)
+                    intent.putExtra(DetailReportActivity.BENCANA, bencana)
                     it.context.startActivity(intent)
                 }
             }

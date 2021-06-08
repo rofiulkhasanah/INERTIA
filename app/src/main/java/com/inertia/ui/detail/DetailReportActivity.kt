@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,7 +26,7 @@ import com.inertia.utils.ViewModelFactory
 
 class DetailReportActivity : AppCompatActivity() {
     companion object{
-        const val EXTRA_REPORT = "extra_report"
+        const val BENCANA = "bencana"
     }
 
     private lateinit var binding: ActivityDetailReportBinding
@@ -32,6 +34,7 @@ class DetailReportActivity : AppCompatActivity() {
     private lateinit var user: UserEntity
     private var isFabVisible = false
     private var detailBencana: BencanaEntity? = null
+    private lateinit var mutableDetailBencana: LiveData<BencanaEntity>
     private lateinit var mapFragment: SupportMapFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +47,7 @@ class DetailReportActivity : AppCompatActivity() {
         super.onStart()
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[DetailReportViewModel::class.java]
-        viewModel.setBencana(intent.getParcelableExtra(EXTRA_REPORT))
+        viewModel.setBencana(intent.getParcelableExtra(BENCANA))
         mapFragment = supportFragmentManager.findFragmentById(R.id.maps) as SupportMapFragment
         user = viewModel.getUser()
 
@@ -68,9 +71,10 @@ class DetailReportActivity : AppCompatActivity() {
             showAlertDialog()
         }
         binding.assesmentFab.setOnClickListener {
+            mutableDetailBencana = viewModel.getBencana()
             if (user.nomorWa != null) {
                 val intent = Intent(this, AssessmentActivity::class.java)
-                intent.putExtra(AssessmentActivity.DETAIL_BENCANA, detailBencana)
+                intent.putExtra(AssessmentActivity.BENCANA, mutableDetailBencana.value)
                 intent.putExtra(AssessmentActivity.USER, user)
                 startActivity(intent)
             }else{

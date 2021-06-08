@@ -1,6 +1,5 @@
 package com.inertia.data.datasource.remote.api
 
-import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,7 +21,7 @@ class InertiaService {
         .build()
 
     private val retrofitPenilaian = Retrofit.Builder()
-        .baseUrl("http://34.82.125.98:8000/")
+        .baseUrl("https://c89e03b1046b.ngrok.io/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()

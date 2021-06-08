@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.inertia.R
 import com.inertia.data.datasource.local.entity.TerdampakEntity
 import com.inertia.databinding.ItemTerdampakBinding
 import com.inertia.ui.detailassessment.DetailAssessmentActivity
@@ -25,6 +26,7 @@ class TerdampakAdapter : RecyclerView.Adapter<TerdampakAdapter.TerdampakViewHold
             with(binding) {
                 tvNamaBencana.text = terdampak.namaBencana
                 tvAlamat.text = terdampak.alamat
+                tvKotaprovinsi.text = "${terdampak.kota}, ${terdampak.provinsi}"
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailAssessmentActivity::class.java)

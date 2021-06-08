@@ -110,7 +110,7 @@ class FormActivity : AppCompatActivity() {
                                         long, null, bencana.waktuBencana,
                                         bencana.gambarUri, bencana.senderWaNumber, alamat.city, alamat.state, null)
                                     startActivity(Intent(this@FormActivity, DetailReportActivity::class.java).apply {
-                                        putExtra(DetailReportActivity.EXTRA_REPORT, entity)
+                                        putExtra(DetailReportActivity.BENCANA, entity)
                                     })
                                 }
                                 finish()

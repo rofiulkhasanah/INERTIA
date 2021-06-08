@@ -98,7 +98,7 @@
         android:layout_marginHorizontal="16dp"
         android:background="@color/white"
         android:padding="8dp"
-        android:text="@string/warga_terdampak"
+        android:text="@string/penilaianmu"
         app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

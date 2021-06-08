@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.inertia.R
 import com.inertia.data.datasource.local.entity.BencanaEntity
@@ -20,7 +21,10 @@ import com.inertia.data.response.JenisBencanaResponse
 import com.inertia.data.response.SkalaResponse
 import com.inertia.data.response.SubSektorResponse
 import com.inertia.databinding.ActivityAssessmentBinding
+import com.inertia.ui.detail.DetailReportActivity
+import com.inertia.ui.detail.DetailReportViewModel
 import com.inertia.ui.terdampak.TerdampakActivity
+import com.inertia.utils.ViewModelFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,14 +38,14 @@ class AssessmentActivity : AppCompatActivity() {
 
     companion object{
         const val USER = "user"
-        const val DETAIL_BENCANA = "detail_bencana"
-        const val ID_KASUS = ""
+        const val BENCANA = "bencana"
     }
 
     private lateinit var binding: ActivityAssessmentBinding
     private var alternatifs : ArrayList<SkalaResponse> = ArrayList()
     private var jenisBencanas : ArrayList<JenisBencanaResponse> = ArrayList()
     private var subSektors : ArrayList<SubSektorResponse> = ArrayList()
+    private lateinit var viewModel: DetailReportViewModel
 
     private var jenisBencana: String? = null
     private var nomor_wa: String? = null
@@ -61,7 +65,7 @@ class AssessmentActivity : AppCompatActivity() {
         binding = ActivityAssessmentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val detailBencana = intent.getParcelableExtra<BencanaEntity>(DETAIL_BENCANA)
+        val detailBencana = intent.getParcelableExtra<BencanaEntity>(BENCANA)
         val detailUser = intent.getParcelableExtra<UserEntity>(USER)
 
         jenisBencana = detailBencana?.jenisBencana
@@ -72,7 +76,6 @@ class AssessmentActivity : AppCompatActivity() {
         binding.edtJenisBencana.setText(jenisBencana)
         binding.edtKota.setText(kota)
         binding.edtProvinsi.setText(provinsi)
-
         initSpinner()
 
         binding.btnKirim.setOnClickListener {
@@ -167,13 +170,13 @@ class AssessmentActivity : AppCompatActivity() {
                         val intent = Intent(this@AssessmentActivity, TerdampakActivity::class.java)
                         startActivity(intent)
                     }
+                    finish()
                 }
 
                 override fun onFailure(call: Call<StoreFormPenilaianResponse>, t: Throwable) {
                     println("Gagal dikirim"+ t.message)
                 }
             })
-
         }
     }
 

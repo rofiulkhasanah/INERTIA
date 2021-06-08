@@ -67,4 +67,6 @@
     <string name="kota_provinsi">%1$s, %2$s</string>
     <string name="klik_disini">Klik Disini</string>
     <string name="labeldaftar">Daftar Sebagai ...</string>
+    <string name="empty">Data Kosong</string>
+    <string name="penilaianmu">Penilaianmu</string>
 </resources>
