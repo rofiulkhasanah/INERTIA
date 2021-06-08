@@ -39,7 +39,7 @@ This natural disaster varies from cyclone, flood, earthquake, wildfires, and mor
 1. User take a photo and make reporting of disaster that happen
 2. In the cloud, it will predict the photo that user sent what kind of disaster is it.
 
-### For Assessment severity scale
+### For assessment severity scale
 1. User click disaster report
 2. and then, click (+) for assessment and input the information
 3. In the cloud, will predict the severity scale
