@@ -3,9 +3,7 @@ package com.inertia.ui.terdampak
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.inertia.R
 import com.inertia.data.datasource.local.entity.TerdampakEntity
 import com.inertia.databinding.ItemTerdampakBinding
 import com.inertia.ui.detailassessment.DetailAssessmentActivity

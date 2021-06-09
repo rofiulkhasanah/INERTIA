@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.inertia.R
 import com.inertia.databinding.FragmentProfileBinding
-import com.inertia.ui.home.HomeFragment
 import com.inertia.ui.laporanmu.LaporanmuActivity
 import com.inertia.ui.login.LoginActivity
 import com.inertia.ui.main.MainActivity
@@ -25,7 +24,7 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentProfileBinding.inflate(inflater)
         if (activity != null) {
@@ -38,7 +37,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val user= viewModel.getUser()
+        val user = viewModel.getUser()
         if (user.nomorWa == null) {
             binding.tvUserNama.text = getString(R.string.silakan_login)
             binding.tvUserNoHp.text = ""
@@ -47,7 +46,7 @@ class ProfileFragment : Fragment() {
                 startActivity(Intent(context, LoginActivity::class.java))
                 requireActivity().finish()
             }
-        }else{
+        } else {
             binding.tvUserNama.text = user.nama
             binding.tvUserNoHp.text = user.nomorWa
             binding.btnLogout.text = getString(R.string.logout)

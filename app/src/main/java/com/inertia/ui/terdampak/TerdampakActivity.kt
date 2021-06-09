@@ -1,6 +1,5 @@
 package com.inertia.ui.terdampak
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,29 +8,22 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inertia.data.datasource.local.entity.TerdampakEntity
 import com.inertia.data.datasource.local.entity.UserEntity
-import com.inertia.data.datasource.local.preference.UserPreferences
 import com.inertia.data.datasource.remote.api.InertiaService
 import com.inertia.data.datasource.remote.response.TerdampakResponse
 import com.inertia.databinding.ActivityTerdampakBinding
-import com.inertia.ui.assessment.AssessmentActivity
-import com.inertia.ui.detail.DetailReportViewModel
 import com.inertia.ui.main.MainViewModel
-import com.inertia.ui.profile.ProfileFragment
-import com.inertia.ui.verification.VerificationViewModel
 import com.inertia.utils.ViewModelFactory
 import retrofit2.Call
 import retrofit2.Response
 
 class TerdampakActivity : AppCompatActivity() {
-
-    companion object{
+    companion object {
         const val USER = "user"
     }
 
     private lateinit var binding: ActivityTerdampakBinding
-    private var terdampakResponseItem : ArrayList<TerdampakResponse> = ArrayList()
-    private lateinit var nomor_wa: String
-    private lateinit var preferences: UserPreferences
+    private var terdampakResponseItem: ArrayList<TerdampakResponse> = ArrayList()
+    private lateinit var nomorWA: String
     private lateinit var viewModel: MainViewModel
     private var user: UserEntity? = null
 
@@ -46,39 +38,43 @@ class TerdampakActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        nomor_wa = user?.nomorWa.toString()
+        nomorWA = user?.nomorWa.toString()
 
         val terdampakAdapter = TerdampakAdapter()
-        InertiaService().getTerdampak().getAllTerdampak(nomor_wa).enqueue(object :
+        InertiaService().getTerdampak().getAllTerdampak(nomorWA).enqueue(object :
             retrofit2.Callback<List<TerdampakResponse>> {
             override fun onResponse(
                 call: Call<List<TerdampakResponse>>,
-                response: Response<List<TerdampakResponse>>
+                response: Response<List<TerdampakResponse>>,
             ) {
 
                 val data = response.body()
-                if (data != null) {
-                    terdampakResponseItem = response.body() as ArrayList<TerdampakResponse>
-                    val data : ArrayList<TerdampakEntity> = ArrayList()
-                    terdampakResponseItem.forEach {
-                        val s = TerdampakEntity(
-                            it.idKasus,
-                            it.nomorWa,
-                            it.idBencana,
-                            it.idSub,
-                            it.nama,
-                            it.alamat,
-                            it.provinsi,
-                            it.kota,
-                            it.tanggal,
-                            it.namaBencana
-                        )
-                        data.add(s)
+                when {
+                    data?.isNotEmpty()  == true -> {
+                        terdampakResponseItem = response.body() as ArrayList<TerdampakResponse>
+                        val dataArray: ArrayList<TerdampakEntity> = ArrayList()
+                        terdampakResponseItem.forEach {
+                            val s = TerdampakEntity(
+                                it.idKasus,
+                                it.nomorWa,
+                                it.idBencana,
+                                it.idSub,
+                                it.nama,
+                                it.alamat,
+                                it.provinsi,
+                                it.kota,
+                                it.tanggal,
+                                it.namaBencana
+                            )
+                            dataArray.add(s)
+                        }
+                        terdampakAdapter.setData(dataArray)
+                        binding.progressBar.visibility = View.GONE
                     }
-                    terdampakAdapter.setData(data)
-                    binding.progressBar.visibility = if(data.isNotEmpty()) View.GONE else View.VISIBLE
-                    binding.progressBar.visibility = if(data.isEmpty()) View.GONE else View.VISIBLE
-                    binding.tvEmpty.visibility = if(data.isEmpty()) View.VISIBLE else View.GONE
+                    data?.isEmpty() == true -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.tvEmpty.visibility = View.VISIBLE
+                    }
                 }
             }
 
@@ -87,7 +83,7 @@ class TerdampakActivity : AppCompatActivity() {
             }
         })
 
-        with(binding.rvTerdampak){
+        with(binding.rvTerdampak) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = terdampakAdapter

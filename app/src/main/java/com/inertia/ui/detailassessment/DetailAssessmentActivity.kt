@@ -29,7 +29,7 @@ class DetailAssessmentActivity : AppCompatActivity() {
             Callback<PenilaianResponse> {
             override fun onResponse(
                 call: Call<PenilaianResponse>,
-                response: Response<PenilaianResponse>
+                response: Response<PenilaianResponse>,
             ) {
 
                 val data = response.body()
