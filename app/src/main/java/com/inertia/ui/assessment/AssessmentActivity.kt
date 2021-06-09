@@ -38,10 +38,10 @@ class AssessmentActivity : AppCompatActivity() {
     private var subSektors: ArrayList<SubSektorResponse> = ArrayList()
 
     private var jenisBencana: String? = null
-    private var nomorWA: String? = null
-    private var tanggal: String? =
+    private var nomorWa: String? = null
+    private var date: String? =
         SimpleDateFormat("yyyy-m-d", Locale.getDefault()).format(Date()).toString()
-    private var kota: String? = null
+    private var city: String? = null
     private var provinsi: String? = null
     private var subSektorItem: String? = null
     private var alternatifValue1: ArrayList<String> = ArrayList()
@@ -60,12 +60,12 @@ class AssessmentActivity : AppCompatActivity() {
         val detailUser = intent.getParcelableExtra<UserEntity>(USER)
 
         jenisBencana = detailBencana?.jenisBencana
-        kota = detailBencana?.kota
+        city = detailBencana?.kota
         provinsi = detailBencana?.provinsi
-        nomorWA = detailUser?.nomorWa
+        nomorWa = detailUser?.nomorWa
 
         binding.edtJenisBencana.setText(jenisBencana)
-        binding.edtKota.setText(kota)
+        binding.edtKota.setText(city)
         binding.edtProvinsi.setText(provinsi)
         initSpinner()
 
@@ -146,14 +146,14 @@ class AssessmentActivity : AppCompatActivity() {
             val jsonPenilaian = Gson().toJson(valPenilaian)
 
             InertiaService().getPenilaian().storeFormPenilaian(
-                nomorWA,
+                nomorWa,
                 valJBencana,
                 subSektorItem?.toInt(),
                 valNama,
                 valAlamat,
                 valProvinsi,
                 valKota,
-                tanggal,
+                date,
                 jsonPenilaian,
             ).enqueue(object : Callback<StoreFormPenilaianResponse> {
                 override fun onResponse(
